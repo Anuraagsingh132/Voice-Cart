@@ -62,10 +62,11 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
 
     // Clean query text
     const cleanItem = queryBody.replace(/\b(organic|fresh|under|for|me)\b/gi, '').trim() || queryBody;
+    const finalItem = cleanItem.replace(/^(me\s+)/i, '').trim();
 
     return {
       intent: 'SEARCH',
-      item: cleanItem.replace(/^(me\s+)/i, '').trim(),
+      item: capitalize(finalItem),
       filters: {
         priceMax,
         priceMin,
@@ -73,18 +74,18 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
       },
       confidence: 0.85,
       rawQuery: transcript,
-      explanation: `Search for ${cleanItem} with price/brand filters`,
+      explanation: `Search for ${finalItem} with price/brand filters`,
     };
   }
 
   // 4. MODIFY INTENT
-  // e.g. "Change apples to 3", "make bananas 5", "update milk to 2", "change quantity of eggs to 12"
-  const modifyPattern = /^(change|update|make|set|modify|badlo)\s*(the\s*(?:quantity\s*(?:of)?)?)?\s*(.+?)\s*(?:to|as|into|=)\s*(\d+)\s*(.*)$/i;
+  // e.g. "Change apples to 3", "make bananas 5", "update milk to 2 liters", "change quantity of eggs to 12"
+  const modifyPattern = /^(change|update|make|set|modify|badlo)\s*(?:the\s*(?:quantity\s*(?:of)?)?)?\s*(.+?)(?:\s+(?:to|as|into|=)\s+|\s+)(\d+)\s*(.*)$/i;
   const modMatch = clean.match(modifyPattern);
   if (modMatch) {
-    const itemRaw = modMatch[3].trim();
-    const qty = parseInt(modMatch[4], 10) || 1;
-    const unit = modMatch[5]?.trim() || 'pieces';
+    const itemRaw = modMatch[2].trim();
+    const qty = parseInt(modMatch[3], 10) || 1;
+    const unit = modMatch[4]?.trim() || 'pieces';
 
     return {
       intent: 'MODIFY',
@@ -119,7 +120,7 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
 
   // Strip prefix noise like "I want to buy", "I need to get", "please add", "add", "buy", "put"
   phrase = phrase
-    .replace(/^(please\s+)?(add|buy|get|purchase|put|need|want|i\s+need\s+(?:to\s+buy\s+)?|i\s+want\s+(?:to\s+buy\s+)?|bring|jodo|daalo|lao|agregar)\s+/i, '')
+    .replace(/^(please\s+)?(i\s+want\s+(?:to\s+(?:buy|get)\s+)?|i\s+need\s+(?:to\s+(?:buy|get)\s+)?|put\s+|add\s+|buy\s+|get\s+|purchase\s+|need\s+|want\s+|bring\s+|jodo\s+|daalo\s+|lao\s+|agregar\s+)+/i, '')
     .replace(/\s+(to|on|into)\s+(my\s+)?(shopping\s+)?(list|cart)$/i, '')
     .trim();
 
