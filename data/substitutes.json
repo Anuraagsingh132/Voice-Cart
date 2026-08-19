@@ -1,0 +1,36 @@
+{
+  "milk": [
+    { "name": "Almond Milk", "reason": "Plant-based & dairy-free alternative", "item": "Unsweetened Almond Milk (Plant-Based)", "category": "Dairy & Eggs" },
+    { "name": "Oat Milk", "reason": "Creamy barista favorite", "item": "Organic Oat Milk Barista Edition", "category": "Dairy & Eggs" }
+  ],
+  "whole milk": [
+    { "name": "Almond Milk", "reason": "Lactose-free healthy choice", "item": "Unsweetened Almond Milk (Plant-Based)", "category": "Dairy & Eggs" }
+  ],
+  "regular milk": [
+    { "name": "Almond Milk", "reason": "Lower calorie, dairy-free substitute", "item": "Unsweetened Almond Milk (Plant-Based)", "category": "Dairy & Eggs" }
+  ],
+  "butter": [
+    { "name": "Vegan Butter Spread", "reason": "Plant-based dairy-free substitute", "item": "Plant-Based Table Spread (Vegan Butter)", "category": "Dairy & Eggs" },
+    { "name": "Olive Oil", "reason": "Heart-healthy cooking fat", "item": "Extra Virgin Cold Pressed Olive Oil", "category": "Pantry & Staples" }
+  ],
+  "white bread": [
+    { "name": "Whole Wheat Sourdough", "reason": "Higher fiber & easier to digest", "item": "Artisan Whole Wheat Sourdough Bread", "category": "Bakery & Snacks" },
+    { "name": "Gluten-Free Bread", "reason": "Gluten-sensitive option", "item": "Gluten-Free Multigrain Bread", "category": "Bakery & Snacks" }
+  ],
+  "bread": [
+    { "name": "Whole Wheat Sourdough", "reason": "Healthier whole grain option", "item": "Artisan Whole Wheat Sourdough Bread", "category": "Bakery & Snacks" }
+  ],
+  "sugar": [
+    { "name": "Raw Wildflower Honey", "reason": "Natural, unrefined sweetener", "item": "Pure Raw Wildflower Honey", "category": "Pantry & Staples" },
+    { "name": "Stevia Drops", "reason": "Zero calorie organic alternative", "item": "Organic Stevia Natural Sweetener Drops", "category": "Pantry & Staples" }
+  ],
+  "toothpaste": [
+    { "name": "Herbal Ayurvedic Toothpaste", "reason": "Budget-friendly natural herbal care ($2.49)", "item": "Herbal Ayurvedic Complete Care Toothpaste", "category": "Personal Care" }
+  ],
+  "apples": [
+    { "name": "Organic Fuji Apples", "reason": "Pesticide-free organic upgrade", "item": "Organic Fuji Apples", "category": "Fruits & Vegetables" }
+  ],
+  "chips": [
+    { "name": "Rolled Whole Grain Oats", "reason": "Healthy breakfast switch", "item": "Rolled Whole Grain Oats", "category": "Bakery & Snacks" }
+  ]
+}

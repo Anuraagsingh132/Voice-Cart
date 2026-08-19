@@ -1,0 +1,27 @@
+{
+  "spring": [
+    { "item": "Fresh Baby Spinach", "category": "Fruits & Vegetables", "reason": "Fresh spring greens are tender and packed with nutrients" },
+    { "item": "Organic Fuji Apples", "category": "Fruits & Vegetables", "reason": "Crisp harvest season favorites" }
+  ],
+  "summer": [
+    { "item": "Alphonso Mangoes (Premium)", "category": "Fruits & Vegetables", "reason": "Peak summer mango season — sweet and rich in vitamin A" },
+    { "item": "Seedless Sweet Watermelon", "category": "Fruits & Vegetables", "reason": "Ultimate summer hydration and refresher" },
+    { "item": "Broad Spectrum Mineral Sunscreen SPF 50", "category": "Personal Care", "reason": "Essential summer UV sun protection" },
+    { "item": "Purified Natural Spring Water (Pack of 6)", "category": "Beverages", "reason": "Stay hydrated in the summer heat" }
+  ],
+  "monsoon": [
+    { "item": "Organic Turmeric & Ginger Immune Tea", "category": "Beverages", "reason": "Boost immunity against seasonal monsoon chills" },
+    { "item": "Pure Raw Wildflower Honey", "category": "Pantry & Staples", "reason": "Soothing seasonal sore-throat protection" },
+    { "item": "Antibacterial Liquid Hand Wash - Pine", "category": "Personal Care", "reason": "Germ defense for rainy seasons" }
+  ],
+  "winter": [
+    { "item": "Valencia Sweet Oranges", "category": "Fruits & Vegetables", "reason": "Winter citrus boost for natural vitamin C" },
+    { "item": "Rich Hot Chocolate Cocoa Mix", "category": "Beverages", "reason": "Warm cozy treat for chilly evenings" },
+    { "item": "Pure Desi Cow Ghee (Clarified Butter)", "category": "Pantry & Staples", "reason": "Winter warmth and traditional energy" },
+    { "item": "Gentle Moisturizing Body Wash (Shea Butter)", "category": "Personal Care", "reason": "Combats dry winter skin" }
+  ],
+  "fall": [
+    { "item": "Organic Fuji Apples", "category": "Fruits & Vegetables", "reason": "Fall apple harvest peak freshness" },
+    { "item": "Artisan Whole Wheat Sourdough Bread", "category": "Bakery & Snacks", "reason": "Hearty baking season staple" }
+  ]
+}
