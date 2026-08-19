@@ -33,9 +33,19 @@ export default function Home() {
       try {
         const parsed = await parseIntent(text, language);
 
-        // Filter residual non-shopping background talk quietly
         if (parsed.intent === 'UNKNOWN') {
           setVoiceState('listening');
+          setFeedback({
+            status: 'error',
+            transcript: text,
+            message: `Could not recognize "${text}". Try saying "Add milk" or "Find apples".`,
+            intent: 'UNKNOWN',
+            timestamp: Date.now(),
+          });
+
+          setTimeout(() => {
+            setFeedback({ status: 'idle', timestamp: Date.now() });
+          }, 3000);
           return;
         }
 
@@ -90,7 +100,6 @@ export default function Home() {
     feedback,
     setFeedback,
     isSupported,
-    isAlwaysActive,
     language,
     setLanguage,
     startListening,
@@ -102,12 +111,14 @@ export default function Home() {
     alwaysActive: true,
   });
 
-  // Auto-start always active listening once page is mounted
+  // Attempt auto-start on load if supported
   useEffect(() => {
     if (isSupported && typeof window !== 'undefined') {
       const timer = setTimeout(() => {
-        startListening();
-      }, 500);
+        try {
+          startListening();
+        } catch {}
+      }, 600);
       return () => clearTimeout(timer);
     }
   }, [isSupported, startListening]);
@@ -161,10 +172,10 @@ export default function Home() {
           {/* Subtle Voice Hint Pill */}
           <div className="bg-white/90 backdrop-blur-md border border-neutral-200/80 shadow-2xs rounded-full px-3.5 py-1 text-xs text-neutral-600 font-medium animate-pulse text-center">
             {voiceState === 'listening'
-              ? '🎙️ Microphone always active • speak shopping commands anytime'
+              ? '🎙️ Microphone listening • speak shopping commands anytime'
               : voiceState === 'processing'
               ? '⏳ Analyzing command...'
-              : 'Try saying: "Add 5 apples to my list" • "Find juice under $5"'}
+              : 'Tap the mic or speak: "Add 5 apples to my list" • "Find juice under $5"'}
           </div>
 
           {/* Center Voice Button */}

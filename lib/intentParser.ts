@@ -6,7 +6,8 @@ const numberWordMap: Record<string, number> = {
   nine: 9, ten: 10, eleven: 11, twelve: 12, dozen: 12, 'half a dozen': 6,
 };
 
-const GROCERY_KEYWORDS = new Set([
+// Build comprehensive grocery keywords set from GroceryStoreDataset + common staples
+const GROCERY_KEYWORDS = new Set<string>([
   'apple', 'apples', 'banana', 'bananas', 'milk', 'eggs', 'egg', 'bread', 'breads',
   'juice', 'water', 'potato', 'potatoes', 'tomato', 'tomatoes', 'onion', 'onions',
   'garlic', 'ginger', 'mango', 'mangoes', 'orange', 'oranges', 'pear', 'pears',
@@ -16,8 +17,32 @@ const GROCERY_KEYWORDS = new Set([
   'yoghurt', 'yogurt', 'oat milk', 'soy milk', 'oatghurt', 'soyghurt', 'asparagus',
   'aubergine', 'cabbage', 'carrots', 'carrot', 'cucumber', 'leek', 'mushroom',
   'mushrooms', 'pepper', 'peppers', 'beet', 'zucchini', 'toothpaste', 'soap', 'doodh',
-  'chawal', 'palak', 'anda', 'ande', 'kela', 'pani', 'makhan', 'ghee'
+  'chawal', 'palak', 'anda', 'ande', 'kela', 'pani', 'makhan', 'ghee', 'sugar',
+  'salt', 'oil', 'tea', 'coffee', 'rice', 'flour', 'cheese', 'butter', 'cookies',
+  'chips', 'pasta', 'sauce', 'honey', 'jam', 'shampoo', 'detergent', 'meat', 'chicken'
 ]);
+
+// Add all product names, subcategories, coarseClasses, and tags from dataset into keywords
+(productsData as any[]).forEach((p) => {
+  if (p.name) {
+    p.name.toLowerCase().split(/[\s-]+/).forEach((w: string) => {
+      if (w.length > 2) GROCERY_KEYWORDS.add(w);
+    });
+  }
+  if (p.coarseClass) {
+    p.coarseClass.toLowerCase().split(/[\s-]+/).forEach((w: string) => {
+      if (w.length > 2) GROCERY_KEYWORDS.add(w);
+    });
+  }
+  if (p.category) {
+    p.category.toLowerCase().split(/[\s&]+/).forEach((w: string) => {
+      if (w.length > 2) GROCERY_KEYWORDS.add(w);
+    });
+  }
+  if (Array.isArray(p.tags)) {
+    p.tags.forEach((t: string) => GROCERY_KEYWORDS.add(t.toLowerCase()));
+  }
+});
 
 const ACTION_KEYWORDS = new Set([
   'add', 'buy', 'need', 'get', 'want', 'put', 'bring', 'remove', 'delete', 'take off',
@@ -35,7 +60,7 @@ const ITEM_TRANSLATIONS: Record<string, string> = {
 };
 
 function canonicalizeCommand(text: string): string {
-  let value = cleanPhoneticMistakes(text.toLowerCase().trim());
+  let value = cleanPhoneticMistakes((text || '').toLowerCase().trim());
   value = value
     .replace(/^(.+?)\s+(?:jod|jodo)\s+do$/i, 'add $1')
     .replace(/^(.+?)\s+(?:hata|hatao)\s+do$/i, 'remove $1')
@@ -59,6 +84,15 @@ function catalogBrands(): string[] {
   return Array.from(new Set((productsData as { brand: string }[]).map((product) => product.brand)));
 }
 
+const OBVIOUS_NON_SHOPPING = [
+  /^(what|who|where|when|why|how)\s+(is|are|was|were|the|time|weather|you|your)/i,
+  /^tell\s+me/i,
+  /^turn\s+(on|off|up|down)/i,
+  /^(hello|hey|hi|good\s+morning|good\s+night|good\s+evening)\b/i,
+  /^(thank\s+you|thanks|bye|goodbye|see\s+you|ok\s+bye)\b/i,
+  /^(yeah|yes|no|nope|sure|okay|ok)\b/i,
+];
+
 /**
  * Intelligent filter that distinguishes genuine shopping commands from background residual chatter.
  */
@@ -73,7 +107,7 @@ export function isShoppingRelated(text: string): boolean {
   }
 
   // 2. Check for multi-word action phrases
-  if (/(?:look for|search for|take off|hata do|show me|want to buy|need to get)/i.test(clean)) {
+  if (/(?:look for|search for|take off|hata do|show me|want to buy|need to get|add to list)/i.test(clean)) {
     return true;
   }
 
@@ -82,8 +116,18 @@ export function isShoppingRelated(text: string): boolean {
     if (GROCERY_KEYWORDS.has(word)) return true;
   }
 
-  // 4. Check for quantity + unit patterns (e.g. "2 bottles", "5 kg", "1 pack")
+  // 4. Check for quantity + unit patterns (e.g. "2 bottles", "5 kg", "1 pack", "5")
   if (/\d+\s*(?:bottles?|packs?|kg|liters?|boxes?|cartons?|cans?|loaves|pieces?)/i.test(clean)) {
+    return true;
+  }
+
+  // 5. Reject obvious non-shopping questions/chatter
+  for (const pattern of OBVIOUS_NON_SHOPPING) {
+    if (pattern.test(clean)) return false;
+  }
+
+  // 6. If it's a short 1-4 word query and not rejected, it's very likely an item name!
+  if (words.length >= 1 && words.length <= 4) {
     return true;
   }
 
@@ -175,7 +219,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   const clean = canonicalizeCommand(transcript || '');
 
   // 0. RESIDUAL SPEECH FILTER GATE
-  // If the speech does NOT contain any shopping verbs, items, or units, discard it quietly.
   if (!isShoppingRelated(clean)) {
     return {
       intent: 'UNKNOWN',
@@ -343,6 +386,21 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
       confidence: 0.85,
       rawQuery: transcript,
       explanation: `Add ${singleParsed.quantity} ${singleParsed.unit} of ${singleParsed.item} to shopping list`,
+    };
+  }
+
+  // Final fallback: if clean has words, treat as ADD item
+  if (clean && clean.length >= 2) {
+    const item = capitalize(clean);
+    return {
+      intent: 'ADD',
+      items: [{ item, quantity: 1, unit: 'pieces' }],
+      item,
+      quantity: 1,
+      unit: 'pieces',
+      confidence: 0.75,
+      rawQuery: transcript,
+      explanation: `Add ${item} to shopping list`,
     };
   }
 

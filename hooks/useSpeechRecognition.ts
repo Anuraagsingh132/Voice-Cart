@@ -29,8 +29,9 @@ export function useSpeechRecognition({
   const isListeningRef = useRef<boolean>(false);
   const shouldKeepListeningRef = useRef<boolean>(alwaysActive);
   const onCompleteRef = useRef(onTranscriptComplete);
-  const lastProcessedTranscriptRef = useRef<string>('');
   const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const silenceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const latestSpeechBufferRef = useRef<string>('');
 
   useEffect(() => {
     onCompleteRef.current = onTranscriptComplete;
@@ -58,10 +59,32 @@ export function useSpeechRecognition({
     }
   };
 
+  const clearSilenceTimer = () => {
+    if (silenceTimeoutRef.current) {
+      clearTimeout(silenceTimeoutRef.current);
+      silenceTimeoutRef.current = null;
+    }
+  };
+
+  // Dispatch text to handler and reset buffer
+  const dispatchCommand = useCallback((text: string) => {
+    const clean = (text || '').trim();
+    if (!clean) return;
+
+    latestSpeechBufferRef.current = '';
+    setInterimTranscript('');
+    setTranscript(clean);
+
+    if (onCompleteRef.current) {
+      onCompleteRef.current(clean);
+    }
+  }, []);
+
   const stopListening = useCallback(() => {
     shouldKeepListeningRef.current = false;
     setIsAlwaysActive(false);
     clearRestartTimer();
+    clearSilenceTimer();
 
     if (recognitionRef.current && isListeningRef.current) {
       try {
@@ -92,8 +115,9 @@ export function useSpeechRecognition({
     shouldKeepListeningRef.current = true;
     setIsAlwaysActive(true);
     clearRestartTimer();
+    clearSilenceTimer();
 
-    // If already actively listening, don't recreate/abort
+    // If already listening on same language, don't restart
     if (isListeningRef.current && recognitionRef.current) {
       return;
     }
@@ -123,22 +147,24 @@ export function useSpeechRecognition({
           }
         }
 
-        if (currentInterim) {
-          setInterimTranscript(currentInterim.trim());
+        const activeText = (currentFinal || currentInterim).trim();
+        if (activeText) {
+          latestSpeechBufferRef.current = activeText;
+          setInterimTranscript(activeText);
+
+          // Reset silence debounce timer: If user pauses for 1200ms, immediately dispatch!
+          clearSilenceTimer();
+          silenceTimeoutRef.current = setTimeout(() => {
+            if (latestSpeechBufferRef.current) {
+              dispatchCommand(latestSpeechBufferRef.current);
+            }
+          }, 1200);
         }
 
-        if (currentFinal) {
-          const trimmedFinal = currentFinal.trim();
-          setInterimTranscript('');
-          setTranscript(trimmedFinal);
-
-          // Dispatch command if non-empty and not identical to immediate last
-          if (trimmedFinal && trimmedFinal !== lastProcessedTranscriptRef.current) {
-            lastProcessedTranscriptRef.current = trimmedFinal;
-            if (onCompleteRef.current) {
-              onCompleteRef.current(trimmedFinal);
-            }
-          }
+        // If browser directly emitted final chunk, dispatch immediately
+        if (currentFinal.trim()) {
+          clearSilenceTimer();
+          dispatchCommand(currentFinal.trim());
         }
       };
 
@@ -167,6 +193,11 @@ export function useSpeechRecognition({
       recognition.onend = () => {
         isListeningRef.current = false;
 
+        // If we had speech in buffer when socket closed, dispatch it!
+        if (latestSpeechBufferRef.current) {
+          dispatchCommand(latestSpeechBufferRef.current);
+        }
+
         // Auto-restart seamlessly if always-active is enabled
         if (shouldKeepListeningRef.current) {
           clearRestartTimer();
@@ -175,7 +206,6 @@ export function useSpeechRecognition({
               try {
                 recognition.start();
               } catch (err: any) {
-                // If recognition object became invalid, recreate it
                 if (err.name !== 'InvalidStateError') {
                   startListening();
                 }
@@ -195,7 +225,7 @@ export function useSpeechRecognition({
       }
       isListeningRef.current = false;
     }
-  }, [language]);
+  }, [language, dispatchCommand]);
 
   const resetState = useCallback(() => {
     stopListening();
@@ -213,6 +243,7 @@ export function useSpeechRecognition({
     return () => {
       shouldKeepListeningRef.current = false;
       clearRestartTimer();
+      clearSilenceTimer();
       if (recognitionRef.current) {
         try {
           recognitionRef.current.abort();
