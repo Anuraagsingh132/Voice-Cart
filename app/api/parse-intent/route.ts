@@ -127,7 +127,7 @@ Return ONLY valid JSON.`;
       // 1. Fast Path (High speed, lower cost)
       const chatCompletion = await groq.chat.completions.create({
         messages: messages as any,
-        model: 'llama-3.1-8b-instant',
+        model: 'openai/gpt-oss-20b',
         temperature: 0.05,
         max_tokens: 450,
         response_format: { type: 'json_object' },
@@ -139,7 +139,7 @@ Return ONLY valid JSON.`;
       // 2. Escalation Layer (Higher precision, heavier model)
       const escalationCompletion = await groq.chat.completions.create({
         messages: messages as any,
-        model: 'llama-3.1-70b-versatile',
+        model: 'openai/gpt-oss-120b',
         temperature: 0.05,
         max_tokens: 450,
         response_format: { type: 'json_object' },
