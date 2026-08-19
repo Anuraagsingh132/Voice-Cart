@@ -114,11 +114,19 @@ export default function Home() {
 
   return (
     <>
-      {/* Top Fixed Navigation Bar */}
+      {/* Top Fixed Navigation Bar with Live Background Voice Status */}
       <Header
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
         onOpenGuide={() => setIsGuideOpen(true)}
+        voiceState={voiceState}
+        onToggleVoice={() => {
+          if (voiceState === 'listening') {
+            stopListening();
+          } else {
+            startListening();
+          }
+        }}
       />
 
       {/* Main Content Area with generous bottom scroll clearance */}
