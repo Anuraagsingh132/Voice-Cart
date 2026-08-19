@@ -1,6 +1,6 @@
 [
   {
-    "id": "prod-001",
+    "id": "bb-001",
     "name": "Organic Fuji Apples",
     "brand": "Fresho Organic",
     "category": "Fruits & Vegetables",
@@ -10,13 +10,25 @@
     "unit": "kg",
     "inStock": true,
     "rating": 4.8,
-    "season": ["fall", "winter"],
-    "substitutes": ["prod-002", "prod-003"],
-    "tags": ["organic", "fruit", "apples", "healthy", "fresh"],
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "substitutes": [
+      "bb-002",
+      "bb-003"
+    ],
+    "tags": [
+      "organic",
+      "fruit",
+      "apples",
+      "healthy",
+      "fresh"
+    ],
     "imageEmoji": "🍎"
   },
   {
-    "id": "prod-002",
+    "id": "bb-002",
     "name": "Royal Gala Apples",
     "brand": "Fresho",
     "category": "Fruits & Vegetables",
@@ -26,131 +38,22 @@
     "unit": "kg",
     "inStock": true,
     "rating": 4.5,
-    "season": ["fall", "all-year"],
-    "substitutes": ["prod-001", "prod-003"],
-    "tags": ["apples", "fruit", "sweet"],
+    "season": [
+      "fall",
+      "all-year"
+    ],
+    "substitutes": [
+      "bb-001"
+    ],
+    "tags": [
+      "apples",
+      "fruit",
+      "sweet"
+    ],
     "imageEmoji": "🍎"
   },
   {
-    "id": "prod-003",
-    "name": "Green Granny Smith Apples",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 3.49,
-    "unit": "kg",
-    "inStock": true,
-    "rating": 4.3,
-    "season": ["all-year"],
-    "substitutes": ["prod-001", "prod-002"],
-    "tags": ["sour apples", "green apples"],
-    "imageEmoji": "🍏"
-  },
-  {
-    "id": "prod-004",
-    "name": "Organic Robusta Bananas",
-    "brand": "Fresho Organic",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 1.79,
-    "discountedPrice": 1.49,
-    "unit": "bunch",
-    "inStock": true,
-    "rating": 4.7,
-    "season": ["all-year"],
-    "substitutes": ["prod-005"],
-    "tags": ["banana", "organic", "potassium", "energy"],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "prod-005",
-    "name": "Yellaki Small Bananas",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 2.19,
-    "unit": "bunch",
-    "inStock": true,
-    "rating": 4.6,
-    "season": ["all-year"],
-    "tags": ["banana", "sweet"],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "prod-006",
-    "name": "Valencia Sweet Oranges",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 3.99,
-    "discountedPrice": 3.29,
-    "unit": "kg",
-    "inStock": true,
-    "rating": 4.4,
-    "season": ["winter"],
-    "tags": ["citrus", "vitamin c", "orange", "oranges"],
-    "imageEmoji": "🍊"
-  },
-  {
-    "id": "prod-007",
-    "name": "Alphonso Mangoes (Premium)",
-    "brand": "Fresho Select",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 8.99,
-    "discountedPrice": 7.49,
-    "unit": "box (6 pcs)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": ["summer"],
-    "tags": ["mango", "summer", "sweet", "alphonso"],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "prod-008",
-    "name": "Seedless Sweet Watermelon",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 4.99,
-    "discountedPrice": 3.99,
-    "unit": "piece (~3kg)",
-    "inStock": true,
-    "rating": 4.6,
-    "season": ["summer"],
-    "tags": ["watermelon", "hydration", "summer fruit"],
-    "imageEmoji": "🍉"
-  },
-  {
-    "id": "prod-009",
-    "name": "Fresh Baby Spinach",
-    "brand": "Fresho Organic",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Greens",
-    "price": 1.99,
-    "unit": "pack (250g)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": ["winter", "spring"],
-    "tags": ["spinach", "iron", "greens", "palak"],
-    "imageEmoji": "🥬"
-  },
-  {
-    "id": "prod-010",
-    "name": "Vine Ripe Red Tomatoes",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetables",
-    "price": 1.89,
-    "unit": "kg",
-    "inStock": true,
-    "rating": 4.4,
-    "season": ["all-year"],
-    "tags": ["tomatoes", "salad", "cooking"],
-    "imageEmoji": "🍅"
-  },
-  {
-    "id": "prod-011",
+    "id": "bb-003",
     "name": "Farm Fresh Whole Milk",
     "brand": "Amul / Dairy Fresh",
     "category": "Dairy & Eggs",
@@ -160,28 +63,24 @@
     "unit": "carton (1L)",
     "inStock": true,
     "rating": 4.9,
-    "season": ["all-year"],
-    "substitutes": ["prod-013", "prod-014", "prod-012"],
-    "tags": ["dairy", "milk", "calcium", "regular milk", "cow milk"],
+    "season": [
+      "all-year"
+    ],
+    "substitutes": [
+      "bb-004",
+      "bb-005"
+    ],
+    "tags": [
+      "dairy",
+      "milk",
+      "calcium",
+      "regular milk",
+      "whole milk"
+    ],
     "imageEmoji": "🥛"
   },
   {
-    "id": "prod-012",
-    "name": "Skimmed Low Fat Milk",
-    "brand": "Amul Slim",
-    "category": "Dairy & Eggs",
-    "subCategory": "Milk & Cream",
-    "price": 3.19,
-    "unit": "carton (1L)",
-    "inStock": true,
-    "rating": 4.5,
-    "season": ["all-year"],
-    "substitutes": ["prod-011", "prod-013"],
-    "tags": ["low fat milk", "diet milk", "skim milk"],
-    "imageEmoji": "🥛"
-  },
-  {
-    "id": "prod-013",
+    "id": "bb-004",
     "name": "Unsweetened Almond Milk (Plant-Based)",
     "brand": "Silk / Epigamia",
     "category": "Dairy & Eggs",
@@ -191,13 +90,22 @@
     "unit": "carton (1L)",
     "inStock": true,
     "rating": 4.7,
-    "season": ["all-year"],
-    "substitutes": ["prod-011", "prod-014"],
-    "tags": ["almond milk", "vegan", "plant-based", "lactose free", "nut milk"],
+    "season": [
+      "all-year"
+    ],
+    "substitutes": [
+      "bb-003"
+    ],
+    "tags": [
+      "almond milk",
+      "vegan",
+      "plant-based",
+      "lactose free"
+    ],
     "imageEmoji": "🧃"
   },
   {
-    "id": "prod-014",
+    "id": "bb-005",
     "name": "Organic Oat Milk Barista Edition",
     "brand": "Oatly",
     "category": "Dairy & Eggs",
@@ -206,267 +114,22 @@
     "unit": "carton (1L)",
     "inStock": true,
     "rating": 4.8,
-    "season": ["all-year"],
-    "substitutes": ["prod-013", "prod-011"],
-    "tags": ["oat milk", "vegan", "coffee milk", "creamy"],
+    "season": [
+      "all-year"
+    ],
+    "substitutes": [
+      "bb-004",
+      "bb-003"
+    ],
+    "tags": [
+      "oat milk",
+      "vegan",
+      "coffee milk"
+    ],
     "imageEmoji": "🌾"
   },
   {
-    "id": "prod-015",
-    "name": "Farm Fresh Brown Eggs (Pack of 12)",
-    "brand": "Eggoz Organic",
-    "category": "Dairy & Eggs",
-    "subCategory": "Eggs",
-    "price": 3.79,
-    "discountedPrice": 3.29,
-    "unit": "pack of 12",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["all-year"],
-    "tags": ["eggs", "protein", "brown eggs", "organic eggs"],
-    "imageEmoji": "🥚"
-  },
-  {
-    "id": "prod-016",
-    "name": "Salted Creamery Butter",
-    "brand": "Amul",
-    "category": "Dairy & Eggs",
-    "subCategory": "Butter & Cheese",
-    "price": 3.49,
-    "unit": "pack (500g)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": ["all-year"],
-    "substitutes": ["prod-017"],
-    "tags": ["butter", "baking", "toast"],
-    "imageEmoji": "🧈"
-  },
-  {
-    "id": "prod-017",
-    "name": "Plant-Based Table Spread (Vegan Butter)",
-    "brand": "Earth Balance",
-    "category": "Dairy & Eggs",
-    "subCategory": "Plant Alternatives",
-    "price": 3.99,
-    "unit": "tub (400g)",
-    "inStock": true,
-    "rating": 4.3,
-    "season": ["all-year"],
-    "substitutes": ["prod-016"],
-    "tags": ["vegan butter", "dairy free spread", "margarine"],
-    "imageEmoji": "🧈"
-  },
-  {
-    "id": "prod-018",
-    "name": "Greek Yogurt - Natural Unsweetened",
-    "brand": "Epigamia",
-    "category": "Dairy & Eggs",
-    "subCategory": "Yogurt",
-    "price": 2.49,
-    "discountedPrice": 1.99,
-    "unit": "cup (400g)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": ["all-year"],
-    "tags": ["yogurt", "probiotics", "protein snack", "curd"],
-    "imageEmoji": "🥣"
-  },
-  {
-    "id": "prod-019",
-    "name": "Artisan Whole Wheat Sourdough Bread",
-    "brand": "The Baker's Dozen",
-    "category": "Bakery & Snacks",
-    "subCategory": "Breads",
-    "price": 3.89,
-    "discountedPrice": 3.29,
-    "unit": "loaf (400g)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["all-year"],
-    "substitutes": ["prod-020", "prod-021"],
-    "tags": ["bread", "sourdough", "whole wheat", "artisan"],
-    "imageEmoji": "🍞"
-  },
-  {
-    "id": "prod-020",
-    "name": "Classic Sandwich White Bread",
-    "brand": "Britannia",
-    "category": "Bakery & Snacks",
-    "subCategory": "Breads",
-    "price": 1.99,
-    "unit": "loaf (400g)",
-    "inStock": true,
-    "rating": 4.3,
-    "season": ["all-year"],
-    "substitutes": ["prod-019", "prod-021"],
-    "tags": ["white bread", "sandwich bread"],
-    "imageEmoji": "🍞"
-  },
-  {
-    "id": "prod-021",
-    "name": "Gluten-Free Multigrain Bread",
-    "brand": "Schär",
-    "category": "Bakery & Snacks",
-    "subCategory": "Gluten-Free",
-    "price": 5.49,
-    "unit": "pack (350g)",
-    "inStock": true,
-    "rating": 4.4,
-    "season": ["all-year"],
-    "substitutes": ["prod-019", "prod-020"],
-    "tags": ["gluten free bread", "healthy bread"],
-    "imageEmoji": "🍞"
-  },
-  {
-    "id": "prod-022",
-    "name": "Rolled Whole Grain Oats",
-    "brand": "Quaker / Kellogg's",
-    "category": "Bakery & Snacks",
-    "subCategory": "Breakfast Cereals",
-    "price": 3.99,
-    "discountedPrice": 3.49,
-    "unit": "pack (1kg)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["all-year"],
-    "tags": ["oats", "breakfast", "fiber", "healthy cereal"],
-    "imageEmoji": "🥣"
-  },
-  {
-    "id": "prod-023",
-    "name": "Crunchy Peanut Butter (Unsweetened)",
-    "brand": "Pintola Organic",
-    "category": "Bakery & Snacks",
-    "subCategory": "Spreads",
-    "price": 5.99,
-    "discountedPrice": 4.99,
-    "unit": "jar (1kg)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": ["all-year"],
-    "tags": ["peanut butter", "protein", "organic", "spread"],
-    "imageEmoji": "🥜"
-  },
-  {
-    "id": "prod-024",
-    "name": "Classic Potato Chips - Salted",
-    "brand": "Lays",
-    "category": "Bakery & Snacks",
-    "subCategory": "Chips & Crisps",
-    "price": 1.49,
-    "unit": "bag (150g)",
-    "inStock": true,
-    "rating": 4.6,
-    "season": ["all-year"],
-    "tags": ["chips", "snack", "lays", "crisps"],
-    "imageEmoji": "🥔"
-  },
-  {
-    "id": "prod-025",
-    "name": "Dark Chocolate 70% Cocoa Bar",
-    "brand": "Lindt / Cadbury",
-    "category": "Bakery & Snacks",
-    "subCategory": "Chocolates",
-    "price": 3.49,
-    "discountedPrice": 2.99,
-    "unit": "bar (100g)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["winter", "all-year"],
-    "tags": ["chocolate", "dark chocolate", "sweet", "dessert"],
-    "imageEmoji": "🍫"
-  },
-  {
-    "id": "prod-026",
-    "name": "Sparkling Natural Mineral Water",
-    "brand": "San Pellegrino / Himalayan",
-    "category": "Beverages",
-    "subCategory": "Water",
-    "price": 2.29,
-    "unit": "bottle (750ml)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": ["summer", "all-year"],
-    "substitutes": ["prod-027"],
-    "tags": ["sparkling water", "mineral water", "water bottle"],
-    "imageEmoji": "🍾"
-  },
-  {
-    "id": "prod-027",
-    "name": "Purified Natural Spring Water (Pack of 6)",
-    "brand": "Aquafina / Bisleri",
-    "category": "Beverages",
-    "subCategory": "Water",
-    "price": 4.99,
-    "discountedPrice": 3.99,
-    "unit": "pack (6 x 1L)",
-    "inStock": true,
-    "rating": 4.6,
-    "season": ["summer", "all-year"],
-    "substitutes": ["prod-026"],
-    "tags": ["water", "bottles of water", "mineral water", "drinking water"],
-    "imageEmoji": "💧"
-  },
-  {
-    "id": "prod-028",
-    "name": "100% Pure Orange Juice - Pulp Free",
-    "brand": "Tropicana Pure Premium",
-    "category": "Beverages",
-    "subCategory": "Juices",
-    "price": 3.99,
-    "discountedPrice": 3.49,
-    "unit": "carton (1L)",
-    "inStock": true,
-    "rating": 4.6,
-    "season": ["all-year", "summer"],
-    "tags": ["orange juice", "breakfast drink", "juice"],
-    "imageEmoji": "🧃"
-  },
-  {
-    "id": "prod-029",
-    "name": "Organic Whole Bean Espresso Coffee",
-    "brand": "Blue Tokai / Starbucks",
-    "category": "Beverages",
-    "subCategory": "Coffee",
-    "price": 8.99,
-    "discountedPrice": 7.99,
-    "unit": "bag (250g)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": ["all-year", "winter"],
-    "tags": ["coffee", "espresso", "caffeine", "beans"],
-    "imageEmoji": "☕"
-  },
-  {
-    "id": "prod-030",
-    "name": "Pure Green Tea with Mint & Lemon",
-    "brand": "Twinings / Tetley",
-    "category": "Beverages",
-    "subCategory": "Tea",
-    "price": 4.29,
-    "unit": "box (25 bags)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": ["monsoon", "winter", "all-year"],
-    "tags": ["green tea", "detox", "herbal tea", "healthy tea"],
-    "imageEmoji": "🍵"
-  },
-  {
-    "id": "prod-031",
-    "name": "Rich Hot Chocolate Cocoa Mix",
-    "brand": "Cadbury / Hershey's",
-    "category": "Beverages",
-    "subCategory": "Cocoa",
-    "price": 4.79,
-    "unit": "tub (400g)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["winter"],
-    "tags": ["hot chocolate", "winter drink", "cocoa"],
-    "imageEmoji": "☕"
-  },
-  {
-    "id": "prod-032",
+    "id": "bb-006",
     "name": "Colgate Total Clean Mint Toothpaste",
     "brand": "Colgate",
     "category": "Personal Care",
@@ -476,14 +139,47 @@
     "unit": "tube (150g)",
     "inStock": true,
     "rating": 4.7,
-    "season": ["all-year"],
-    "substitutes": ["prod-033", "prod-034"],
-    "tags": ["toothpaste", "colgate", "dental", "mint", "teeth under 5"],
+    "season": [
+      "all-year"
+    ],
+    "substitutes": [
+      "bb-007"
+    ],
+    "tags": [
+      "toothpaste",
+      "colgate",
+      "dental",
+      "mint",
+      "toothpaste under 5"
+    ],
     "imageEmoji": "🪥"
   },
   {
-    "id": "prod-033",
-    "name": "Sensodyne Rapid Relief Sensitive Toothpaste",
+    "id": "bb-007",
+    "name": "Herbal Ayurvedic Complete Care Toothpaste",
+    "brand": "Dabur Red",
+    "category": "Personal Care",
+    "subCategory": "Oral Care",
+    "price": 2.49,
+    "unit": "tube (150g)",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "substitutes": [
+      "bb-006"
+    ],
+    "tags": [
+      "herbal toothpaste",
+      "cheap toothpaste under 5",
+      "ayurvedic"
+    ],
+    "imageEmoji": "🪥"
+  },
+  {
+    "id": "bb-008",
+    "name": "Sensodyne Rapid Relief Toothpaste",
     "brand": "Sensodyne",
     "category": "Personal Care",
     "subCategory": "Oral Care",
@@ -492,233 +188,2553 @@
     "unit": "tube (100g)",
     "inStock": true,
     "rating": 4.9,
-    "season": ["all-year"],
-    "substitutes": ["prod-032", "prod-034"],
-    "tags": ["toothpaste", "sensitive teeth", "sensodyne", "premium oral care"],
+    "season": [
+      "all-year"
+    ],
+    "substitutes": [
+      "bb-006",
+      "bb-007"
+    ],
+    "tags": [
+      "toothpaste",
+      "sensitive teeth",
+      "sensodyne"
+    ],
     "imageEmoji": "🪥"
   },
   {
-    "id": "prod-034",
-    "name": "Herbal Ayurvedic Complete Care Toothpaste",
-    "brand": "Dabur Red / Meswak",
-    "category": "Personal Care",
-    "subCategory": "Oral Care",
+    "id": "bb-009",
+    "name": "Banana - Yelakki",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.86,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "yelakki",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-010",
+    "name": "Orange - Nagpur, Regular",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 7.99,
+    "discountedPrice": 6.39,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "winter"
+    ],
+    "tags": [
+      "orange",
+      "nagpur",
+      "regular",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊"
+  },
+  {
+    "id": "bb-011",
+    "name": "Banana - Robusta",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.94,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "robusta",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-012",
+    "name": "Apple - Shimla, Regular",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.49,
+    "discountedPrice": 3.35,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "apple",
+      "shimla",
+      "regular",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-013",
+    "name": "Mango Badami",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
     "price": 2.49,
-    "unit": "tube (150g)",
+    "discountedPrice": 1.89,
+    "unit": "pack",
     "inStock": true,
-    "rating": 4.6,
-    "season": ["all-year"],
-    "substitutes": ["prod-032", "prod-033"],
-    "tags": ["herbal toothpaste", "cheap toothpaste under 5", "ayurvedic toothpaste"],
-    "imageEmoji": "🪥"
+    "rating": 4.4,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "mango",
+      "badami",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
   },
   {
-    "id": "prod-035",
-    "name": "Antibacterial Liquid Hand Wash - Pine",
-    "brand": "Dettol",
-    "category": "Personal Care",
-    "subCategory": "Hand Care",
-    "price": 2.99,
-    "discountedPrice": 2.49,
-    "unit": "bottle (250ml)",
+    "id": "bb-014",
+    "name": "Kesar Mango",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.99,
+    "discountedPrice": 3.19,
+    "unit": "pack",
     "inStock": true,
-    "rating": 4.8,
-    "season": ["monsoon", "all-year"],
-    "tags": ["hand wash", "dettol", "soap", "hygiene"],
-    "imageEmoji": "🧼"
+    "rating": 4.4,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "kesar",
+      "mango",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
   },
   {
-    "id": "prod-036",
-    "name": "Gentle Moisturizing Body Wash (Shea Butter)",
-    "brand": "Dove",
-    "category": "Personal Care",
-    "subCategory": "Bath & Body",
-    "price": 5.49,
-    "discountedPrice": 4.79,
-    "unit": "bottle (500ml)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["winter", "all-year"],
-    "tags": ["body wash", "dove", "shower gel", "soap"],
-    "imageEmoji": "🧴"
-  },
-  {
-    "id": "prod-037",
-    "name": "Broad Spectrum Mineral Sunscreen SPF 50",
-    "brand": "Neutrogena",
-    "category": "Personal Care",
-    "subCategory": "Skin Care",
-    "price": 11.99,
-    "discountedPrice": 9.99,
-    "unit": "tube (80ml)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": ["summer"],
-    "tags": ["sunscreen", "spf 50", "summer care", "sunblock"],
-    "imageEmoji": "☀️"
-  },
-  {
-    "id": "prod-038",
-    "name": "Extra Virgin Cold Pressed Olive Oil",
-    "brand": "Borges / Figaro",
-    "category": "Pantry & Staples",
-    "subCategory": "Oils & Ghee",
+    "id": "bb-015",
+    "name": "Mango Alphonso, Ratnagiri",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
     "price": 9.99,
-    "discountedPrice": 8.49,
-    "unit": "bottle (1L)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": ["all-year"],
-    "substitutes": ["prod-039"],
-    "tags": ["olive oil", "cooking oil", "healthy cooking", "salad oil"],
-    "imageEmoji": "🫒"
-  },
-  {
-    "id": "prod-039",
-    "name": "Pure Desi Cow Ghee (Clarified Butter)",
-    "brand": "Amul / Organic India",
-    "category": "Pantry & Staples",
-    "subCategory": "Oils & Ghee",
-    "price": 8.49,
-    "unit": "jar (500ml)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": ["winter", "all-year"],
-    "substitutes": ["prod-038"],
-    "tags": ["ghee", "clarified butter", "indian cooking"],
-    "imageEmoji": "🧈"
-  },
-  {
-    "id": "prod-040",
-    "name": "Organic Royal Basmati Rice",
-    "brand": "India Gate / Daawat",
-    "category": "Pantry & Staples",
-    "subCategory": "Grains & Rice",
-    "price": 6.99,
-    "discountedPrice": 5.99,
-    "unit": "bag (2kg)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["all-year"],
-    "tags": ["rice", "basmati", "grains", "long grain"],
-    "imageEmoji": "🍚"
-  },
-  {
-    "id": "prod-041",
-    "name": "Whole Wheat Spaghetti Pasta",
-    "brand": "Barilla",
-    "category": "Pantry & Staples",
-    "subCategory": "Pasta & Noodles",
-    "price": 2.79,
-    "discountedPrice": 2.29,
-    "unit": "box (500g)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": ["all-year"],
-    "tags": ["pasta", "spaghetti", "italian", "noodles"],
-    "imageEmoji": "🍝"
-  },
-  {
-    "id": "prod-042",
-    "name": "Traditional Basil Tomato Pasta Sauce",
-    "brand": "Barilla / Prego",
-    "category": "Pantry & Staples",
-    "subCategory": "Sauces & Spices",
-    "price": 3.49,
-    "unit": "jar (400g)",
-    "inStock": true,
-    "rating": 4.6,
-    "season": ["all-year"],
-    "tags": ["pasta sauce", "marinara", "tomato sauce"],
-    "imageEmoji": "🥫"
-  },
-  {
-    "id": "prod-043",
-    "name": "Pure Raw Wildflower Honey",
-    "brand": "Dabur / Nature Nate's",
-    "category": "Pantry & Staples",
-    "subCategory": "Sweeteners",
-    "price": 5.49,
-    "discountedPrice": 4.79,
-    "unit": "bottle (500g)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": ["monsoon", "winter", "all-year"],
-    "substitutes": ["prod-044"],
-    "tags": ["honey", "raw honey", "sweetener", "sugar alternative"],
-    "imageEmoji": "🍯"
-  },
-  {
-    "id": "prod-044",
-    "name": "Organic Stevia Natural Sweetener Drops",
-    "brand": "SugarFree Green",
-    "category": "Pantry & Staples",
-    "subCategory": "Sweeteners",
-    "price": 4.99,
-    "unit": "bottle (50ml)",
+    "discountedPrice": 7.99,
+    "unit": "pack",
     "inStock": true,
     "rating": 4.3,
-    "season": ["all-year"],
-    "substitutes": ["prod-043"],
-    "tags": ["stevia", "sugar free", "keto sweetener"],
-    "imageEmoji": "🍃"
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "mango",
+      "alphonso",
+      "ratnagiri",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
   },
   {
-    "id": "prod-045",
-    "name": "Advanced Liquid Laundry Detergent",
-    "brand": "Surf Excel Matic / Tide",
-    "category": "Household & Cleaning",
-    "subCategory": "Laundry",
-    "price": 8.99,
-    "discountedPrice": 7.49,
-    "unit": "bottle (2L)",
+    "id": "bb-016",
+    "name": "Orange - Kinnow (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "winter"
+    ],
+    "tags": [
+      "orange",
+      "kinnow",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊"
+  },
+  {
+    "id": "bb-017",
+    "name": "Custard Apple",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "custard",
+      "apple",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-018",
+    "name": "Guava (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.67,
+    "unit": "pack",
     "inStock": true,
     "rating": 4.8,
-    "season": ["all-year"],
-    "tags": ["detergent", "laundry", "clean clothes", "surf excel"],
-    "imageEmoji": "🧺"
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "guava",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
   },
   {
-    "id": "prod-046",
-    "name": "Concentrated Dishwashing Liquid Gel - Lemon",
-    "brand": "Vim / Dawn",
-    "category": "Household & Cleaning",
-    "subCategory": "Dishwashing",
+    "id": "bb-019",
+    "name": "Banana - Yelakki, Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.99,
+    "discountedPrice": 1.11,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "yelakki",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-020",
+    "name": "Banana - Robusta, Small",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "robusta",
+      "small",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-021",
+    "name": "Strawberry",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.82,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "strawberry",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-022",
+    "name": "Banana - Raw Green (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.49,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "raw",
+      "green",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-023",
+    "name": "Banana - Nendran",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.99,
+    "discountedPrice": 1.01,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "nendran",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-024",
+    "name": "Banana - Poovan",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "poovan",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-025",
+    "name": "Banana - Red",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.49,
+    "discountedPrice": 2.79,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "red",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-026",
+    "name": "Pear - Beauty",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.49,
+    "discountedPrice": 2.65,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "pear",
+      "beauty",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-027",
+    "name": "Banana - Karpooravalli",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.83,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "karpooravalli",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-028",
+    "name": "Banana - Nendran, Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
     "price": 2.49,
-    "unit": "bottle (500ml)",
+    "discountedPrice": 1.99,
+    "unit": "pack",
     "inStock": true,
-    "rating": 4.7,
-    "season": ["all-year"],
-    "tags": ["dish soap", "vim", "cleaning dishes", "kitchen"],
-    "imageEmoji": "🧽"
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "nendran",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
   },
   {
-    "id": "prod-047",
-    "name": "Disinfectant Surface Cleaner - Citrus Fresh",
-    "brand": "Lizol / Lysol",
-    "category": "Household & Cleaning",
-    "subCategory": "Surface Cleaners",
-    "price": 3.99,
-    "discountedPrice": 3.29,
-    "unit": "bottle (1L)",
+    "id": "bb-029",
+    "name": "Apple Shimla, Small",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.99,
+    "discountedPrice": 1.17,
+    "unit": "pack",
     "inStock": true,
-    "rating": 4.7,
-    "season": ["monsoon", "all-year"],
-    "tags": ["floor cleaner", "lizol", "disinfectant"],
-    "imageEmoji": "🧹"
+    "rating": 4.3,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "apple",
+      "shimla",
+      "small",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
   },
   {
-    "id": "prod-048",
-    "name": "Organic Turmeric & Ginger Immune Tea",
-    "brand": "Organic India",
-    "category": "Beverages",
-    "subCategory": "Herbal Tea",
-    "price": 4.99,
-    "unit": "box (25 bags)",
+    "id": "bb-030",
+    "name": "Sugar Palm Fruit",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.99,
+    "discountedPrice": 1.51,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "sugar",
+      "palm",
+      "fruit",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-031",
+    "name": "Plum - Indian",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 2.49,
+    "discountedPrice": 1.89,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "plum",
+      "indian",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-032",
+    "name": "Litchi",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.99,
+    "discountedPrice": 1.59,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "litchi",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-033",
+    "name": "Kiwi - Green",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 2.49,
+    "discountedPrice": 1.84,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "kiwi",
+      "green",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-034",
+    "name": "Papaya",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
     "inStock": true,
     "rating": 4.8,
-    "season": ["monsoon", "winter"],
-    "tags": ["ginger tea", "turmeric", "immunity", "monsoon health"],
-    "imageEmoji": "🫚"
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "papaya",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-035",
+    "name": "Cherry",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.99,
+    "discountedPrice": 3.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "cherry",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-036",
+    "name": "Cherry - Kashmir",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": 4.55,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "cherry",
+      "kashmir",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-037",
+    "name": "Banana Flower (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "flower",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-038",
+    "name": "Plum - Imported",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 12.99,
+    "discountedPrice": 9.87,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "plum",
+      "imported",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-039",
+    "name": "Custard Apple - Premium",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.99,
+    "discountedPrice": 3.03,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "custard",
+      "apple",
+      "premium",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-040",
+    "name": "Dasheri Mango (Malihabadi)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.99,
+    "discountedPrice": 1.59,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "dasheri",
+      "mango",
+      "malihabadi",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
+  },
+  {
+    "id": "bb-041",
+    "name": "Organic - Desi Banana",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "organic",
+      "desi",
+      "banana",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-042",
+    "name": "Cherry - Imported",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 6.99,
+    "discountedPrice": 5.31,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "cherry",
+      "imported",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-043",
+    "name": "Custard Apple Golden",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "custard",
+      "apple",
+      "golden",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-044",
+    "name": "Mango - Alphonso/Ratnagiri",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": 4.37,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "mango",
+      "alphonso",
+      "ratnagiri",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
+  },
+  {
+    "id": "bb-045",
+    "name": "Kesar Mango - Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": 4.55,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "kesar",
+      "mango",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
+  },
+  {
+    "id": "bb-046",
+    "name": "Banana Stem (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 2.49,
+    "discountedPrice": 1.89,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "stem",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-047",
+    "name": "Peach - Indian",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 2.49,
+    "discountedPrice": 1.99,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "peach",
+      "indian",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-048",
+    "name": "Pear - Naspathi, Indian",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "pear",
+      "naspathi",
+      "indian",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-049",
+    "name": "Dasheri Mango",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "dasheri",
+      "mango",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
+  },
+  {
+    "id": "bb-050",
+    "name": "Grapes - Green, Residue Free",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.95,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "grapes",
+      "green",
+      "residue",
+      "free",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-051",
+    "name": "Mango Leaves",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 4.99,
+    "discountedPrice": 3.79,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "mango",
+      "leaves",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
+  },
+  {
+    "id": "bb-052",
+    "name": "Kinoow - Organically grown (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 2.49,
+    "discountedPrice": 1.89,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "kinoow",
+      "organically",
+      "grown",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-053",
+    "name": "Pomegranate - Regular",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "pomegranate",
+      "regular",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-054",
+    "name": "Sapota",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "sapota",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-055",
+    "name": "Guava - Pink",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "guava",
+      "pink",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-056",
+    "name": "Papaya - Small",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "papaya",
+      "small",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-057",
+    "name": "Orange - Nagpur, Small",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.1,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "winter"
+    ],
+    "tags": [
+      "orange",
+      "nagpur",
+      "small",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊"
+  },
+  {
+    "id": "bb-058",
+    "name": "Dragon Fruit (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.69,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "dragon",
+      "fruit",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-059",
+    "name": "Muskmelon - Netted Small",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.8,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "muskmelon",
+      "netted",
+      "small",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-060",
+    "name": "Ber (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "ber",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-061",
+    "name": "Tender Coconut",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.16,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "tender",
+      "coconut",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-062",
+    "name": "Thai Guava - White Centre",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "thai",
+      "guava",
+      "white",
+      "centre",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-063",
+    "name": "Grapes - Bangalore Blue with Seed",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.85,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "grapes",
+      "bangalore",
+      "blue",
+      "with",
+      "seed",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-064",
+    "name": "Watermelon - Small",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.49,
+    "discountedPrice": 2.8,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "watermelon",
+      "small",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍉"
+  },
+  {
+    "id": "bb-065",
+    "name": "Coconut - Medium",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 4.49,
+    "discountedPrice": 1.93,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "coconut",
+      "medium",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-066",
+    "name": "Pear - Green, Imported",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.49,
+    "discountedPrice": 4.17,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "pear",
+      "green",
+      "imported",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-067",
+    "name": "Pomegranate",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.82,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "pomegranate",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-068",
+    "name": "Mini Orange Imported",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.06,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "winter"
+    ],
+    "tags": [
+      "mini",
+      "orange",
+      "imported",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊"
+  },
+  {
+    "id": "bb-069",
+    "name": "Banana - Robusta, Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 0.91,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "banana",
+      "robusta",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍌"
+  },
+  {
+    "id": "bb-070",
+    "name": "Pineapple",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.49,
+    "discountedPrice": 2.65,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "pineapple",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-071",
+    "name": "Watermelon - Organically Grown (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 2.49,
+    "discountedPrice": 1.69,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "watermelon",
+      "organically",
+      "grown",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍉"
+  },
+  {
+    "id": "bb-072",
+    "name": "Totapuri Mango - Raw",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 4.99,
+    "discountedPrice": 3.99,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "totapuri",
+      "mango",
+      "raw",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
+  },
+  {
+    "id": "bb-073",
+    "name": "Avocado - Imported, Medium (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 7.49,
+    "discountedPrice": 5.99,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "avocado",
+      "imported",
+      "medium",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-074",
+    "name": "Fresh Figs",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.99,
+    "discountedPrice": 3.03,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "fresh",
+      "figs",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-075",
+    "name": "Apple - Royal Gala, Regular",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 3.99,
+    "discountedPrice": 2.95,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "apple",
+      "royal",
+      "gala",
+      "regular",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-076",
+    "name": "Pomegranate - Premium",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "pomegranate",
+      "premium",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-077",
+    "name": "Mosambi - Economy (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": 4.79,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "mosambi",
+      "economy",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-078",
+    "name": "Wood Apple - Kothbel (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": 4.55,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "wood",
+      "apple",
+      "kothbel",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-079",
+    "name": "Apple - Kinnaur, Regular",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": 4.07,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "apple",
+      "kinnaur",
+      "regular",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-080",
+    "name": "Apple - Royal Gala",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": 4.37,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "fall"
+    ],
+    "tags": [
+      "apple",
+      "royal",
+      "gala",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎"
+  },
+  {
+    "id": "bb-081",
+    "name": "Mango Badami - Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Fruits",
+    "price": 5.99,
+    "discountedPrice": null,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "mango",
+      "badami",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭"
+  },
+  {
+    "id": "bb-082",
+    "name": "Green Peas (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.69,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "green",
+      "peas",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-083",
+    "name": "Golden Sweet Corn",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.22,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "golden",
+      "sweet",
+      "corn",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-084",
+    "name": "Spring Onion",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "spring",
+      "onion",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🧅"
+  },
+  {
+    "id": "bb-085",
+    "name": "Potato - Fresh Crop",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.88,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "potato",
+      "fresh",
+      "crop",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥔"
+  },
+  {
+    "id": "bb-086",
+    "name": "Ladies' Fingers (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.61,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "ladies",
+      "fingers",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-087",
+    "name": "Carrot - Orange (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.82,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "winter"
+    ],
+    "tags": [
+      "carrot",
+      "orange",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊"
+  },
+  {
+    "id": "bb-088",
+    "name": "5 Mix Vegetable",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 2.49,
+    "discountedPrice": 1.64,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "mix",
+      "vegetable",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-089",
+    "name": "Winter Green Peas",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 3.49,
+    "discountedPrice": 3.11,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "winter",
+      "green",
+      "peas",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-090",
+    "name": "Cauliflower",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "cauliflower",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-091",
+    "name": "Methi - With roots",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "methi",
+      "with",
+      "roots",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-092",
+    "name": "Methi/Venthaya Keerai - Cleaned, without roots",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.42,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "methi",
+      "venthaya",
+      "keerai",
+      "cleaned",
+      "without",
+      "roots",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-093",
+    "name": "Cucumber",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.66,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "cucumber",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-094",
+    "name": "Capsicum - Green (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.97,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "capsicum",
+      "green",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-095",
+    "name": "Tomato - Local",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.69,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "tomato",
+      "local",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍅"
+  },
+  {
+    "id": "bb-096",
+    "name": "Potato",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.86,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "potato",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥔"
+  },
+  {
+    "id": "bb-097",
+    "name": "Coriander Leaves",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.99,
+    "discountedPrice": 1.59,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "coriander",
+      "leaves",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-098",
+    "name": "Potato - New Crop",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.18,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "potato",
+      "new",
+      "crop",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥔"
+  },
+  {
+    "id": "bb-099",
+    "name": "Ginger - Organically Grown (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.63,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "monsoon",
+      "winter"
+    ],
+    "tags": [
+      "ginger",
+      "organically",
+      "grown",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-100",
+    "name": "Radish - White (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.54,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "radish",
+      "white",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-101",
+    "name": "Beans - Haricot (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.69,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "beans",
+      "haricot",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-102",
+    "name": "Carrot - Red",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.69,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "carrot",
+      "red",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-103",
+    "name": "Drumstick/Moringa",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 4.49,
+    "discountedPrice": 3.59,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "drumstick",
+      "moringa",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-104",
+    "name": "Chilli - Green, Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.82,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "chilli",
+      "green",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-105",
+    "name": "Ridge Gourd",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.89,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.3,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "ridge",
+      "gourd",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-106",
+    "name": "Onion (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.95,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "onion",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🧅"
+  },
+  {
+    "id": "bb-107",
+    "name": "Bottle Gourd (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.51,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "bottle",
+      "gourd",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-108",
+    "name": "Cabbage",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.79,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "cabbage",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-109",
+    "name": "Palak - Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.99,
+    "discountedPrice": 1.57,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "palak",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-110",
+    "name": "Brinjal - Varikatri (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "brinjal",
+      "varikatri",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-111",
+    "name": "Beetroot (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.77,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "beetroot",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-112",
+    "name": "Drumstick Leaves",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "drumstick",
+      "leaves",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-113",
+    "name": "Carrots - Grated",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "carrots",
+      "grated",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-114",
+    "name": "Drumstick - Cut",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.99,
+    "discountedPrice": 1.51,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "drumstick",
+      "cut",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-115",
+    "name": "Drumstick - Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "drumstick",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-116",
+    "name": "Carrot Red Halwa",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.13,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "carrot",
+      "red",
+      "halwa",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-117",
+    "name": "Potato - Chandramukhi, Organically Grown",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 1.19,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "potato",
+      "chandramukhi",
+      "organically",
+      "grown",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥔"
+  },
+  {
+    "id": "bb-118",
+    "name": "Tomato - Hybrid (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.63,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.4,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "tomato",
+      "hybrid",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍅"
+  },
+  {
+    "id": "bb-119",
+    "name": "Bitter Gourd (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.72,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.2,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "bitter",
+      "gourd",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
+  },
+  {
+    "id": "bb-120",
+    "name": "Coccinia (Loose)",
+    "brand": "Fresho",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Vegetable",
+    "price": 1.49,
+    "discountedPrice": 0.85,
+    "unit": "pack",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "coccinia",
+      "loose",
+      "fresho",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "📦"
   }
 ]
