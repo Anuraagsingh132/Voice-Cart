@@ -17,13 +17,14 @@ export function VoiceStatus({
   feedback,
   onRetry,
 }: VoiceStatusProps) {
-  // If user is currently speaking and interim transcript is streaming in
+  // Live streaming transcript while user is speaking
   if (voiceState === 'listening' && interimTranscript) {
     return (
-      <div className="bg-primary/10 backdrop-blur-md border border-primary/25 rounded-full py-2 px-4 flex items-center justify-center gap-2 shadow-xs shadow-primary/10 mx-auto max-w-md sticky top-20 z-40 animate-fade-in-down">
-        <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse flex-shrink-0" />
-        <p className="text-xs md:text-sm font-medium text-primary truncate">
-          Listening: &ldquo;{interimTranscript}&rdquo;
+      <div className="bg-emerald-600 text-white border border-emerald-500 rounded-full py-2 px-5 flex items-center justify-center gap-2.5 shadow-md shadow-emerald-600/20 mx-auto max-w-md sticky top-16 z-40 animate-fade-in-down">
+        <div className="w-2.5 h-2.5 rounded-full bg-white animate-pulse flex-shrink-0" />
+        <p className="text-xs md:text-sm font-medium text-white truncate flex items-center">
+          <span>&ldquo;{interimTranscript}&rdquo;</span>
+          <span className="inline-block w-1.5 h-3.5 bg-white ml-1.5 animate-pulse rounded-xs" />
         </p>
       </div>
     );
@@ -37,21 +38,21 @@ export function VoiceStatus({
   const { status, message, transcript } = feedback;
 
   return (
-    <div className="w-full max-w-md mx-auto sticky top-20 z-40 animate-fade-in-down transition-all">
+    <div className="w-full max-w-md mx-auto sticky top-16 z-40 animate-fade-in-down transition-all">
       {status === 'processing' && (
-        <div className="bg-amber-50/95 backdrop-blur-md border border-amber-200 rounded-full py-2 px-4 flex items-center justify-center gap-2 shadow-xs">
-          <Loader2 className="w-4 h-4 text-amber-600 animate-spin flex-shrink-0" />
-          <span className="text-xs md:text-sm font-medium text-amber-900 truncate">
+        <div className="bg-amber-500 text-white border border-amber-400 rounded-full py-2 px-5 flex items-center justify-center gap-2.5 shadow-md shadow-amber-500/20">
+          <Loader2 className="w-4 h-4 text-white animate-spin flex-shrink-0" />
+          <span className="text-xs md:text-sm font-medium text-white truncate">
             {transcript ? `Parsing "${transcript}"...` : 'Analyzing your voice command...'}
           </span>
         </div>
       )}
 
       {status === 'success' && (
-        <div className="bg-emerald-50/95 backdrop-blur-md border border-emerald-200 rounded-full py-2 px-4 flex items-center justify-between gap-2 shadow-xs">
+        <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full py-2 px-5 flex items-center justify-between gap-2 shadow-xs">
           <div className="flex items-center gap-2 overflow-hidden">
-            <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-            <p className="text-xs md:text-sm font-semibold text-emerald-950 truncate">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <p className="text-xs md:text-sm font-semibold text-emerald-900 truncate">
               {message || 'Action completed!'}
             </p>
           </div>
@@ -59,10 +60,10 @@ export function VoiceStatus({
       )}
 
       {status === 'error' && (
-        <div className="bg-rose-50/95 backdrop-blur-md border border-rose-200 rounded-full py-2 px-4 flex items-center justify-between gap-2 shadow-xs">
+        <div className="bg-rose-50 text-rose-800 border border-rose-200 rounded-full py-2 px-5 flex items-center justify-between gap-2 shadow-xs">
           <div className="flex items-center gap-2 overflow-hidden pr-2">
             <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
-            <p className="text-xs md:text-sm font-semibold text-rose-950 truncate">
+            <p className="text-xs md:text-sm font-semibold text-rose-900 truncate">
               {message || 'Could not understand command.'}
             </p>
           </div>

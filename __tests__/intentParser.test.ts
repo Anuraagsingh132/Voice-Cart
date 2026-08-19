@@ -1,7 +1,18 @@
 import { describe, it, expect } from 'vitest';
-import { parseIntentClientFallback, isShoppingRelated } from '@/lib/intentParser';
+import { parseIntentClientFallback, isShoppingRelated, normalizeItemName } from '@/lib/intentParser';
 
 describe('parseIntentClientFallback & Residual Speech Filter', () => {
+  it('normalizes item names and strips stray unit words or transliteration fragments', () => {
+    expect(normalizeItemName('kilo ab ginger')).toBe('Ginger');
+    expect(normalizeItemName('kg bread')).toBe('Bread');
+    expect(normalizeItemName('ek aalu')).toBe('Aalu');
+    expect(normalizeItemName('some apples')).toBe('Apples');
+
+    const res = parseIntentClientFallback('Add kilo ab ginger');
+    expect(res.intent).toBe('ADD');
+    expect(res.item).toBe('Ginger');
+  });
+
   it('identifies shopping-related queries and filters casual background chatter', () => {
     expect(isShoppingRelated('Add milk')).toBe(true);
     expect(isShoppingRelated('5 eggs and two breads')).toBe(true);

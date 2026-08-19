@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
-import { Sun, ArrowLeftRight, History, Plus, Check } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Sun, ArrowLeftRight, History, Plus, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { Suggestion } from '@/types';
 
 export function Suggestions() {
   const { suggestions, acceptSuggestion, items } = useShoppingList();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   if (!suggestions || suggestions.length === 0) {
     return null;
@@ -19,48 +20,77 @@ export function Suggestions() {
     );
   };
 
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const offset = direction === 'left' ? -260 : 260;
+      scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
+
   const getBadgeInfo = (type: Suggestion['type']) => {
     switch (type) {
       case 'seasonal':
         return {
           icon: Sun,
           label: 'Peak Season',
-          color: 'text-orange-600',
-          bg: 'bg-orange-50',
-          border: 'border-orange-200',
+          color: 'text-amber-700',
+          bg: 'bg-amber-100',
         };
       case 'substitute':
         return {
           icon: ArrowLeftRight,
           label: 'Healthy Swap',
-          color: 'text-blue-600',
-          bg: 'bg-blue-50',
-          border: 'border-blue-200',
+          color: 'text-sky-700',
+          bg: 'bg-sky-100',
         };
       case 'history':
       default:
         return {
           icon: History,
           label: 'Usually Bought',
-          color: 'text-purple-600',
-          bg: 'bg-purple-50',
-          border: 'border-purple-200',
+          color: 'text-emerald-700',
+          bg: 'bg-emerald-100',
         };
     }
   };
 
   return (
-    <section className="w-full">
-      <div className="flex justify-between items-center mb-3">
-        <h2 className="text-lg md:text-xl font-bold text-on-surface tracking-tight">
-          Smart Suggestions
-        </h2>
-        <span className="text-xs text-neutral-400 font-medium hidden sm:inline">
-          GroceryStoreDataset Recommendations
-        </span>
+    <section className="w-full relative group/carousel">
+      {/* Section Header */}
+      <div className="flex justify-between items-end mb-3">
+        <div>
+          <h2 className="text-lg md:text-xl font-bold text-neutral-900 tracking-tight">
+            Smart Suggestions
+          </h2>
+          <p className="text-xs text-neutral-400 font-medium">
+            Based on your list and seasonal picks
+          </p>
+        </div>
+
+        {/* Carousel Arrow Controls */}
+        <div className="flex items-center gap-1.5 opacity-0 group-hover/carousel:opacity-100 transition-opacity">
+          <button
+            onClick={() => scroll('left')}
+            aria-label="Scroll suggestions left"
+            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => scroll('right')}
+            aria-label="Scroll suggestions right"
+            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      <div className="flex gap-3.5 overflow-x-auto hide-scroll pb-2 carousel-container px-1 -mx-1">
+      {/* Snap Scroll Container with partial card peek */}
+      <div
+        ref={scrollContainerRef}
+        className="flex gap-4 overflow-x-auto hide-scroll pb-2 snap-x snap-mandatory px-1 -mx-1"
+      >
         {suggestions.map((s) => {
           const badge = getBadgeInfo(s.type);
           const BadgeIcon = badge.icon;
@@ -70,24 +100,24 @@ export function Suggestions() {
           return (
             <div
               key={s.id}
-              className="w-52 md:w-60 flex-shrink-0 snap-start bg-white border border-neutral-200/90 rounded-2xl p-3.5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              className="w-56 md:w-64 flex-shrink-0 snap-start bg-white border border-neutral-200/90 rounded-2xl p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
-                {/* Top Badge */}
+                {/* Badge */}
                 <div className="flex items-center gap-1.5 mb-2">
-                  <span className={`inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${badge.bg} ${badge.color} ${badge.border}`}>
+                  <span className={`inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${badge.bg} ${badge.color}`}>
                     <BadgeIcon className="w-3 h-3" />
                     {badge.label}
                   </span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xs md:text-sm font-bold text-neutral-900 mb-2 truncate" title={s.item}>
+                {/* Dominant Product Title */}
+                <h3 className="text-base font-bold text-neutral-900 mb-2 truncate" title={s.item}>
                   {s.item}
                 </h3>
 
-                {/* Visual Image Preview */}
-                <div className="h-28 w-full rounded-xl mb-2.5 bg-neutral-50 border border-neutral-100 overflow-hidden flex items-center justify-center p-2 relative">
+                {/* Optical Centered Image with soft neutral backdrop */}
+                <div className="h-28 w-full rounded-xl mb-3 bg-neutral-50 border border-neutral-100 flex items-center justify-center p-2.5 overflow-hidden relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={imgSrc}
@@ -97,24 +127,24 @@ export function Suggestions() {
                 </div>
 
                 {/* Description */}
-                <p className="text-[11px] text-neutral-500 mb-3 line-clamp-2 leading-relaxed" title={s.description || s.reason}>
+                <p className="text-xs text-neutral-500 mb-3.5 line-clamp-2 leading-relaxed" title={s.description || s.reason}>
                   {s.description || s.reason}
                 </p>
               </div>
 
-              {/* Action Button */}
+              {/* Action Button: Consistent Emerald Palette */}
               <button
                 onClick={() => acceptSuggestion(s)}
                 disabled={onList}
                 className={`w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold transition-all active:scale-95 ${
                   onList
-                    ? 'bg-primary-container text-white cursor-default'
-                    : 'bg-surface-container-low text-primary hover:bg-primary-container hover:text-white'
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-default'
+                    : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs'
                 }`}
               >
                 {onList ? (
                   <>
-                    <Check className="w-3.5 h-3.5" />
+                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                     <span>Added</span>
                   </>
                 ) : (
@@ -127,7 +157,8 @@ export function Suggestions() {
             </div>
           );
         })}
-        <div className="w-2 flex-shrink-0" />
+        {/* Spacer for intentional peek effect */}
+        <div className="w-4 flex-shrink-0" />
       </div>
     </section>
   );

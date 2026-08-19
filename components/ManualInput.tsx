@@ -4,49 +4,53 @@ import React, { useState } from 'react';
 import { Send, Keyboard, Loader2 } from 'lucide-react';
 
 interface ManualInputProps {
-  onProcessText: (text: string) => Promise<void> | void;
+  onProcessText: (text: string) => void;
   isProcessing: boolean;
 }
 
 export function ManualInput({ onProcessText, isProcessing }: ManualInputProps) {
-  const [inputVal, setInputVal] = useState('');
+  const [inputText, setInputText] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputVal.trim() || isProcessing) return;
+    if (!inputText.trim() || isProcessing) return;
 
-    const query = inputVal.trim();
-    setInputVal('');
-    await onProcessText(query);
+    onProcessText(inputText.trim());
+    setInputText('');
   };
 
+  const hasText = inputText.trim().length > 0;
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-2xl mx-auto"
-    >
-      <div className="w-full bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-full flex items-center px-4 md:px-5 py-2 md:py-2.5 shadow-sm hover:shadow-md transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-        <Keyboard className="w-5 h-5 text-neutral-400 mr-2.5 flex-shrink-0" />
+    <form onSubmit={handleSubmit} className="w-full max-w-xl">
+      <div className="relative flex items-center bg-white/95 backdrop-blur-md rounded-full shadow-md border border-neutral-200/90 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition-all p-1.5">
+        <div className="pl-3.5 pr-2 text-neutral-400">
+          <Keyboard className="w-4 h-4" />
+        </div>
 
         <input
           type="text"
-          value={inputVal}
-          onChange={(e) => setInputVal(e.target.value)}
-          disabled={isProcessing}
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
           placeholder="Or type an item to add, search, or modify..."
-          className="w-full bg-transparent border-none focus:outline-none text-on-surface text-xs md:text-sm placeholder-neutral-400 p-0"
+          disabled={isProcessing}
+          className="w-full bg-transparent text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none disabled:opacity-50 py-1.5 font-medium"
         />
 
         <button
           type="submit"
-          disabled={!inputVal.trim() || isProcessing}
+          disabled={!hasText || isProcessing}
           aria-label="Submit command"
-          className="text-white bg-primary hover:bg-primary-container disabled:bg-neutral-200 disabled:text-neutral-400 p-2 rounded-full transition-all ml-2 flex-shrink-0 active:scale-95 shadow-2xs"
+          className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 flex-shrink-0 active:scale-95 ${
+            hasText && !isProcessing
+              ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs scale-100 cursor-pointer'
+              : 'text-neutral-300 bg-transparent cursor-not-allowed scale-95'
+          }`}
         >
           {isProcessing ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-neutral-400" />
           ) : (
-            <Send className="w-4 h-4" />
+            <Send className="w-3.5 h-3.5" />
           )}
         </button>
       </div>

@@ -21,17 +21,17 @@ export function SearchResults() {
   };
 
   return (
-    <section className="w-full my-6 bg-white/95 backdrop-blur-md rounded-3xl border border-primary/30 p-5 md:p-6 shadow-md animate-fade-in-down">
+    <section className="w-full my-6 bg-white rounded-3xl border border-emerald-300 p-5 md:p-6 shadow-md animate-fade-in-down">
       {/* Header */}
       <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-neutral-100">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+          <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700">
             <Search className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-on-surface flex items-center gap-2">
-              <span>GroceryStoreDataset Catalog</span>
-              <span className="text-xs font-semibold bg-primary-container text-white px-2 py-0.5 rounded-full">
+            <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2">
+              <span>Catalog Search Results</span>
+              <span className="text-xs font-semibold bg-emerald-600 text-white px-2 py-0.5 rounded-full">
                 {totalMatches} {totalMatches === 1 ? 'match' : 'matches'}
               </span>
             </h3>
@@ -81,7 +81,7 @@ export function SearchResults() {
             No matching products found
           </p>
           <p className="text-xs text-neutral-500 max-w-xs mx-auto">
-            Try searching for items like &ldquo;Golden Delicious&rdquo;, &ldquo;Apple Juice&rdquo;, &ldquo;Milk&rdquo;, or &ldquo;Potato&rdquo;.
+            Try searching for items like &ldquo;Apple Juice&rdquo;, &ldquo;Milk&rdquo;, &ldquo;Potato&rdquo;, or &ldquo;Orange&rdquo;.
           </p>
         </div>
       ) : (
@@ -91,16 +91,16 @@ export function SearchResults() {
             return (
               <div
                 key={product.id}
-                className="flex items-center justify-between p-3 rounded-2xl border border-neutral-200/80 bg-neutral-50/50 hover:bg-white hover:border-primary/40 transition-all shadow-2xs group"
+                className="flex items-center justify-between p-3 rounded-2xl border border-neutral-200 bg-neutral-50/60 hover:bg-white hover:border-emerald-300 transition-all shadow-2xs group"
               >
                 <div className="flex items-center gap-3 min-w-0 mr-2">
                   {product.image ? (
-                    <div className="w-12 h-12 rounded-xl bg-white border border-neutral-200 overflow-hidden flex-shrink-0 relative shadow-2xs">
+                    <div className="w-12 h-12 rounded-xl bg-white border border-neutral-200 flex items-center justify-center p-1 overflow-hidden flex-shrink-0 relative shadow-2xs">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-cover"
+                        className="max-h-full max-w-full object-contain"
                       />
                     </div>
                   ) : (
@@ -123,7 +123,7 @@ export function SearchResults() {
                         {product.brand}
                       </span>
                       <span className="text-neutral-300">•</span>
-                      <span className="text-xs font-bold text-primary">
+                      <span className="text-xs font-bold text-emerald-700">
                         ${product.discountedPrice ?? product.price}
                       </span>
                       {product.discountedPrice && (
@@ -146,13 +146,13 @@ export function SearchResults() {
                   }
                   className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex-shrink-0 active:scale-95 ${
                     onList
-                      ? 'bg-primary-container text-white'
-                      : 'bg-primary hover:bg-primary-container text-white shadow-2xs'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-default'
+                      : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs'
                   }`}
                 >
                   {onList ? (
                     <>
-                      <Check className="w-3.5 h-3.5" />
+                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                       <span>Added</span>
                     </>
                   ) : (

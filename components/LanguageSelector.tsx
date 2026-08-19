@@ -26,7 +26,7 @@ export function LanguageSelector({
 
   return (
     <div className="relative inline-flex items-center">
-      <div className="flex items-center gap-2 bg-white border border-neutral-200 rounded-xl px-3 py-1.5 shadow-2xs text-xs font-semibold text-neutral-800 hover:border-neutral-300 transition focus-within:ring-2 focus-within:ring-primary/20">
+      <div className="flex items-center gap-2 bg-white border border-neutral-200 rounded-xl px-3 py-1.5 shadow-2xs text-xs font-semibold text-neutral-800 hover:border-neutral-300 transition focus-within:ring-2 focus-within:ring-emerald-500/20">
         <Globe className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" />
         <span className="text-sm flex-shrink-0">{selectedLang.flag}</span>
         

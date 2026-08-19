@@ -47,9 +47,15 @@ export function VoiceButton({
 
   return (
     <div className="relative w-20 h-20 flex items-center justify-center">
-      {/* Listening Ring (Active State with pulse ripple animation) */}
+      {/* Listening Ripple Rings: Staggered Visible Pulses */}
       {isListening && (
-        <div className="absolute inset-0 rounded-full bg-rose-500/20 border-2 border-rose-500/40 mic-pulse pointer-events-none" />
+        <>
+          <div className="absolute inset-0 rounded-full bg-rose-500/30 animate-ping pointer-events-none" />
+          <div
+            className="absolute inset-0 rounded-full bg-rose-500/20 animate-ping pointer-events-none"
+            style={{ animationDelay: '350ms' }}
+          />
+        </>
       )}
 
       {/* Primary Voice Button */}
@@ -62,15 +68,15 @@ export function VoiceButton({
             ? 'bg-rose-600 shadow-rose-500/40 text-white scale-105'
             : isProcessing
             ? 'bg-amber-500 shadow-amber-500/40 text-white'
-            : 'bg-primary hover:bg-primary-container shadow-primary/40 hover:scale-105 text-white'
+            : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/30 hover:scale-105 text-white'
         }`}
       >
         {isProcessing ? (
-          <Loader2 className="w-6 h-6 animate-spin" />
+          <Loader2 className="w-6 h-6 animate-spin text-white" />
         ) : isListening ? (
-          <Square className="w-6 h-6 fill-white" />
+          <Square className="w-5 h-5 fill-white text-white" />
         ) : (
-          <Mic className="w-7 h-7" />
+          <Mic className="w-7 h-7 text-white" />
         )}
       </button>
     </div>

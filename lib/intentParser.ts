@@ -71,6 +71,24 @@ function cleanPhoneticMistakes(text: string): string {
     .replace(/\bbanan\b/gi, 'banana');
 }
 
+export function normalizeItemName(name: string): string {
+  if (!name) return '';
+  let clean = name.trim();
+
+  // Strip leading stray unit words, transliteration fragments, or filler particles (e.g. "kilo ab ginger" -> "Ginger")
+  clean = clean
+    .replace(/^(?:some|any|a|an|the|of|kilo|kilos|kg|litres?|liters?|grams?|packs?|bottles?|dozen|pieces?|pcs|loaves|loaf|box|boxes|can|cans|ek|do|ab|aur|bhi|chahiye|de|un|una|des|du|der|die|das)\s+/gi, '')
+    .replace(/\s+(?:chahiye|do|daalo|jodo|lao|please|plz)$/gi, '')
+    .trim();
+
+  // Repeat once to catch chained prefixes like "kilo ab"
+  clean = clean
+    .replace(/^(?:kilo|kilos|kg|litres?|liters?|grams?|packs?|bottles?|pieces?|pcs|ab|ek|aur)\s+/gi, '')
+    .trim();
+
+  return capitalize(clean);
+}
+
 /**
  * Parse a single item clause into item name, quantity, and unit
  */
@@ -105,12 +123,12 @@ function parseSingleItemClause(clause: string): ParsedItemEntity | null {
     }
   }
 
-  extractedItem = extractedItem.replace(/^(some|any|a|an|the)\s+/i, '').trim();
+  const finalName = normalizeItemName(extractedItem);
 
-  if (!extractedItem || extractedItem.length < 2) return null;
+  if (!finalName || finalName.length < 2) return null;
 
   return {
-    item: capitalize(extractedItem),
+    item: finalName,
     quantity,
     unit,
   };
