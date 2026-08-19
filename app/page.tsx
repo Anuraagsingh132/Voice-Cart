@@ -145,6 +145,10 @@ export default function Home() {
           interimTranscript={interimTranscript}
           feedback={feedback}
           onRetry={startListening}
+          onUndo={async () => {
+            await undoLastCommand();
+            setFeedback((prev) => ({ ...prev, status: 'idle' }));
+          }}
         />
 
         {/* Voice Search Results Tray */}

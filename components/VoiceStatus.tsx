@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CheckCircle2, AlertCircle, RefreshCw, Loader2, Mic } from 'lucide-react';
+import { CheckCircle2, AlertCircle, RefreshCw, Loader2, Mic, Undo2 } from 'lucide-react';
 import { VoiceFeedback, VoiceState } from '@/types';
 
 interface VoiceStatusProps {
@@ -9,6 +9,7 @@ interface VoiceStatusProps {
   interimTranscript: string;
   feedback: VoiceFeedback;
   onRetry?: () => void;
+  onUndo?: () => void;
 }
 
 export function VoiceStatus({
@@ -16,6 +17,7 @@ export function VoiceStatus({
   interimTranscript,
   feedback,
   onRetry,
+  onUndo,
 }: VoiceStatusProps) {
   // Live streaming transcript while user is speaking
   if (voiceState === 'listening' && interimTranscript) {
@@ -79,9 +81,19 @@ export function VoiceStatus({
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full flex-shrink-0">
-            Executed
-          </span>
+          {onUndo ? (
+            <button
+              onClick={onUndo}
+              className="flex items-center gap-1 text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-3 py-1 rounded-xl transition flex-shrink-0 shadow-xs active:scale-95 border border-neutral-300"
+            >
+              <Undo2 className="w-3 h-3" />
+              <span>Undo</span>
+            </button>
+          ) : (
+            <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full flex-shrink-0">
+              Executed
+            </span>
+          )}
         </div>
       )}
 
