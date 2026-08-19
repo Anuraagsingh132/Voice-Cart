@@ -8,9 +8,17 @@ export interface SearchFilters {
   category?: string | null;
 }
 
+export interface ParsedItemEntity {
+  item: string;
+  quantity?: number;
+  unit?: string;
+  brand?: string;
+}
+
 export interface ParsedIntent {
   intent: IntentType;
   item?: string | null;
+  items?: ParsedItemEntity[]; // Multi-item compound commands support (e.g. "5 eggs and 2 breads")
   quantity?: number | null;
   unit?: string | null;
   targetItem?: string | null; // For MODIFY or substitute replacement

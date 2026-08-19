@@ -10,6 +10,30 @@ describe('parseIntentClientFallback (NLP Fallback Parser)', () => {
     expect(res.unit).toBe('pieces');
   });
 
+  it('parses compound multi-item commands (e.g. 5 eggs and two breads)', () => {
+    const res = parseIntentClientFallback('5 eggs and two breads');
+    expect(res.intent).toBe('ADD');
+    expect(res.items).toBeDefined();
+    expect(res.items?.length).toBe(2);
+
+    expect(res.items?.[0].item).toBe('Eggs');
+    expect(res.items?.[0].quantity).toBe(5);
+
+    expect(res.items?.[1].item).toBe('Bread');
+    expect(res.items?.[1].quantity).toBe(2);
+  });
+
+  it('parses compound commands with phonetic misspellings (e.g. breadth)', () => {
+    const res = parseIntentClientFallback('Add 5 eggs and two breadth');
+    expect(res.intent).toBe('ADD');
+    expect(res.items).toBeDefined();
+    expect(res.items?.length).toBe(2);
+    expect(res.items?.[0].item).toBe('Eggs');
+    expect(res.items?.[0].quantity).toBe(5);
+    expect(res.items?.[1].item).toBe('Bread');
+    expect(res.items?.[1].quantity).toBe(2);
+  });
+
   it('parses varied phrasing for ADD intent', () => {
     const res1 = parseIntentClientFallback('I want to buy bananas');
     expect(res1.intent).toBe('ADD');

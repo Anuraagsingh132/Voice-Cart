@@ -31,46 +31,78 @@ export async function POST(request: Request) {
 
     const groq = new Groq({ apiKey });
 
-    const systemPrompt = `You are a specialized AI assistant for a Voice Command Shopping List application.
-Your job is to parse the user's spoken voice command into a structured JSON object representing their intent.
+    const systemPrompt = `You are an expert AI assistant for a Voice Command Shopping List application.
+Your job is to parse spoken voice commands into clean, structured JSON representing user intent.
 
-The user might speak in English, Hindi ("doodh jod do", "kela hatao"), Spanish ("agrega leche", "buscar pasta"), French, German, or mixed phrasing.
-Translate the recognized item name into clear English or standard grocery terms.
+The user might speak in English, Hindi ("doodh jod do", "kela aur bread"), Spanish ("agrega leche y pan"), French, German, or mixed phrases.
+CRITICAL: Correct phonetic speech-to-text misspellings into standard grocery items:
+- "breadth" / "bred" -> "Bread"
+- "malk" / "melk" / "doodh" -> "Milk"
+- "ande" / "egg" -> "Eggs"
+- "banan" / "kela" -> "Bananas"
+- "watar" / "pani" -> "Water"
 
 SUPPORTED INTENTS:
-- "ADD": User wants to add one or more items to their shopping list (e.g., "Add milk", "I need 2 bottles of water", "I want to buy bananas", "put eggs on the list", "doodh daalo").
-- "REMOVE": User wants to remove/delete an item from list (e.g., "Remove milk from my list", "delete apples", "take out bread", "kela hatao").
-- "MODIFY": User wants to change the quantity or unit of an existing item (e.g., "Change apples to 3", "make bananas 5", "update milk to 2 liters", "increase eggs to 12").
-- "SEARCH": User wants to search for products or filter by brand/price (e.g., "Find me organic apples", "Find toothpaste under $5", "search for Fresho milk", "show gluten free snacks").
-- "CLEAR": User wants to clear/empty the whole shopping list (e.g., "Clear my list", "empty cart", "delete everything").
-- "HELP": User asks what commands they can say (e.g., "what can I do", "help me").
-- "UNKNOWN": If the user's speech is completely unrelated or nonsensical.
+- "ADD": User wants to add one or MORE items (e.g., "5 eggs and two breads", "Add milk, 2 apples and bread", "I want to buy bananas").
+- "REMOVE": User wants to remove one or more items (e.g., "Remove milk from my list", "delete eggs and apples").
+- "MODIFY": User wants to change quantity/unit (e.g., "Change apples to 3", "make bananas 5").
+- "SEARCH": User wants to search/filter products (e.g., "Find me organic apples", "Find toothpaste under $5").
+- "CLEAR": User wants to clear/empty the whole shopping list.
+- "HELP": User asks what commands they can say.
+- "UNKNOWN": Completely unrelated speech.
+
+COMPOUND MULTI-ITEM SUPPORT (VERY IMPORTANT):
+If the user mentions multiple items in a single sentence (e.g., "5 eggs and two breads", "milk and cookies", "add 2 waters, 5 apples, and a loaf of bread"):
+You MUST populate the "items" array with individual objects for each item!
 
 JSON OUTPUT SCHEMA:
 {
   "intent": "ADD" | "REMOVE" | "MODIFY" | "SEARCH" | "CLEAR" | "HELP" | "UNKNOWN",
-  "item": string | null,         // Clean normalized item name (e.g. "Milk", "Organic Fuji Apples", "Toothpaste")
-  "quantity": number,            // Numeric quantity (default 1 if unspecified)
-  "unit": string,                // Standard unit: "pieces", "bottles", "kg", "grams", "liters", "packs", "cans", "boxes", "bunch", "carton"
-  "targetItem": string | null,   // For MODIFY, the item to change
+  "items": [
+    {
+      "item": string,           // Clean singular or standard grocery name (e.g. "Eggs", "Bread", "Whole Milk")
+      "quantity": number,       // Parsed numeric quantity (e.g. 5, 2, 1)
+      "unit": string,           // "pieces", "bottles", "packs", "kg", "liters", "cans", "boxes", "loaf"
+      "brand": string | null
+    }
+  ],
+  "item": string | null,        // Primary item or comma-separated summary (e.g. "Eggs, Bread")
+  "quantity": number,           // First item quantity
+  "unit": string,               // First item unit
+  "targetItem": string | null,  // For MODIFY, the item to change
   "filters": {
-    "brand": string | null,      // e.g., "Fresho", "Colgate", "Amul"
-    "priceMax": number | null,   // Max price ceiling if mentioned (e.g., "under $5" -> 5)
-    "priceMin": number | null,   // Min price floor if mentioned (e.g., "above $3" -> 3)
-    "size": string | null,       // e.g., "1kg", "large", "500ml"
-    "category": string | null    // e.g., "Dairy", "Produce", "Personal Care"
+    "brand": string | null,
+    "priceMax": number | null,  // Max price ceiling if mentioned (e.g., "under $5" -> 5)
+    "priceMin": number | null,
+    "size": string | null,
+    "category": string | null
   },
-  "confidence": number,          // Float between 0.0 and 1.0
-  "explanation": string          // Brief 1-sentence explanation of what was extracted
+  "confidence": number,         // 0.0 to 1.0
+  "explanation": string         // Summary message, e.g. "Add 5 Eggs and 2 Bread"
 }
 
-CRITICAL RULES:
-1. Return ONLY pure valid JSON without markdown wrapping or code fences.
-2. For "Add 2 bottles of water" -> intent: "ADD", item: "Water", quantity: 2, unit: "bottles".
-3. For "Find toothpaste under $5" -> intent: "SEARCH", item: "Toothpaste", filters: { priceMax: 5 }.
-4. For "Change apples to 3" -> intent: "MODIFY", item: "Apples", quantity: 3.
-5. For "I want to buy bananas" -> intent: "ADD", item: "Bananas", quantity: 1, unit: "bunch".
-6. Always extract realistic numeric bounds for priceMax/priceMin when user says "under $X", "less than X", "cheaper than X", "between X and Y".`;
+EXAMPLES:
+1. "5 eggs and two breads" ->
+   intent: "ADD",
+   items: [
+     {"item": "Eggs", "quantity": 5, "unit": "pieces"},
+     {"item": "Bread", "quantity": 2, "unit": "pieces"}
+   ],
+   explanation: "Add 5 Eggs and 2 Bread"
+
+2. "Add 2 bottles of water and milk" ->
+   intent: "ADD",
+   items: [
+     {"item": "Water", "quantity": 2, "unit": "bottles"},
+     {"item": "Milk", "quantity": 1, "unit": "pieces"}
+   ]
+
+3. "Find toothpaste under $5" ->
+   intent: "SEARCH",
+   item: "Toothpaste",
+   filters: {"priceMax": 5}
+
+Return ONLY pure valid JSON.`;
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
@@ -82,7 +114,7 @@ CRITICAL RULES:
       ],
       model: 'llama-3.1-8b-instant',
       temperature: 0.1,
-      max_tokens: 300,
+      max_tokens: 400,
       response_format: { type: 'json_object' },
     });
 
@@ -92,7 +124,6 @@ CRITICAL RULES:
     try {
       parsed = JSON.parse(content);
     } catch {
-      // Clean possible stray characters
       const jsonMatch = content.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         parsed = JSON.parse(jsonMatch[0]);

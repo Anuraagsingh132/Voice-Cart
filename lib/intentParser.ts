@@ -1,11 +1,77 @@
-import { ParsedIntent } from '@/types';
+import { ParsedIntent, ParsedItemEntity } from '@/types';
+
+const numberWordMap: Record<string, number> = {
+  one: 1, a: 1, an: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
+  nine: 9, ten: 10, eleven: 11, twelve: 12, dozen: 12, 'half a dozen': 6,
+};
+
+/**
+ * Phonetic/speech recognition normalizer for grocery terms
+ */
+function cleanPhoneticMistakes(text: string): string {
+  return text
+    .replace(/\bbreadth\b/gi, 'bread')
+    .replace(/\bbreads\b/gi, 'bread')
+    .replace(/\bbred\b/gi, 'bread')
+    .replace(/\bmalk\b/gi, 'milk')
+    .replace(/\bmelk\b/gi, 'milk')
+    .replace(/\bwatar\b/gi, 'water')
+    .replace(/\bbanan\b/gi, 'banana');
+}
+
+/**
+ * Parse a single item clause into item name, quantity, and unit
+ */
+function parseSingleItemClause(clause: string): ParsedItemEntity | null {
+  let clean = clause.trim();
+  if (!clean) return null;
+
+  // Clean leading noise words
+  clean = clean
+    .replace(/^(please\s+)?(i\s+want\s+(?:to\s+(?:buy|get)\s+)?|i\s+need\s+(?:to\s+(?:buy|get)\s+)?|put\s+|add\s+|buy\s+|get\s+|purchase\s+|need\s+|want\s+|bring\s+|jodo\s+|daalo\s+|lao\s+|agregar\s+)+/i, '')
+    .replace(/\s+(to|on|into)\s+(my\s+)?(shopping\s+)?(list|cart)$/i, '')
+    .trim();
+
+  clean = cleanPhoneticMistakes(clean);
+
+  let quantity = 1;
+  let unit = 'pieces';
+  let extractedItem = clean;
+
+  // Pattern: "5 eggs", "2 bottles of water", "a loaf of bread", "two packs of chips"
+  const qtyMatch = clean.match(/^(\d+(?:\.\d+)?|one|a|an|two|three|four|five|six|seven|eight|nine|ten|twelve|dozen)\s+(bottles?|packs?|cartons?|cans?|boxes?|bags?|bunches?|kg|grams?|liters?|pcs?|pieces?|loaves|loaf)?\s*(?:of\s+)?(.+)$/i);
+
+  if (qtyMatch) {
+    const qtyStr = qtyMatch[1].toLowerCase();
+    const parsedNum = numberWordMap[qtyStr] !== undefined ? numberWordMap[qtyStr] : parseFloat(qtyStr);
+    quantity = isNaN(parsedNum) ? 1 : parsedNum;
+    unit = qtyMatch[2] ? normalizeUnit(qtyMatch[2]) : 'pieces';
+    extractedItem = qtyMatch[3].trim();
+  } else {
+    const simpleQtyMatch = clean.match(/^(\d+)\s+(.+)$/);
+    if (simpleQtyMatch) {
+      quantity = parseInt(simpleQtyMatch[1], 10);
+      extractedItem = simpleQtyMatch[2].trim();
+    }
+  }
+
+  extractedItem = extractedItem.replace(/^(some|any|a|an|the)\s+/i, '').trim();
+
+  if (!extractedItem || extractedItem.length < 2) return null;
+
+  return {
+    item: capitalize(extractedItem),
+    quantity,
+    unit,
+  };
+}
 
 /**
  * Intelligent client-side heuristic NLP fallback parser.
- * Handles English and multilingual commands if API is unavailable or unconfigured.
+ * Handles single and compound multi-item commands (e.g. "5 eggs and two breads").
  */
 export function parseIntentClientFallback(transcript: string): ParsedIntent {
-  const clean = (transcript || '').toLowerCase().trim();
+  const clean = cleanPhoneticMistakes((transcript || '').toLowerCase().trim());
 
   // 1. CLEAR LIST INTENT
   if (/^(clear|empty|delete all|remove all|reset)\s*(the|my)?\s*(list|cart|items)?$/i.test(clean)) {
@@ -34,7 +100,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   if (searchMatch) {
     let queryBody = searchMatch[2].trim();
 
-    // Extract price ceiling (e.g. "under $5", "below 5", "less than 10 dollars", "under 5")
     let priceMax: number | null = null;
     let priceMin: number | null = null;
 
@@ -50,7 +115,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
       queryBody = queryBody.replace(aboveMatch[0], '').trim();
     }
 
-    // Extract brand if common
     let brand: string | null = null;
     const brands = ['Fresho', 'Amul', 'Colgate', 'Sensodyne', 'Britannia', 'Dove', 'Dettol', 'Oatly', 'Silk', 'Lays', 'Barilla'];
     for (const b of brands) {
@@ -60,7 +124,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
       }
     }
 
-    // Clean query text
     const cleanItem = queryBody.replace(/\b(organic|fresh|under|for|me)\b/gi, '').trim() || queryBody;
     const finalItem = cleanItem.replace(/^(me\s+)/i, '').trim();
 
@@ -79,7 +142,7 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   }
 
   // 4. MODIFY INTENT
-  // e.g. "Change apples to 3", "make bananas 5", "update milk to 2 liters", "change quantity of eggs to 12"
+  // e.g. "Change apples to 3", "make bananas 5", "update milk to 2 liters"
   const modifyPattern = /^(change|update|make|set|modify|badlo)\s*(?:the\s*(?:quantity\s*(?:of)?)?)?\s*(.+?)(?:\s+(?:to|as|into|=)\s+|\s+)(\d+)\s*(.*)$/i;
   const modMatch = clean.match(modifyPattern);
   if (modMatch) {
@@ -100,7 +163,7 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   }
 
   // 5. REMOVE INTENT
-  // e.g. "Remove milk from my list", "delete apples", "take off bread", "hata do doodh"
+  // e.g. "Remove milk from my list", "delete apples", "take off bread"
   const removePattern = /^(remove|delete|take off|drop|cut|hatao|hata do|quitar|eliminar)\s+(.+?)(?:\s+(?:from|off)\s+(?:my\s+)?(?:list|cart))?$/i;
   const removeMatch = clean.match(removePattern);
   if (removeMatch) {
@@ -114,70 +177,66 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
     };
   }
 
-  // 6. ADD INTENT (Default action for varied shopping phrases)
-  // e.g. "Add milk", "I need apples", "I want to buy bananas", "Buy 5 oranges", "Add 2 bottles of water", "doodh jod do"
-  let phrase = clean;
-
-  // Strip prefix noise like "I want to buy", "I need to get", "please add", "add", "buy", "put"
-  phrase = phrase
+  // 6. ADD INTENT & COMPOUND MULTI-ITEM DETECTION
+  // e.g. "5 eggs and two breads", "Add milk and 2 apples", "doodh aur bread"
+  let addPhrase = clean;
+  addPhrase = addPhrase
     .replace(/^(please\s+)?(i\s+want\s+(?:to\s+(?:buy|get)\s+)?|i\s+need\s+(?:to\s+(?:buy|get)\s+)?|put\s+|add\s+|buy\s+|get\s+|purchase\s+|need\s+|want\s+|bring\s+|jodo\s+|daalo\s+|lao\s+|agregar\s+)+/i, '')
     .replace(/\s+(to|on|into)\s+(my\s+)?(shopping\s+)?(list|cart)$/i, '')
     .trim();
 
-  // Extract quantity & unit: e.g. "2 bottles of water", "5 oranges", "1 kg apples"
-  let quantity = 1;
-  let unit = 'pieces';
-  let extractedItem = phrase;
+  // Split on compound conjunctions: "and", "aur", "plus", ",", "&"
+  const parts = addPhrase.split(/\s+(?:and|aur|plus|y|\&)\s+|\s*,\s*/i).map(p => p.trim()).filter(Boolean);
 
-  const numberWordMap: Record<string, number> = {
-    one: 1, a: 1, an: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
-    nine: 9, ten: 10, eleven: 11, twelve: 12, dozen: 12, 'half a dozen': 6,
-  };
+  if (parts.length > 1) {
+    const parsedItems: ParsedItemEntity[] = [];
+    for (const part of parts) {
+      const parsed = parseSingleItemClause(part);
+      if (parsed) {
+        parsedItems.push(parsed);
+      }
+    }
 
-  // Check for leading numeric or word quantity
-  const qtyMatch = phrase.match(/^(\d+(?:\.\d+)?|one|a|an|two|three|four|five|six|seven|eight|nine|ten|twelve|dozen)\s+(bottles?|packs?|cartons?|cans?|boxes?|bags?|bunches?|kg|grams?|liters?|pcs?|pieces?)?\s*(?:of\s+)?(.+)$/i);
-
-  if (qtyMatch) {
-    const qtyStr = qtyMatch[1].toLowerCase();
-    const parsedNum = numberWordMap[qtyStr] !== undefined ? numberWordMap[qtyStr] : parseFloat(qtyStr);
-    quantity = isNaN(parsedNum) ? 1 : parsedNum;
-    unit = qtyMatch[2] ? normalizeUnit(qtyMatch[2]) : 'pieces';
-    extractedItem = qtyMatch[3].trim();
-  } else {
-    // Check if starts with just a number: "5 oranges"
-    const simpleQtyMatch = phrase.match(/^(\d+)\s+(.+)$/);
-    if (simpleQtyMatch) {
-      quantity = parseInt(simpleQtyMatch[1], 10);
-      extractedItem = simpleQtyMatch[2].trim();
+    if (parsedItems.length > 0) {
+      const itemNames = parsedItems.map(p => `${p.quantity > 1 ? `${p.quantity} ` : ''}${p.item}`).join(', ');
+      return {
+        intent: 'ADD',
+        items: parsedItems,
+        item: parsedItems.map(p => p.item).join(', '),
+        quantity: parsedItems[0].quantity,
+        unit: parsedItems[0].unit,
+        confidence: 0.9,
+        rawQuery: transcript,
+        explanation: `Add ${itemNames} to shopping list`,
+      };
     }
   }
 
-  // Final cleanup of item name
-  extractedItem = extractedItem.replace(/^(some|any|a|an)\s+/i, '').trim();
-
-  if (!extractedItem || extractedItem.length < 2) {
+  // Single item fallback
+  const singleParsed = parseSingleItemClause(addPhrase);
+  if (singleParsed) {
     return {
-      intent: 'UNKNOWN',
-      confidence: 0.2,
+      intent: 'ADD',
+      items: [singleParsed],
+      item: singleParsed.item,
+      quantity: singleParsed.quantity,
+      unit: singleParsed.unit,
+      confidence: 0.85,
       rawQuery: transcript,
-      explanation: 'Could not detect item name in voice input',
+      explanation: `Add ${singleParsed.quantity} ${singleParsed.unit} of ${singleParsed.item} to shopping list`,
     };
   }
 
   return {
-    intent: 'ADD',
-    item: capitalize(extractedItem),
-    quantity,
-    unit,
-    confidence: 0.85,
+    intent: 'UNKNOWN',
+    confidence: 0.2,
     rawQuery: transcript,
-    explanation: `Add ${quantity} ${unit} of ${capitalize(extractedItem)} to shopping list`,
+    explanation: 'Could not detect item name in voice input',
   };
 }
 
 /**
  * Main intent parsing entry point.
- * Calls Groq backend API route, falling back to client-side heuristics seamlessly.
  */
 export async function parseIntent(
   transcript: string,
@@ -206,13 +265,11 @@ export async function parseIntent(
       if (data && data.intent && data.intent !== 'UNKNOWN') {
         return data as ParsedIntent;
       }
-      // If Groq returned not-configured or unknown, use heuristic fallback
     }
   } catch (error) {
     console.warn('Backend Groq API unreachable, utilizing client NLP heuristics:', error);
   }
 
-  // Fallback to client-side regex + heuristic NLP
   return parseIntentClientFallback(transcript);
 }
 
@@ -233,6 +290,7 @@ function normalizeUnit(unit: string): string {
   if (u.startsWith('box')) return 'boxes';
   if (u.startsWith('bunch')) return 'bunches';
   if (u.startsWith('bag')) return 'bags';
+  if (u.startsWith('loaf') || u.startsWith('loave')) return 'pieces';
   if (u === 'kg' || u === 'kgs') return 'kg';
   if (u.startsWith('gram')) return 'grams';
   if (u.startsWith('liter') || u === 'l') return 'liters';

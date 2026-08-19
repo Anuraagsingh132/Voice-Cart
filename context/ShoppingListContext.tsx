@@ -305,38 +305,77 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
     (parsed: ParsedIntent): { success: boolean; message: string; type: string } => {
       switch (parsed.intent) {
         case 'ADD': {
-          if (!parsed.item) {
+          const itemsToAdd =
+            parsed.items && parsed.items.length > 0
+              ? parsed.items
+              : parsed.item
+              ? [
+                  {
+                    item: parsed.item,
+                    quantity: parsed.quantity || 1,
+                    unit: parsed.unit || 'pieces',
+                    brand: parsed.filters?.brand || undefined,
+                  },
+                ]
+              : [];
+
+          if (itemsToAdd.length === 0) {
             return {
               success: false,
               message: 'Could not identify item name to add.',
               type: 'error',
             };
           }
-          const result = addItem(
-            parsed.item,
-            parsed.quantity || 1,
-            parsed.unit || 'pieces',
-            parsed.filters?.brand || undefined
-          );
-          const feedbackMsg = result.isNew
-            ? `Added ${result.item.quantity} ${result.item.unit} of ${result.item.name}`
-            : `Increased ${result.item.name} quantity to ${result.item.quantity} ${result.item.unit}`;
+
+          const addedSummaries: string[] = [];
+          for (const it of itemsToAdd) {
+            const result = addItem(
+              it.item,
+              it.quantity || 1,
+              it.unit || 'pieces',
+              it.brand || undefined
+            );
+            addedSummaries.push(
+              `${result.item.quantity} ${result.item.unit !== 'pieces' ? `${result.item.unit} ` : ''}${result.item.name}`
+            );
+          }
+
+          const feedbackMsg =
+            itemsToAdd.length === 1
+              ? `Added ${addedSummaries[0]}`
+              : `Added ${addedSummaries.join(' and ')}`;
+
           return { success: true, message: feedbackMsg, type: 'success' };
         }
 
         case 'REMOVE': {
-          if (!parsed.item) {
+          const itemsToRemove =
+            parsed.items && parsed.items.length > 0
+              ? parsed.items.map((i) => i.item)
+              : parsed.item
+              ? [parsed.item]
+              : [];
+
+          if (itemsToRemove.length === 0) {
             return {
               success: false,
               message: 'Please specify which item to remove.',
               type: 'error',
             };
           }
-          const result = removeItem(parsed.item);
+
+          const msgs: string[] = [];
+          let anySuccess = false;
+          for (const it of itemsToRemove) {
+            const result = removeItem(it);
+            if (result.message) msgs.push(result.message);
+            if (result.success) anySuccess = true;
+          }
+
           return {
-            success: result.success,
-            message: result.message || `Removed ${parsed.item}`,
-            type: result.success ? 'success' : 'warning',
+            success: anySuccess,
+            message: msgs.join('. '),
+            type: anySuccess ? 'success' : 'warning',
           };
         }
 
