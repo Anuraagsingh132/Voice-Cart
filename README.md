@@ -3,7 +3,7 @@
 [![Next.js 14](https://img.shields.io/badge/Next.js-14.2.35-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vitest](https://img.shields.io/badge/Vitest-37%2F37_Passing-6E9F18?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-67%2F67_Passing-6E9F18?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![Groq](https://img.shields.io/badge/Groq-Llama_3.1_8B_Instant-F05A28?style=for-the-badge)](https://groq.com/)
 [![Dataset](https://img.shields.io/badge/Dataset-GroceryStoreDataset_(81_Classes)-059669?style=for-the-badge)](https://github.com/marcusclasesson/GroceryStoreDataset)
 
@@ -12,6 +12,7 @@
 ---
 
 ## 🚀 Live Demo & Links
+- **Live Production App:** [https://voice-cart-one.vercel.app/](https://voice-cart-one.vercel.app/)
 - **GitHub Repository:** [https://github.com/Anuraagsingh132/Voice-Cart.git](https://github.com/Anuraagsingh132/Voice-Cart.git)
 - **Local Dev Server:** `http://localhost:3000`
 
@@ -135,25 +136,27 @@
 │   └── suggestions.ts             # Dynamic recommendations & substitute matcher
 ├── public/
 │   └── dataset/                   # Iconic product photography assets
-└── __tests__/                     # Vitest automated test suite (37 unit tests)
+└── __tests__/                     # Vitest automated test suite (67 unit tests)
 ```
 
 ---
 
 ## 🧪 Verification & Automated Test Suite
 
-The codebase features **37 unit tests** across 5 comprehensive test suites covering every critical requirement:
+The codebase features **67 unit tests** across 13 comprehensive test suites covering every critical requirement:
 
 ```bash
 npm test
 ```
 
 ### Test Coverage Highlights:
-- **`__tests__/intentParser.test.ts` (14 tests):** Single intent, compound multi-item extraction (*"5 eggs and two breads"*), phonetic mistranscriptions (*"breadth"* ➡️ *Bread*), and residual talk rejection.
+- **`__tests__/intentParser.test.ts` (15 tests):** Single intent, compound multi-item extraction (*"5 eggs and two breads"*), phonetic mistranscriptions (*"breadth"* ➡️ *Bread*), and residual talk rejection.
 - **`__tests__/search.test.ts` (6 tests):** Keyword matching, price ceilings (*"under $5"*), brand filters (*"Arla"*, *"Tropicana"*), and category searches.
 - **`__tests__/suggestions.test.ts` (4 tests):** Plant-based substitute generation (*Whole Milk* ➡️ *Oat/Soy Milk*), seasonal picks, and duplicate prevention.
 - **`__tests__/categorize.test.ts` (7 tests):** Automatic department categorization.
-- **`__tests__/fuzzyMatch.test.ts` (6 tests):** Levenshtein distance and plural normalization.
+- **`__tests__/deterministicEngine.test.ts` (8 tests):** Fast-path deterministic command routing and intent mapping.
+- **`__tests__/orchestrator.test.ts` (3 tests):** E2E orchestration, telemetry traces, and idempotent actions.
+- **`__tests__/resilience.test.ts` (4 tests):** Fallbacks, duplicate command prevention, and timeout handling.
 
 ---
 
@@ -195,7 +198,7 @@ npm install
 cp .env.local.example .env.local
 # Add your GROQ_API_KEY from https://console.groq.com
 
-# 4. Run automated test suite (37 tests)
+# 4. Run automated test suite (67 tests)
 npm test
 
 # 5. Start development server
