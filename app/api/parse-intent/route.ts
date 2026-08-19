@@ -114,54 +114,60 @@ JSON OUTPUT SCHEMA:
 
 Return ONLY valid JSON.`;
 
-    let content = '{}';
-    const messages = [
-      { role: 'system', content: systemPrompt },
-      {
-        role: 'user',
-        content: `Language: ${language}\nSpoken command: "${preCleaned}"`,
-      },
-    ];
+    let parsed: ParsedIntent | null = null;
+    let lastError: any = null;
 
-    try {
-      // 1. Fast Path (High speed, lower cost)
-      const chatCompletion = await groq.chat.completions.create({
-        messages: messages as any,
-        model: 'openai/gpt-oss-20b',
-        temperature: 0.05,
-        max_tokens: 450,
-        response_format: { type: 'json_object' },
-      });
-      content = chatCompletion.choices[0]?.message?.content?.trim() || '{}';
-    } catch (fastError) {
-      console.warn('Fast path LLM failed or rate-limited. Escalating to heavy model...', fastError);
-      
-      // 2. Escalation Layer (Higher precision, heavier model)
-      const escalationCompletion = await groq.chat.completions.create({
-        messages: messages as any,
-        model: 'openai/gpt-oss-120b',
-        temperature: 0.05,
-        max_tokens: 450,
-        response_format: { type: 'json_object' },
-      });
-      content = escalationCompletion.choices[0]?.message?.content?.trim() || '{}';
-    }
-    let parsed: ParsedIntent;
+    // Fast Path & Escalation Cascade
+    const modelsToTry = ['openai/gpt-oss-20b', 'openai/gpt-oss-120b'];
 
-    try {
-      parsed = JSON.parse(content);
-    } catch {
-      const jsonMatch = content.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        parsed = JSON.parse(jsonMatch[0]);
-      } else {
-        throw new Error('Failed to parse JSON response from LLM');
+    for (const model of modelsToTry) {
+      try {
+        const chatCompletion = await groq.chat.completions.create({
+          messages: [
+            { role: 'system', content: systemPrompt },
+            {
+              role: 'user',
+              content: `Language: ${language}\nSpoken command: "${preCleaned}"`,
+            },
+          ] as any,
+          model,
+          temperature: 0.05,
+          max_tokens: 450,
+          response_format: { type: 'json_object' },
+        });
+
+        const content = chatCompletion.choices[0]?.message?.content?.trim() || '{}';
+
+        // Attempt to parse JSON
+        try {
+          parsed = JSON.parse(content);
+        } catch {
+          const jsonMatch = content.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            parsed = JSON.parse(jsonMatch[0]);
+          } else {
+            throw new Error(`Failed to parse JSON from ${model}`);
+          }
+        }
+
+        if (!isParsedIntent(parsed)) {
+          throw new Error(`Invalid model response schema from ${model}`);
+        }
+
+        // If we get here, parsing succeeded and schema is valid
+        break; 
+
+      } catch (err: any) {
+        lastError = err;
+        console.warn(`[NLP Cascade] Model ${model} failed:`, err?.message || err);
+        // Continue to the next model in the cascade
       }
     }
 
-    if (!isParsedIntent(parsed)) {
+    if (!parsed) {
+      // Both models in the cascade failed
       return NextResponse.json(
-        { error: 'INVALID_MODEL_RESPONSE', message: 'The command parser returned an invalid response.' },
+        { error: 'INVALID_MODEL_RESPONSE', message: lastError?.message || 'The command parser returned an invalid response across all models.' },
         { status: 502 }
       );
     }
