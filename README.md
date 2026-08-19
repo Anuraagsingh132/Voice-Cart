@@ -116,7 +116,10 @@ npm install
 cp .env.local.example .env.local
 # Add your GROQ_API_KEY from https://console.groq.com
 
-# 4. Start development server
+# 4. Run automated unit test suite (29 tests)
+npm test
+
+# 5. Start development server
 npm run dev
 ```
 
@@ -124,7 +127,15 @@ Open [http://localhost:3000](http://localhost:3000) in **Google Chrome** or **Mi
 
 ---
 
-## 🧪 Verification & Test Scenarios
+## 🧪 Verification & Automated Tests
+
+### Automated Unit Tests (Vitest)
+```bash
+npm test
+```
+Runs **29 unit tests** across 5 test suites covering categorization, fuzzy matching, heuristic NLP entity extraction, catalog search with price filters, and dynamic recommendations.
+
+### Manual Voice Test Scenarios
 
 Try the following voice or typed commands to test the NLP and list management:
 
