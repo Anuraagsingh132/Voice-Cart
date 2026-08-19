@@ -1,15 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { searchProducts } from '@/lib/search';
 
-describe('searchProducts (Catalog Search & Filtering)', () => {
+describe('searchProducts (Catalog Search & Filtering - GroceryStoreDataset)', () => {
   it('finds products matching simple keywords', () => {
     const { results } = searchProducts('apple');
     expect(results.length).toBeGreaterThan(0);
-    expect(results.some((p) => p.name.includes('Apple'))).toBe(true);
+    expect(results.some((p) => p.name.toLowerCase().includes('apple'))).toBe(true);
   });
 
   it('filters products under a price ceiling (e.g. under $5)', () => {
-    const { results } = searchProducts('toothpaste', { priceMax: 5 });
+    const { results } = searchProducts('juice', { priceMax: 5 });
     expect(results.length).toBeGreaterThan(0);
     results.forEach((p) => {
       const price = p.discountedPrice ?? p.price;
@@ -17,11 +17,11 @@ describe('searchProducts (Catalog Search & Filtering)', () => {
     });
   });
 
-  it('filters products by brand', () => {
-    const { results } = searchProducts('', { brand: 'Amul' });
+  it('filters products by brand in GroceryStoreDataset', () => {
+    const { results } = searchProducts('', { brand: 'Arla' });
     expect(results.length).toBeGreaterThan(0);
     results.forEach((p) => {
-      expect(p.brand.toLowerCase()).toContain('amul');
+      expect(p.brand.toLowerCase()).toContain('arla');
     });
   });
 

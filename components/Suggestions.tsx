@@ -5,25 +5,6 @@ import { Sun, ArrowLeftRight, History, Plus, Check } from 'lucide-react';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { Suggestion } from '@/types';
 
-// High quality visual imagery fallback dictionary
-const SUGGESTION_IMAGES: Record<string, string> = {
-  'Alphonso Mangoes': 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=400&q=80',
-  'Alphonso Mangoes (Premium)': 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=400&q=80',
-  'Almond Milk': 'https://images.unsplash.com/photo-1568651313177-3e5e40eef920?auto=format&fit=crop&w=400&q=80',
-  'Unsweetened Almond Milk (Plant-Based)': 'https://images.unsplash.com/photo-1568651313177-3e5e40eef920?auto=format&fit=crop&w=400&q=80',
-  'Brown Eggs': 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=400&q=80',
-  'Farm Fresh Brown Eggs (Pack of 12)': 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=400&q=80',
-  'Whole Wheat Sourdough': 'https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?auto=format&fit=crop&w=400&q=80',
-  'Artisan Whole Wheat Sourdough Bread': 'https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?auto=format&fit=crop&w=400&q=80',
-  'Fresh Baby Spinach': 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=400&q=80',
-  'Valencia Sweet Oranges': 'https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=400&q=80',
-  'Organic Fuji Apples': 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=400&q=80',
-  'Farm Fresh Whole Milk': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=400&q=80',
-  'Organic Robusta Bananas': 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=400&q=80',
-  'Seedless Sweet Watermelon': 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=400&q=80',
-  'Pure Raw Wildflower Honey': 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=400&q=80',
-};
-
 export function Suggestions() {
   const { suggestions, acceptSuggestion, items } = useShoppingList();
 
@@ -69,7 +50,7 @@ export function Suggestions() {
           Smart Suggestions
         </h2>
         <span className="text-xs text-neutral-400 font-medium hidden sm:inline">
-          Opt-in recommendations
+          GroceryStoreDataset Picks
         </span>
       </div>
 
@@ -78,7 +59,7 @@ export function Suggestions() {
           const badge = getBadgeInfo(s.type);
           const BadgeIcon = badge.icon;
           const onList = isAlreadyInList(s.item);
-          const bgImg = SUGGESTION_IMAGES[s.item] || SUGGESTION_IMAGES[s.title] || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80';
+          const imgSrc = s.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80';
 
           return (
             <div
@@ -99,18 +80,20 @@ export function Suggestions() {
                   {s.item}
                 </h3>
 
-                {/* Visual Image Preview */}
+                {/* Visual Image Preview with authentic iconic photograph */}
                 <div className="h-28 w-full rounded-xl mb-3 bg-surface-container-low overflow-hidden relative shadow-inner">
-                  <div
-                    className="w-full h-full bg-cover bg-center transition-transform duration-500 hover:scale-105"
-                    style={{ backgroundImage: `url('${bgImg}')` }}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={imgSrc}
+                    alt={s.item}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                 </div>
 
-                {/* Rationale */}
-                <p className="text-[11px] text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
-                  {s.reason}
+                {/* Description / Rationale */}
+                <p className="text-[11px] text-neutral-500 mb-3 line-clamp-2 leading-relaxed" title={s.description || s.reason}>
+                  {s.description || s.reason}
                 </p>
               </div>
 

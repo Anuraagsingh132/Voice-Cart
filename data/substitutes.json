@@ -1,36 +1,91 @@
 {
   "milk": [
-    { "name": "Almond Milk", "reason": "Plant-based & dairy-free alternative", "item": "Unsweetened Almond Milk (Plant-Based)", "category": "Dairy & Eggs" },
-    { "name": "Oat Milk", "reason": "Creamy barista favorite", "item": "Organic Oat Milk Barista Edition", "category": "Dairy & Eggs" }
+    {
+      "name": "Oatly Oat Milk",
+      "type": "plant-based",
+      "reason": "Lactose-free plant-based oat milk alternative"
+    },
+    {
+      "name": "Alpro Fresh Soy Milk",
+      "type": "plant-based",
+      "reason": "Fresh high-protein soy milk option"
+    },
+    {
+      "name": "Arla Lactose Medium Fat Milk",
+      "type": "lactose-free",
+      "reason": "Lactose-free regular dairy milk"
+    }
   ],
-  "whole milk": [
-    { "name": "Almond Milk", "reason": "Lactose-free healthy choice", "item": "Unsweetened Almond Milk (Plant-Based)", "category": "Dairy & Eggs" }
+  "yoghurt": [
+    {
+      "name": "Oatly Natural Oatghurt",
+      "type": "plant-based",
+      "reason": "Creamy oat-based dairy-free yoghurt"
+    },
+    {
+      "name": "Alpro Vanilla Soyghurt",
+      "type": "flavored-vegan",
+      "reason": "Sweet vanilla plant-based soyghurt"
+    }
   ],
-  "regular milk": [
-    { "name": "Almond Milk", "reason": "Lower calorie, dairy-free substitute", "item": "Unsweetened Almond Milk (Plant-Based)", "category": "Dairy & Eggs" }
+  "apple": [
+    {
+      "name": "Royal Gala",
+      "type": "sweet-crisp",
+      "reason": "Crisp and sweet classic dessert apple"
+    },
+    {
+      "name": "Granny Smith",
+      "type": "tart-baking",
+      "reason": "Tart, firm, and excellent for baking"
+    }
   ],
-  "butter": [
-    { "name": "Vegan Butter Spread", "reason": "Plant-based dairy-free substitute", "item": "Plant-Based Table Spread (Vegan Butter)", "category": "Dairy & Eggs" },
-    { "name": "Olive Oil", "reason": "Heart-healthy cooking fat", "item": "Extra Virgin Cold Pressed Olive Oil", "category": "Pantry & Staples" }
+  "orange juice": [
+    {
+      "name": "Tropicana Juice Smooth",
+      "type": "premium-juice",
+      "reason": "100% pure squeezed smooth orange juice"
+    },
+    {
+      "name": "God Morgon Orange Red Grapefruit Juice",
+      "type": "citrus-blend",
+      "reason": "Refreshing tangy orange and grapefruit blend"
+    }
   ],
-  "white bread": [
-    { "name": "Whole Wheat Sourdough", "reason": "Higher fiber & easier to digest", "item": "Artisan Whole Wheat Sourdough Bread", "category": "Bakery & Snacks" },
-    { "name": "Gluten-Free Bread", "reason": "Gluten-sensitive option", "item": "Gluten-Free Multigrain Bread", "category": "Bakery & Snacks" }
+  "potato": [
+    {
+      "name": "Sweet Potato",
+      "type": "nutrient-dense",
+      "reason": "Rich in vitamins and antioxidants"
+    },
+    {
+      "name": "Floury Potato",
+      "type": "baking-mashing",
+      "reason": "High starch potato ideal for mashing and roasting"
+    }
   ],
-  "bread": [
-    { "name": "Whole Wheat Sourdough", "reason": "Healthier whole grain option", "item": "Artisan Whole Wheat Sourdough Bread", "category": "Bakery & Snacks" }
+  "tomato": [
+    {
+      "name": "Vine Tomato",
+      "type": "aromatic",
+      "reason": "Sweet and aromatic vine-ripened tomatoes"
+    },
+    {
+      "name": "Beef Tomato",
+      "type": "large-slice",
+      "reason": "Firm and meaty tomato, perfect for slicing and salads"
+    }
   ],
-  "sugar": [
-    { "name": "Raw Wildflower Honey", "reason": "Natural, unrefined sweetener", "item": "Pure Raw Wildflower Honey", "category": "Pantry & Staples" },
-    { "name": "Stevia Drops", "reason": "Zero calorie organic alternative", "item": "Organic Stevia Natural Sweetener Drops", "category": "Pantry & Staples" }
-  ],
-  "toothpaste": [
-    { "name": "Herbal Ayurvedic Toothpaste", "reason": "Budget-friendly natural herbal care ($2.49)", "item": "Herbal Ayurvedic Complete Care Toothpaste", "category": "Personal Care" }
-  ],
-  "apples": [
-    { "name": "Organic Fuji Apples", "reason": "Pesticide-free organic upgrade", "item": "Organic Fuji Apples", "category": "Fruits & Vegetables" }
-  ],
-  "chips": [
-    { "name": "Rolled Whole Grain Oats", "reason": "Healthy breakfast switch", "item": "Rolled Whole Grain Oats", "category": "Bakery & Snacks" }
+  "pepper": [
+    {
+      "name": "Red Bell Pepper",
+      "type": "sweet",
+      "reason": "Sweet vitamin C-rich red pepper"
+    },
+    {
+      "name": "Yellow Bell Pepper",
+      "type": "mild",
+      "reason": "Crisp and mild yellow pepper"
+    }
   ]
 }

@@ -198,7 +198,7 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
     }
 
     if (parsedItems.length > 0) {
-      const itemNames = parsedItems.map(p => `${p.quantity > 1 ? `${p.quantity} ` : ''}${p.item}`).join(', ');
+      const itemNames = parsedItems.map(p => `${p.quantity && p.quantity > 1 ? `${p.quantity} ` : ''}${p.item}`).join(', ');
       return {
         intent: 'ADD',
         items: parsedItems,

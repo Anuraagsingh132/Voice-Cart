@@ -1,2120 +1,1696 @@
 [
   {
-    "id": "bb-001",
-    "name": "Organic Fuji Apples",
-    "brand": "Fresho Organic",
+    "id": "gs-000",
+    "name": "Golden Delicious",
+    "coarseClass": "Apple",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 4.49,
-    "discountedPrice": 3.99,
-    "unit": "kg",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "fall",
-      "winter"
-    ],
-    "substitutes": [
-      "bb-002",
-      "bb-003"
-    ],
-    "tags": [
-      "organic",
-      "fruit",
-      "apples",
-      "healthy",
-      "fresh"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-002",
-    "name": "Royal Gala Apples",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fresh Fruits",
-    "price": 2.99,
-    "discountedPrice": 2.49,
-    "unit": "kg",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "fall",
-      "all-year"
-    ],
-    "substitutes": [
-      "bb-001"
-    ],
-    "tags": [
-      "apples",
-      "fruit",
-      "sweet"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-003",
-    "name": "Farm Fresh Whole Milk",
-    "brand": "Amul / Dairy Fresh",
-    "category": "Dairy & Eggs",
-    "subCategory": "Milk & Cream",
-    "price": 3.29,
-    "discountedPrice": 2.99,
-    "unit": "carton (1L)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "all-year"
-    ],
-    "substitutes": [
-      "bb-004",
-      "bb-005"
-    ],
-    "tags": [
-      "dairy",
-      "milk",
-      "calcium",
-      "regular milk",
-      "whole milk"
-    ],
-    "imageEmoji": "🥛"
-  },
-  {
-    "id": "bb-004",
-    "name": "Unsweetened Almond Milk (Plant-Based)",
-    "brand": "Silk / Epigamia",
-    "category": "Dairy & Eggs",
-    "subCategory": "Plant Milk",
-    "price": 4.49,
-    "discountedPrice": 3.99,
-    "unit": "carton (1L)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "substitutes": [
-      "bb-003"
-    ],
-    "tags": [
-      "almond milk",
-      "vegan",
-      "plant-based",
-      "lactose free"
-    ],
-    "imageEmoji": "🧃"
-  },
-  {
-    "id": "bb-005",
-    "name": "Organic Oat Milk Barista Edition",
-    "brand": "Oatly",
-    "category": "Dairy & Eggs",
-    "subCategory": "Plant Milk",
-    "price": 4.99,
-    "unit": "carton (1L)",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "substitutes": [
-      "bb-004",
-      "bb-003"
-    ],
-    "tags": [
-      "oat milk",
-      "vegan",
-      "coffee milk"
-    ],
-    "imageEmoji": "🌾"
-  },
-  {
-    "id": "bb-006",
-    "name": "Colgate Total Clean Mint Toothpaste",
-    "brand": "Colgate",
-    "category": "Personal Care",
-    "subCategory": "Oral Care",
-    "price": 3.49,
-    "discountedPrice": 2.99,
-    "unit": "tube (150g)",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "substitutes": [
-      "bb-007"
-    ],
-    "tags": [
-      "toothpaste",
-      "colgate",
-      "dental",
-      "mint",
-      "toothpaste under 5"
-    ],
-    "imageEmoji": "🪥"
-  },
-  {
-    "id": "bb-007",
-    "name": "Herbal Ayurvedic Complete Care Toothpaste",
-    "brand": "Dabur Red",
-    "category": "Personal Care",
-    "subCategory": "Oral Care",
+    "subCategory": "Apple",
     "price": 2.49,
-    "unit": "tube (150g)",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "all-year"
-    ],
-    "substitutes": [
-      "bb-006"
-    ],
-    "tags": [
-      "herbal toothpaste",
-      "cheap toothpaste under 5",
-      "ayurvedic"
-    ],
-    "imageEmoji": "🪥"
-  },
-  {
-    "id": "bb-008",
-    "name": "Sensodyne Rapid Relief Toothpaste",
-    "brand": "Sensodyne",
-    "category": "Personal Care",
-    "subCategory": "Oral Care",
-    "price": 6.99,
-    "discountedPrice": 5.99,
-    "unit": "tube (100g)",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "all-year"
-    ],
-    "substitutes": [
-      "bb-006",
-      "bb-007"
-    ],
-    "tags": [
-      "toothpaste",
-      "sensitive teeth",
-      "sensodyne"
-    ],
-    "imageEmoji": "🪥"
-  },
-  {
-    "id": "bb-009",
-    "name": "Banana - Yelakki",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.86,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "yelakki",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-010",
-    "name": "Orange - Nagpur, Regular",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 7.99,
-    "discountedPrice": 6.39,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "winter"
-    ],
-    "tags": [
-      "orange",
-      "nagpur",
-      "regular",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍊"
-  },
-  {
-    "id": "bb-011",
-    "name": "Banana - Robusta",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.94,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "robusta",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-012",
-    "name": "Apple - Shimla, Regular",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.49,
-    "discountedPrice": 3.35,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "apple",
-      "shimla",
-      "regular",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-013",
-    "name": "Mango Badami",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 2.49,
-    "discountedPrice": 1.89,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "mango",
-      "badami",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-014",
-    "name": "Kesar Mango",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.99,
-    "discountedPrice": 3.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "kesar",
-      "mango",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-015",
-    "name": "Mango Alphonso, Ratnagiri",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 9.99,
-    "discountedPrice": 7.99,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "mango",
-      "alphonso",
-      "ratnagiri",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-016",
-    "name": "Orange - Kinnow (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "winter"
-    ],
-    "tags": [
-      "orange",
-      "kinnow",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍊"
-  },
-  {
-    "id": "bb-017",
-    "name": "Custard Apple",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "custard",
-      "apple",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-018",
-    "name": "Guava (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.67,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "guava",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-019",
-    "name": "Banana - Yelakki, Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.99,
-    "discountedPrice": 1.11,
-    "unit": "pack",
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
     "rating": 4.5,
     "season": [
       "all-year"
     ],
     "tags": [
-      "banana",
-      "yelakki",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-020",
-    "name": "Banana - Robusta, Small",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "robusta",
-      "small",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-021",
-    "name": "Strawberry",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.82,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "strawberry",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-022",
-    "name": "Banana - Raw Green (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.49,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "raw",
-      "green",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-023",
-    "name": "Banana - Nendran",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.99,
-    "discountedPrice": 1.01,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "nendran",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-024",
-    "name": "Banana - Poovan",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "poovan",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-025",
-    "name": "Banana - Red",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.49,
-    "discountedPrice": 2.79,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "red",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-026",
-    "name": "Pear - Beauty",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.49,
-    "discountedPrice": 2.65,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "pear",
-      "beauty",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-027",
-    "name": "Banana - Karpooravalli",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.83,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "karpooravalli",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-028",
-    "name": "Banana - Nendran, Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 2.49,
-    "discountedPrice": 1.99,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "nendran",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-029",
-    "name": "Apple Shimla, Small",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.99,
-    "discountedPrice": 1.17,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "apple",
-      "shimla",
-      "small",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-030",
-    "name": "Sugar Palm Fruit",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.99,
-    "discountedPrice": 1.51,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "sugar",
-      "palm",
-      "fruit",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-031",
-    "name": "Plum - Indian",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 2.49,
-    "discountedPrice": 1.89,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "plum",
-      "indian",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-032",
-    "name": "Litchi",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.99,
-    "discountedPrice": 1.59,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "litchi",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-033",
-    "name": "Kiwi - Green",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 2.49,
-    "discountedPrice": 1.84,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "kiwi",
-      "green",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-034",
-    "name": "Papaya",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "papaya",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-035",
-    "name": "Cherry",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.99,
-    "discountedPrice": 3.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "cherry",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-036",
-    "name": "Cherry - Kashmir",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
-    "discountedPrice": 4.55,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "cherry",
-      "kashmir",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-037",
-    "name": "Banana Flower (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "flower",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-038",
-    "name": "Plum - Imported",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 12.99,
-    "discountedPrice": 9.87,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "plum",
-      "imported",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-039",
-    "name": "Custard Apple - Premium",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.99,
-    "discountedPrice": 3.03,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "custard",
-      "apple",
-      "premium",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-040",
-    "name": "Dasheri Mango (Malihabadi)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.99,
-    "discountedPrice": 1.59,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "dasheri",
-      "mango",
-      "malihabadi",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-041",
-    "name": "Organic - Desi Banana",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "organic",
-      "desi",
-      "banana",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-042",
-    "name": "Cherry - Imported",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 6.99,
-    "discountedPrice": 5.31,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "cherry",
-      "imported",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-043",
-    "name": "Custard Apple Golden",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "custard",
-      "apple",
       "golden",
-      "fresho",
+      "delicious",
+      "local farm",
+      "apple",
       "fruits & vegetables"
     ],
-    "imageEmoji": "🍎"
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Apple/Golden-Delicious/Golden-Delicious_Iconic.jpg",
+    "description": "Golden Delicious has a white juicy pulp and a greenish yellow shell. The taste is mellow and sweet, making Golden Delicious suitable for desserts."
   },
   {
-    "id": "bb-044",
-    "name": "Mango - Alphonso/Ratnagiri",
-    "brand": "Fresho",
+    "id": "gs-001",
+    "name": "Granny Smith",
+    "coarseClass": "Apple",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
-    "discountedPrice": 4.37,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "mango",
-      "alphonso",
-      "ratnagiri",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-045",
-    "name": "Kesar Mango - Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
-    "discountedPrice": 4.55,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "kesar",
-      "mango",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-046",
-    "name": "Banana Stem (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
+    "subCategory": "Apple",
     "price": 2.49,
-    "discountedPrice": 1.89,
-    "unit": "pack",
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
-    "rating": 4.9,
+    "rating": 4.6,
     "season": [
       "all-year"
     ],
     "tags": [
-      "banana",
-      "stem",
-      "loose",
-      "fresho",
+      "granny",
+      "smith",
+      "local farm",
+      "apple",
       "fruits & vegetables"
     ],
-    "imageEmoji": "🍌"
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Apple/Granny-Smith/Granny-Smith_Iconic.jpg",
+    "description": "Granny Smith is a green apple with white, firm pulp and a clear acidity in the flavor."
   },
   {
-    "id": "bb-047",
-    "name": "Peach - Indian",
-    "brand": "Fresho",
+    "id": "gs-002",
+    "name": "Pink Lady",
+    "coarseClass": "Apple",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
+    "subCategory": "Apple",
     "price": 2.49,
-    "discountedPrice": 1.99,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "peach",
-      "indian",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-048",
-    "name": "Pear - Naspathi, Indian",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
     "rating": 4.7,
     "season": [
       "all-year"
     ],
     "tags": [
-      "pear",
-      "naspathi",
-      "indian",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-049",
-    "name": "Dasheri Mango",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "dasheri",
-      "mango",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-050",
-    "name": "Grapes - Green, Residue Free",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.95,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "grapes",
-      "green",
-      "residue",
-      "free",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-051",
-    "name": "Mango Leaves",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 4.99,
-    "discountedPrice": 3.79,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "mango",
-      "leaves",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-052",
-    "name": "Kinoow - Organically grown (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 2.49,
-    "discountedPrice": 1.89,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "kinoow",
-      "organically",
-      "grown",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-053",
-    "name": "Pomegranate - Regular",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "pomegranate",
-      "regular",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-054",
-    "name": "Sapota",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "sapota",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-055",
-    "name": "Guava - Pink",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "guava",
       "pink",
-      "fresho",
+      "lady",
+      "local farm",
+      "apple",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Apple/Pink-Lady/Pink-Lady_Iconic.jpg",
+    "description": "Pink Lady reminds of Royal Gala, though it is an even sweeter and crispier apple."
   },
   {
-    "id": "bb-056",
-    "name": "Papaya - Small",
-    "brand": "Fresho",
+    "id": "gs-003",
+    "name": "Red Delicious",
+    "coarseClass": "Apple",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "papaya",
-      "small",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-057",
-    "name": "Orange - Nagpur, Small",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.1,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "winter"
-    ],
-    "tags": [
-      "orange",
-      "nagpur",
-      "small",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍊"
-  },
-  {
-    "id": "bb-058",
-    "name": "Dragon Fruit (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.69,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "dragon",
-      "fruit",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-059",
-    "name": "Muskmelon - Netted Small",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.8,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "muskmelon",
-      "netted",
-      "small",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-060",
-    "name": "Ber (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "ber",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-061",
-    "name": "Tender Coconut",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.16,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "tender",
-      "coconut",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-062",
-    "name": "Thai Guava - White Centre",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "thai",
-      "guava",
-      "white",
-      "centre",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-063",
-    "name": "Grapes - Bangalore Blue with Seed",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.85,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "grapes",
-      "bangalore",
-      "blue",
-      "with",
-      "seed",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-064",
-    "name": "Watermelon - Small",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.49,
-    "discountedPrice": 2.8,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "watermelon",
-      "small",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍉"
-  },
-  {
-    "id": "bb-065",
-    "name": "Coconut - Medium",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 4.49,
-    "discountedPrice": 1.93,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "coconut",
-      "medium",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-066",
-    "name": "Pear - Green, Imported",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.49,
-    "discountedPrice": 4.17,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "pear",
-      "green",
-      "imported",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-067",
-    "name": "Pomegranate",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.82,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "pomegranate",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-068",
-    "name": "Mini Orange Imported",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.06,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "winter"
-    ],
-    "tags": [
-      "mini",
-      "orange",
-      "imported",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍊"
-  },
-  {
-    "id": "bb-069",
-    "name": "Banana - Robusta, Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 0.91,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "banana",
-      "robusta",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍌"
-  },
-  {
-    "id": "bb-070",
-    "name": "Pineapple",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.49,
-    "discountedPrice": 2.65,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "pineapple",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-071",
-    "name": "Watermelon - Organically Grown (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
+    "subCategory": "Apple",
     "price": 2.49,
-    "discountedPrice": 1.69,
-    "unit": "pack",
+    "discountedPrice": null,
+    "unit": "pieces",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "red",
+      "delicious",
+      "local farm",
+      "apple",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Apple/Red-Delicious/Red-Delicious_Iconic.jpg",
+    "description": "Red Delicious is a dark red apple with relatively soft pulp and sweet taste."
+  },
+  {
+    "id": "gs-004",
+    "name": "Royal Gala",
+    "coarseClass": "Apple",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Apple",
+    "price": 2.49,
+    "discountedPrice": null,
+    "unit": "pieces",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "royal",
+      "gala",
+      "local farm",
+      "apple",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Apple/Royal-Gala/Royal-Gala_Iconic.jpg",
+    "description": "Royal Gala is a crispy and very juicy apple, with yellow-white pulp. The peel is thin with a red yellow speckled color."
+  },
+  {
+    "id": "gs-005",
+    "name": "Avocado",
+    "coarseClass": "Avocado",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Avocado",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
     "rating": 4.5,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "watermelon",
-      "organically",
-      "grown",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍉"
-  },
-  {
-    "id": "bb-072",
-    "name": "Totapuri Mango - Raw",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 4.99,
-    "discountedPrice": 3.99,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "totapuri",
-      "mango",
-      "raw",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-073",
-    "name": "Avocado - Imported, Medium (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 7.49,
-    "discountedPrice": 5.99,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
     "season": [
       "all-year"
     ],
     "tags": [
       "avocado",
-      "imported",
-      "medium",
-      "loose",
-      "fresho",
+      "local farm",
+      "avocado",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🥑",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Avocado/Avocado_Iconic.jpg",
+    "description": "Avocado is a fruit with a clear core in the middle. The pulp is light yellow and the peel may vary from light green to dark green, almost black. Avocado fits for starters, salads and as an ingredient in Guacamole."
   },
   {
-    "id": "bb-074",
-    "name": "Fresh Figs",
-    "brand": "Fresho",
+    "id": "gs-006",
+    "name": "Banana",
+    "coarseClass": "Banana",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.99,
-    "discountedPrice": 3.03,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "fresh",
-      "figs",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-075",
-    "name": "Apple - Royal Gala, Regular",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 3.99,
-    "discountedPrice": 2.95,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "apple",
-      "royal",
-      "gala",
-      "regular",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-076",
-    "name": "Pomegranate - Premium",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "pomegranate",
-      "premium",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-077",
-    "name": "Mosambi - Economy (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
-    "discountedPrice": 4.79,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "mosambi",
-      "economy",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-078",
-    "name": "Wood Apple - Kothbel (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
-    "discountedPrice": 4.55,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "wood",
-      "apple",
-      "kothbel",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-079",
-    "name": "Apple - Kinnaur, Regular",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
-    "discountedPrice": 4.07,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "apple",
-      "kinnaur",
-      "regular",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-080",
-    "name": "Apple - Royal Gala",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
-    "discountedPrice": 4.37,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "fall"
-    ],
-    "tags": [
-      "apple",
-      "royal",
-      "gala",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍎"
-  },
-  {
-    "id": "bb-081",
-    "name": "Mango Badami - Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Fruits",
-    "price": 5.99,
+    "subCategory": "Banana",
+    "price": 2.49,
     "discountedPrice": null,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "summer"
-    ],
-    "tags": [
-      "mango",
-      "badami",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥭"
-  },
-  {
-    "id": "bb-082",
-    "name": "Green Peas (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.69,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "green",
-      "peas",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-083",
-    "name": "Golden Sweet Corn",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.22,
-    "unit": "pack",
+    "unit": "kg",
     "inStock": true,
     "rating": 4.6,
     "season": [
       "all-year"
     ],
     "tags": [
-      "golden",
-      "sweet",
-      "corn",
-      "fresho",
+      "banana",
+      "local farm",
+      "banana",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍌",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Banana/Banana_Iconic.jpg",
+    "description": "An ecologically grown banana. Bananas are good as snacks. The banana is temperature sensitive, very sensitive to dehydration, ethylene and cold damage. Store in room temperature or cool, never in a refrigerator."
   },
   {
-    "id": "bb-084",
-    "name": "Spring Onion",
-    "brand": "Fresho",
+    "id": "gs-007",
+    "name": "Kiwi",
+    "coarseClass": "Kiwi",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
+    "subCategory": "Kiwi",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
-    "rating": 4.4,
+    "rating": 4.7,
     "season": [
-      "all-year"
+      "spring"
     ],
     "tags": [
-      "spring",
-      "onion",
-      "fresho",
+      "kiwi",
+      "local farm",
+      "kiwi",
       "fruits & vegetables"
     ],
-    "imageEmoji": "🧅"
+    "imageEmoji": "🥝",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Kiwi/Kiwi_Iconic.jpg",
+    "description": "Kiwi, or Chinese currants, as it is also called, has a sweet taste with clear acidity. The fruit is rich in vitamin C."
   },
   {
-    "id": "bb-085",
-    "name": "Potato - Fresh Crop",
-    "brand": "Fresho",
+    "id": "gs-008",
+    "name": "Lemon",
+    "coarseClass": "Lemon",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.88,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.5,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "potato",
-      "fresh",
-      "crop",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥔"
-  },
-  {
-    "id": "bb-086",
-    "name": "Ladies' Fingers (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.61,
-    "unit": "pack",
+    "subCategory": "Lemon",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
     "rating": 4.8,
     "season": [
       "all-year"
     ],
     "tags": [
-      "ladies",
-      "fingers",
-      "loose",
-      "fresho",
+      "lemon",
+      "local farm",
+      "lemon",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍋",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Lemon/Lemon_Iconic.jpg",
+    "description": "Lemon is used as a flavor in food and drinks and has a very tart and sour taste."
   },
   {
-    "id": "bb-087",
-    "name": "Carrot - Orange (Loose)",
-    "brand": "Fresho",
+    "id": "gs-009",
+    "name": "Lime",
+    "coarseClass": "Lime",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.82,
-    "unit": "pack",
+    "subCategory": "Lime",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.9,
     "season": [
-      "winter"
+      "all-year"
     ],
     "tags": [
-      "carrot",
-      "orange",
-      "loose",
-      "fresho",
+      "lime",
+      "local farm",
+      "lime",
       "fruits & vegetables"
     ],
-    "imageEmoji": "🍊"
+    "imageEmoji": "🍈",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Lime/Lime_Iconic.jpg",
+    "description": "The lime fruit, like lemon, has sour taste, with the difference that the lime is more juicy and flavorsome than the lemon. It is mainly the juice you use but also the shell can be used."
   },
   {
-    "id": "bb-088",
-    "name": "5 Mix Vegetable",
-    "brand": "Fresho",
+    "id": "gs-010",
+    "name": "Mango",
+    "coarseClass": "Mango",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 2.49,
-    "discountedPrice": 1.64,
-    "unit": "pack",
+    "subCategory": "Mango",
+    "price": 4.49,
+    "discountedPrice": 3.99,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "mango",
+      "local farm",
+      "mango",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Mango/Mango_Iconic.jpg",
+    "description": "Mango has a fresh, powerful and sweet taste, but a special exotic shade. Inside there is a large, oval kernel in which the pulp is grown in. This makes the best way to cut mango is with the shell on. Divide the fruit by cutting along on both sides of the core. Mango can be eaten naturally or in desserts, entrees and main courses."
+  },
+  {
+    "id": "gs-011",
+    "name": "Cantaloupe",
+    "coarseClass": "Melon",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Melon",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "cantaloupe",
+      "local farm",
+      "melon",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍈",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Melon/Cantaloupe/Cantaloupe_Iconic.jpg",
+    "description": "The cantaloupe melon is a rather small and all round sugar melon, with a greenish yellow mesh patterned shell. The pulp is orange colored with juicy and sweet taste."
+  },
+  {
+    "id": "gs-012",
+    "name": "Galia Melon",
+    "coarseClass": "Melon",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Melon",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.7,
     "season": [
       "all-year"
     ],
     "tags": [
-      "mix",
-      "vegetable",
-      "fresho",
+      "galia",
+      "melon",
+      "local farm",
+      "melon",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍈",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Melon/Galia-Melon/Galia-Melon_Iconic.jpg",
+    "description": "Galia melon is a small round sugar melon with a yellowish green, orange, or light brown mesh patterned shell. The pulp is firm and juicy, with a cream white to yellowish green color and a sweet, rich flavor."
   },
   {
-    "id": "bb-089",
-    "name": "Winter Green Peas",
-    "brand": "Fresho",
+    "id": "gs-013",
+    "name": "Honeydew Melon",
+    "coarseClass": "Melon",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
+    "subCategory": "Melon",
     "price": 3.49,
-    "discountedPrice": 3.11,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "winter",
-      "green",
-      "peas",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-090",
-    "name": "Cauliflower",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.8,
     "season": [
       "all-year"
     ],
     "tags": [
-      "cauliflower",
-      "fresho",
+      "honeydew",
+      "melon",
+      "local farm",
+      "melon",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍈",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Melon/Honeydew-Melon/Honeydew-Melon_Iconic.jpg",
+    "description": "Honeydew melon is an oval shaped sugarmelon, with a yellow shell. The pulp is creamy light yellow with juicy, sweet and fresh taste, which is milder than other melons."
   },
   {
-    "id": "bb-091",
-    "name": "Methi - With roots",
-    "brand": "Fresho",
+    "id": "gs-014",
+    "name": "Watermelon",
+    "coarseClass": "Melon",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
+    "subCategory": "Melon",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "watermelon",
+      "local farm",
+      "melon",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍈",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Melon/Watermelon/Watermelon_Iconic.jpg",
+    "description": "Water melon juicier than sugar melons, and has a round peel with light green base color, with long-tied dark green stripes. The pulp is very juicy, mild and sweet, and occurs with and without kernels."
+  },
+  {
+    "id": "gs-015",
+    "name": "Nectarine",
+    "coarseClass": "Nectarine",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Nectarine",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "nectarine",
+      "local farm",
+      "nectarine",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍑",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Nectarine/Nectarine_Iconic.jpg",
+    "description": "The nectarine is a stone fruit with plain peel and yellow or orange pulp, which is somewhat firmer than the peach. Nectarine is suitable for eating naturally but can also be used for pastry, marmalade and jam."
+  },
+  {
+    "id": "gs-016",
+    "name": "Orange",
+    "coarseClass": "Orange",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Orange",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pieces",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "winter",
+      "monsoon"
+    ],
+    "tags": [
+      "orange",
+      "local farm",
+      "orange",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Orange/Orange_Iconic.jpg",
+    "description": "There are many different types of oranges that ripen and is sold during different parts of the year. The orange is a very important vitamin C source and the vitamins are best kept if the fruit is eaten naturally."
+  },
+  {
+    "id": "gs-017",
+    "name": "Papaya",
+    "coarseClass": "Papaya",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Papaya",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "papaya",
+      "local farm",
+      "papaya",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥭",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Papaya/Papaya_Iconic.jpg",
+    "description": "Papayan has a salmon-pink pulp that is buttery in the texture. The fruit is rich in vitamin A and C."
+  },
+  {
+    "id": "gs-018",
+    "name": "Passion Fruit",
+    "coarseClass": "Passion-Fruit",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Passion-Fruit",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "passion",
+      "fruit",
+      "local farm",
+      "passion-fruit",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🫐",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Passion-Fruit/Passion-Fruit_Iconic.jpg",
+    "description": "Passion fruit is a small, round or oval fruit with yellow or dark brownish purple dented shell. Passion fruit's interior consists of many small edible kernels surrounded by succulent pulp. The taste is rich and fresh, and reminiscent of raspberries and orange."
+  },
+  {
+    "id": "gs-019",
+    "name": "Peach",
+    "coarseClass": "Peach",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Peach",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "peach",
+      "local farm",
+      "peach",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍑",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Peach/Peach_Iconic.jpg",
+    "description": "Peach is a stone fruit with yellow or orange pulp and velvety shell. Suitable for eating naturally but can also be used for pastry, marmalade and jam."
+  },
+  {
+    "id": "gs-020",
+    "name": "Anjou",
+    "coarseClass": "Pear",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Pear",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "anjou",
+      "local farm",
+      "pear",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍐",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Pear/Anjou/Anjou_Iconic.jpg",
+    "description": "Anjou pear is a classic pear shaped with rounded stalk with a thin yellowish green shell. The pulp is juicy and has a sweet, nice taste. Anjou is an excellent table fruit that also fits in pastries, then rather unripe."
+  },
+  {
+    "id": "gs-021",
+    "name": "Conference",
+    "coarseClass": "Pear",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Pear",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "conference",
+      "local farm",
+      "pear",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍐",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Pear/Conference/Conference_Iconic.jpg",
+    "description": "Conference is a medium sized pear with long-tapered bottle like shape and a rounded base. To the color, the Conference pear is light greenish yellow with gold brown spots. Pears taste the most when they are really ripe. Suitable for desserts, cheese tray or to eat as it is."
+  },
+  {
+    "id": "gs-022",
+    "name": "Kaiser",
+    "coarseClass": "Pear",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Pear",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "kaiser",
+      "local farm",
+      "pear",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍐",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Pear/Kaiser/Kaiser_Iconic.jpg",
+    "description": "The Kaiser Pear is drip-shaped with matte, medium-thick, flaming yellow-brown or brownish shell. The yellowish white pulp is crispy, juicy and sweet, with some fresh acid. Kaiser pears match very well with dessert cheeses and wine, but it is also good to cook, as it retains its shape well."
+  },
+  {
+    "id": "gs-023",
+    "name": "Pineapple",
+    "coarseClass": "Pineapple",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Pineapple",
+    "price": 4.49,
+    "discountedPrice": 3.99,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "pineapple",
+      "local farm",
+      "pineapple",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Pineapple/Pineapple_Iconic.jpg",
+    "description": "Pineapple fits well to be eaten naturally in for example desserts and fruit salad. Remember to remove the log in the middle."
+  },
+  {
+    "id": "gs-024",
+    "name": "Plum",
+    "coarseClass": "Plum",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Plum",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "summer"
+    ],
+    "tags": [
+      "plum",
+      "local farm",
+      "plum",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🫐",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Plum/Plum_Iconic.jpg",
+    "description": "Ripe plums have soft and juicy pulp with sweet taste. Suitable for being eaten naturally, but is also used for preserving and pastries."
+  },
+  {
+    "id": "gs-025",
+    "name": "Pomegranate",
+    "coarseClass": "Pomegranate",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Pomegranate",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "pomegranate",
+      "local farm",
+      "pomegranate",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🫐",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Pomegranate/Pomegranate_Iconic.jpg",
+    "description": "Pomegranate has a sweet, gentle and refreshing taste, making pomegranate suitable for salads and desserts. It is only the kernels of the fruit that you eat. These are taken out by first cutting around the apple without destroying the core. Then turn both halves in opposite directions until they loosen. Finally, the kernels are loosened by knocking a wooden slab on the shell of the half, preferably over a bowl."
+  },
+  {
+    "id": "gs-026",
+    "name": "Red Grapefruit",
+    "coarseClass": "Red-Grapefruit",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Red-Grapefruit",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "red",
+      "grapefruit",
+      "local farm",
+      "red-grapefruit",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Red-Grapefruit/Red-Grapefruit_Iconic.jpg",
+    "description": "The red grapefruit has a red pulp and a slightly pink colored peel. The taste is characteristically bitter, but at the same time fresh and sour. The red grapefruit is sweeter than the blonde grapefruit."
+  },
+  {
+    "id": "gs-027",
+    "name": "Satsumas",
+    "coarseClass": "Satsumas",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Satsumas",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "satsumas",
+      "local farm",
+      "satsumas",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Fruit/Satsumas/Satsumas_Iconic.jpg",
+    "description": "Satsumas is a sweet and small type of citrus fruit. The fruit is popular as a snack."
+  },
+  {
+    "id": "gs-028",
+    "name": "Bravo Apple Juice",
+    "coarseClass": "Juice",
+    "brand": "Bravo",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "bravo",
+      "apple",
+      "juice",
+      "bravo",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/Bravo-Apple-Juice/Bravo-Apple-Juice_Iconic.jpg",
+    "description": "Ready to drink apple juice from concentrate. Fresh and sour taste. Fits the breakfast table, as quencher and meal drink."
+  },
+  {
+    "id": "gs-029",
+    "name": "Bravo Orange Juice",
+    "coarseClass": "Juice",
+    "brand": "Bravo",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "winter",
+      "monsoon"
+    ],
+    "tags": [
+      "bravo",
+      "orange",
+      "juice",
+      "bravo",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/Bravo-Orange-Juice/Bravo-Orange-Juice_Iconic.jpg",
+    "description": "Ready to drink orange juice from concentrate. Fresh and sour taste. Fits the breakfast table, as quencher and meal drink. Without pulp."
+  },
+  {
+    "id": "gs-030",
+    "name": "God Morgon Apple Juice",
+    "coarseClass": "Juice",
+    "brand": "God Morgon",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "god",
+      "morgon",
+      "apple",
+      "juice",
+      "god morgon",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/God-Morgon-Apple-Juice/God-Morgon-Apple-Juice_Iconic.jpg",
+    "description": "God Morning Apple is unfiltered, which gives a richer, more delicious juice with real apple flavor."
+  },
+  {
+    "id": "gs-031",
+    "name": "God Morgon Orange Juice",
+    "coarseClass": "Juice",
+    "brand": "God Morgon",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "winter",
+      "monsoon"
+    ],
+    "tags": [
+      "god",
+      "morgon",
+      "orange",
+      "juice",
+      "god morgon",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/God-Morgon-Orange-Juice/God-Morgon-Orange-Juice_Iconic.jpg",
+    "description": "God Morgon Orange is pressed by sun-dried, hand-picked oranges. The package contains juice from 2 kilograms of oranges!"
+  },
+  {
+    "id": "gs-032",
+    "name": "God Morgon Orange Red Grapefruit Juice",
+    "coarseClass": "Juice",
+    "brand": "God Morgon",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "god",
+      "morgon",
+      "orange",
+      "red",
+      "grapefruit",
+      "juice",
+      "god morgon",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/God-Morgon-Orange-Red-Grapefruit-Juice/God-Morgon-Orange-Red-Grapefruit-Juice_Iconic.jpg",
+    "description": "God Morning Orange / Red Grapefruit is a fresh blend of sweet orange juice and tasty fresh red grapefruit."
+  },
+  {
+    "id": "gs-033",
+    "name": "God Morgon Red Grapefruit Juice",
+    "coarseClass": "Juice",
+    "brand": "God Morgon",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "god",
+      "morgon",
+      "red",
+      "grapefruit",
+      "juice",
+      "god morgon",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/God-Morgon-Red-Grapefruit-Juice/God-Morgon-Red-Grapefruit-Juice_Iconic.jpg",
+    "description": "God Morning Red Grapefruit is a real vitamin kick - mellow, rich in taste and as refreshing as only red grapefruit can be."
+  },
+  {
+    "id": "gs-034",
+    "name": "Tropicana Apple Juice",
+    "coarseClass": "Juice",
+    "brand": "Tropicana",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "tropicana",
+      "apple",
+      "juice",
+      "tropicana",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍎",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/Tropicana-Apple-Juice/Tropicana-Apple-Juice_Iconic.jpg",
+    "description": "Tropicana Apple is a ready to drink juice with pulp pressed on apples. Not from concentrate. Mildly pasteurized."
+  },
+  {
+    "id": "gs-035",
+    "name": "Tropicana Golden Grapefruit",
+    "coarseClass": "Juice",
+    "brand": "Tropicana",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "tropicana",
+      "golden",
+      "grapefruit",
+      "tropicana",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/Tropicana-Golden-Grapefruit/Tropicana-Golden-Grapefruit_Iconic.jpg",
+    "description": "Tropicana Golden Grape is a ready to drink juice with pulp pressed on grapefruit. Not from concentrate. Mildly pasteurized."
+  },
+  {
+    "id": "gs-036",
+    "name": "Tropicana Juice Smooth",
+    "coarseClass": "Juice",
+    "brand": "Tropicana",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "tropicana",
+      "juice",
+      "smooth",
+      "tropicana",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🧃",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/Tropicana-Juice-Smooth/Tropicana-Juice-Smooth_Iconic.jpg",
+    "description": "Tropicana Smooth Style is a ready to drink juice without pulp pressed on sun-dried oranges. Not from concentrate. Mildly pasteurized."
+  },
+  {
+    "id": "gs-037",
+    "name": "Tropicana Mandarin Morning",
+    "coarseClass": "Juice",
+    "brand": "Tropicana",
+    "category": "Beverages",
+    "subCategory": "Juice",
+    "price": 3.99,
+    "discountedPrice": 3.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "tropicana",
+      "mandarin",
+      "morning",
+      "tropicana",
+      "juice",
+      "beverages"
+    ],
+    "imageEmoji": "🧃",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Juice/Tropicana-Mandarin-Morning/Tropicana-Mandarin-Morning_Iconic.jpg",
+    "description": "Tropicana Mandarin Morning is a ready to drink juice without pulp pressed on orange, mandarin and grapes. Not from concentrate. Mildly pasteurized."
+  },
+  {
+    "id": "gs-038",
+    "name": "Arla Ecological Medium Fat Milk",
+    "coarseClass": "Milk",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "arla",
+      "ecological",
+      "medium",
+      "fat",
+      "milk",
+      "arla",
+      "milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Milk/Arla-Ecological-Medium-Fat-Milk/Arla-Ecological-Medium-Fat-Milk_Iconic.jpg",
+    "description": "Fresh skimmed Milk made from Swedish Milk from organic Arlagårdar. Skimmed milk has a delicious full flavor and is a popular choice for breakfast cereals, porridge or as a drink for the meal. Milk is a natural source of, for example, protein, calcium and vitamin B12. Protein contributes to muscle building and calcium is needed to maintain a normal bone structure. The brand Arla Ko guarantees that the product is made of 100% Swedish milk. The new brown carton has 24 percent lower climate impact compared to the previous white carton."
+  },
+  {
+    "id": "gs-039",
+    "name": "Arla Lactose Medium Fat Milk",
+    "coarseClass": "Milk",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
     "inStock": true,
     "rating": 4.9,
     "season": [
       "all-year"
     ],
     "tags": [
-      "methi",
-      "with",
-      "roots",
-      "fresho",
-      "fruits & vegetables"
+      "arla",
+      "lactose",
+      "medium",
+      "fat",
+      "milk",
+      "arla",
+      "milk",
+      "dairy & eggs"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Milk/Arla-Lactose-Medium-Fat-Milk/Arla-Lactose-Medium-Fat-Milk_Iconic.jpg",
+    "description": "Lactose-free skimmed milk made from Swedish milk from Arlagårdar. The product is designed for adults and children with lactose intolerance and is therefore free from lactose. The skimmed milk has a delicious full-bodied milk flavor and is a popular choice for breakfast cereals, porridge or as a drink for the meal. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
   },
   {
-    "id": "bb-092",
-    "name": "Methi/Venthaya Keerai - Cleaned, without roots",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.42,
-    "unit": "pack",
+    "id": "gs-040",
+    "name": "Arla Medium Fat Milk",
+    "coarseClass": "Milk",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
     "inStock": true,
-    "rating": 4.4,
+    "rating": 4.5,
     "season": [
       "all-year"
     ],
     "tags": [
-      "methi",
-      "venthaya",
-      "keerai",
-      "cleaned",
-      "without",
-      "roots",
-      "fresho",
-      "fruits & vegetables"
+      "arla",
+      "medium",
+      "fat",
+      "milk",
+      "arla",
+      "milk",
+      "dairy & eggs"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Milk/Arla-Medium-Fat-Milk/Arla-Medium-Fat-Milk_Iconic.jpg",
+    "description": "Fresh skimmed milk made from Swedish milk from Arlagårdar. Skimmed milk has a delicious full-bodied milk flavor and is a popular choice for breakfast cereals, porridge or as a drink for the meal. Milk is a natural source of, for example, protein, calcium and vitamin B12. Protein contributes to muscle building and calcium is needed to maintain a normal bone structure. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
   },
   {
-    "id": "bb-093",
-    "name": "Cucumber",
-    "brand": "Fresho",
+    "id": "gs-041",
+    "name": "Arla Standard Milk",
+    "coarseClass": "Milk",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "arla",
+      "standard",
+      "milk",
+      "arla",
+      "milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Milk/Arla-Standard-Milk/Arla-Standard-Milk_Iconic.jpg",
+    "description": "Fresh standard milk made from Swedish milk from Arlagårdar. The taste is round and full of clear flavors of cream. This makes it extra good for coffee, tea and chocolate. Standard milk can also be used for cooking, berries and porridge. Milk is a natural source of, for example, protein, calcium and vitamin B12. Protein contributes to muscle building and calcium is needed to maintain a normal bone structure. The brand Arla Ko guarantees that the product is made of 100 percent Swedish milk."
+  },
+  {
+    "id": "gs-042",
+    "name": "Garant Ecological Medium Fat Milk",
+    "coarseClass": "Milk",
+    "brand": "Garant",
+    "category": "Dairy & Eggs",
+    "subCategory": "Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "garant",
+      "ecological",
+      "medium",
+      "fat",
+      "milk",
+      "garant",
+      "milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Milk/Garant-Ecological-Medium-Fat-Milk/Garant-Ecological-Medium-Fat-Milk_Iconic.jpg",
+    "description": "Organic skimmed milk from our Swedish KRAV farms. 1.5 percent fat. Garant's organic labeling tells us that a product is organic and sometimes even KRAV-labeled. Our assortment is constantly filled with more EKO products."
+  },
+  {
+    "id": "gs-043",
+    "name": "Garant Ecological Standard Milk",
+    "coarseClass": "Milk",
+    "brand": "Garant",
+    "category": "Dairy & Eggs",
+    "subCategory": "Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "garant",
+      "ecological",
+      "standard",
+      "milk",
+      "garant",
+      "milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Milk/Garant-Ecological-Standard-Milk/Garant-Ecological-Standard-Milk_Iconic.jpg",
+    "description": "Ecological milk from Swedish KRAV-labeled farms."
+  },
+  {
+    "id": "gs-044",
+    "name": "Oatly Natural Oatghurt",
+    "coarseClass": "Oatghurt",
+    "brand": "Oatly",
+    "category": "Dairy & Eggs",
+    "subCategory": "Oatghurt",
+    "price": 2.79,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "oatly",
+      "natural",
+      "oatghurt",
+      "oatly",
+      "oatghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Oatghurt/Oatly-Natural-Oatghurt/Oatly-Natural-Oatghurt_Iconic.jpg",
+    "description": "Whole vegetable ghurt, used as yoghurt. Can also be used for cold sauces."
+  },
+  {
+    "id": "gs-045",
+    "name": "Oatly Oat Milk",
+    "coarseClass": "Oat-Milk",
+    "brand": "Oatly",
+    "category": "Dairy & Eggs",
+    "subCategory": "Oat-Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "oatly",
+      "oat",
+      "milk",
+      "oatly",
+      "oat-milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Oat-Milk/Oatly-Oat-Milk/Oatly-Oat-Milk_Iconic.jpg",
+    "description": "A natural oat drink, enriched with calcium and vitamins. Has long shelf life and can be stored at room temperature."
+  },
+  {
+    "id": "gs-046",
+    "name": "Arla Ecological Sour Cream",
+    "coarseClass": "Sour-Cream",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Sour-Cream",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "arla",
+      "ecological",
+      "sour",
+      "cream",
+      "arla",
+      "sour-cream",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Sour-Cream/Arla-Ecological-Sour-Cream/Arla-Ecological-Sour-Cream_Iconic.jpg",
+    "description": "KRAV-labeled sour cream made from fresh cream from Swedish organic Arlagårdar. Sour cream is a real classic that has its obvious place for both everyday and weekend. It has an acidic, creamy and fresh taste with a slightly creamy consistency and is excellent as a natural accessory or as a base in cold sauces and dressings. With its fresh acid it softens the heat from spicy dishes. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
+  },
+  {
+    "id": "gs-047",
+    "name": "Arla Sour Cream",
+    "coarseClass": "Sour-Cream",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Sour-Cream",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "arla",
+      "sour",
+      "cream",
+      "arla",
+      "sour-cream",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Sour-Cream/Arla-Sour-Cream/Arla-Sour-Cream_Iconic.jpg",
+    "description": "Sour cream made from fresh cream from Swedish Arlagårdar. Sour cream is a real classic that has its obvious place for both weekday and weekend. It has an acidic, creamy and fresh taste with a slightly creamy texture. The product is excellent as a natural accessory or as a base in cold sauces and dressings. With its fresh acid it softens the heat from spicy dishes. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
+  },
+  {
+    "id": "gs-048",
+    "name": "Arla Sour Milk",
+    "coarseClass": "Sour-Milk",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Sour-Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "fall",
+      "winter"
+    ],
+    "tags": [
+      "arla",
+      "sour",
+      "milk",
+      "arla",
+      "sour-milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Sour-Milk/Arla-Sour-Milk/Arla-Sour-Milk_Iconic.jpg",
+    "description": "Classic sour milk made from Swedish milk from Arlagårdar. The flavor is slightly acidic with characteristically sour milk aroma and light creaminess. The texture is a bit thicker and the sour milk can be eaten with muesli, cereal, fruit or berries. Sour milk has a long history in Sweden - already in the Viking era you have had sour milk-like products. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
+  },
+  {
+    "id": "gs-049",
+    "name": "Alpro Blueberry Soyghurt",
+    "coarseClass": "Soyghurt",
+    "brand": "Alpro",
+    "category": "Dairy & Eggs",
+    "subCategory": "Soyghurt",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "alpro",
+      "blueberry",
+      "soyghurt",
+      "alpro",
+      "soyghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Soyghurt/Alpro-Blueberry-Soyghurt/Alpro-Blueberry-Soyghurt_Iconic.jpg",
+    "description": "Soy based ghurt, used as yoghurt, with mild blueberry taste and creamy texture."
+  },
+  {
+    "id": "gs-050",
+    "name": "Alpro Vanilla Soyghurt",
+    "coarseClass": "Soyghurt",
+    "brand": "Alpro",
+    "category": "Dairy & Eggs",
+    "subCategory": "Soyghurt",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "alpro",
+      "vanilla",
+      "soyghurt",
+      "alpro",
+      "soyghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Soyghurt/Alpro-Vanilla-Soyghurt/Alpro-Vanilla-Soyghurt_Iconic.jpg",
+    "description": "Soy based ghurt, used as yoghurt, with mild vanilla taste and and creamy texture."
+  },
+  {
+    "id": "gs-051",
+    "name": "Alpro Fresh Soy Milk",
+    "coarseClass": "Soy-Milk",
+    "brand": "Alpro",
+    "category": "Dairy & Eggs",
+    "subCategory": "Soy-Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "alpro",
+      "fresh",
+      "soy",
+      "milk",
+      "alpro",
+      "soy-milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Soy-Milk/Alpro-Fresh-Soy-Milk/Alpro-Fresh-Soy-Milk_Iconic.jpg",
+    "description": "Fresh soy based drink, enriched with calcium and vitamins."
+  },
+  {
+    "id": "gs-052",
+    "name": "Alpro Shelf Soy Milk",
+    "coarseClass": "Soy-Milk",
+    "brand": "Alpro",
+    "category": "Dairy & Eggs",
+    "subCategory": "Soy-Milk",
+    "price": 2.99,
+    "discountedPrice": 2.49,
+    "unit": "carton (1L)",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "alpro",
+      "shelf",
+      "soy",
+      "milk",
+      "alpro",
+      "soy-milk",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥛",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Soy-Milk/Alpro-Shelf-Soy-Milk/Alpro-Shelf-Soy-Milk_Iconic.jpg",
+    "description": "Soy based drink, enriched with calcium and vitamins. Can be stored in room temperature."
+  },
+  {
+    "id": "gs-053",
+    "name": "Arla Mild Vanilla Yoghurt",
+    "coarseClass": "Yoghurt",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Yoghurt",
+    "price": 2.79,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "arla",
+      "mild",
+      "vanilla",
+      "yoghurt",
+      "arla",
+      "yoghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Yoghurt/Arla-Mild-Vanilla-Yoghurt/Arla-Mild-Vanilla-Yoghurt_Iconic.jpg",
+    "description": "Mild and smooth vanilla yoghurt made of Swedish milk from Arlagårdar. The texture is creamy and tender, the taste soft and round. The yoghurt fits well for breakfast and snacks for the whole family. Eat it as it is or with muesli, flakes, fruit and berries. Vanilla yoghurt is also a perfect base for smoothies. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
+  },
+  {
+    "id": "gs-054",
+    "name": "Arla Natural Mild Low Fat Yoghurt",
+    "coarseClass": "Yoghurt",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Yoghurt",
+    "price": 2.79,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "arla",
+      "natural",
+      "mild",
+      "low",
+      "fat",
+      "yoghurt",
+      "arla",
+      "yoghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Yoghurt/Arla-Natural-Mild-Low-Fat-Yoghurt/Arla-Natural-Mild-Low-Fat-Yoghurt_Iconic.jpg",
+    "description": "Keyhole-labeled light yoghurt with creamy texture and natural taste. With its low fat content, the yoghurt is an excellent choice if you want to eat healthy without having to sacrifice the good taste. The yoghurt fits well for both breakfast and snacks. Eat it as it is or with muesli, flakes, fruit and berries. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
+  },
+  {
+    "id": "gs-055",
+    "name": "Arla Natural Yoghurt",
+    "coarseClass": "Yoghurt",
+    "brand": "Arla",
+    "category": "Dairy & Eggs",
+    "subCategory": "Yoghurt",
+    "price": 2.79,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "arla",
+      "natural",
+      "yoghurt",
+      "arla",
+      "yoghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Yoghurt/Arla-Natural-Yoghurt/Arla-Natural-Yoghurt_Iconic.jpg",
+    "description": "Creamy, slightly more acidic yoghurt with a clear yoghurt character. Acidic with selected bacterial strains giving extra clear yoghurt aroma. The yoghurt tastes as good for breakfast as snack and fits well with nuts, honey and fresh berries. With its creamy texture and clear acid, it is also great for kebab sauce, baking bread and yoghurt drinks. The brand Arla Ko guarantees that the product is made of 100% Swedish milk."
+  },
+  {
+    "id": "gs-056",
+    "name": "Valio Vanilla Yoghurt",
+    "coarseClass": "Yoghurt",
+    "brand": "Valio",
+    "category": "Dairy & Eggs",
+    "subCategory": "Yoghurt",
+    "price": 2.79,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "valio",
+      "vanilla",
+      "yoghurt",
+      "valio",
+      "yoghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Yoghurt/Valio-Vanilla-Yoghurt/Valio-Vanilla-Yoghurt_Iconic.jpg",
+    "description": "The original! Valio's creamy vanilla yoghurt original. The yogurt is carefully sugared with 30 percent less added sugar than regular flavored yogurt. Great for both breakfast and snacks."
+  },
+  {
+    "id": "gs-057",
+    "name": "Yoggi Strawberry Yoghurt",
+    "coarseClass": "Yoghurt",
+    "brand": "Yoggi",
+    "category": "Dairy & Eggs",
+    "subCategory": "Yoghurt",
+    "price": 2.79,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "yoggi",
+      "strawberry",
+      "yoghurt",
+      "yoggi",
+      "yoghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Yoghurt/Yoggi-Strawberry-Yoghurt/Yoggi-Strawberry-Yoghurt_Iconic.jpg",
+    "description": "Lovely creamy yoghurt rich in fruit. It is made of natural ingredients with a mild, round taste of strawberries and vanilla. Yoggi original is a pleasure that saturates and gives energy whenever you want. The taste is completely natural and it is the fruit that gives the yoghurt the fine color. The yoghurt suits the whole family and can be enjoyed at breakfast time, as a quick snack or a simple dessert. The symbol of the blueish yellow milk can guarantees 100 percent Swedish milk."
+  },
+  {
+    "id": "gs-058",
+    "name": "Yoggi Vanilla Yoghurt",
+    "coarseClass": "Yoghurt",
+    "brand": "Yoggi",
+    "category": "Dairy & Eggs",
+    "subCategory": "Yoghurt",
+    "price": 2.79,
+    "discountedPrice": null,
+    "unit": "pack (500g)",
+    "inStock": true,
+    "rating": 4.8,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "yoggi",
+      "vanilla",
+      "yoghurt",
+      "yoggi",
+      "yoghurt",
+      "dairy & eggs"
+    ],
+    "imageEmoji": "🥣",
+    "image": "/dataset/iconic-images-and-descriptions/Packages/Yoghurt/Yoggi-Vanilla-Yoghurt/Yoggi-Vanilla-Yoghurt_Iconic.jpg",
+    "description": "Creamy yoghurt made of natural ingredients with mild and tender taste of real vanilla from Madagascar. The yoghurt, estimated by both small and large, can be enjoyed at breakfast time, as a quick snack or a simple dessert. It belongs to the Yoggi original family, which is Sweden's most purchased fruit yoghurt. The symbol of the blueish yellow milk can guarantees 100 percent Swedish milk."
+  },
+  {
+    "id": "gs-059",
+    "name": "Asparagus",
+    "coarseClass": "Asparagus",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.66,
-    "unit": "pack",
+    "subCategory": "Asparagus",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "spring"
+    ],
+    "tags": [
+      "asparagus",
+      "local farm",
+      "asparagus",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥦",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Asparagus/Asparagus_Iconic.jpg",
+    "description": "Asparagus has a mild and nice taste and is good as an accessory, as well as a vegetable dishes by itself. Asparagus can be eaten raw, but is usually cooked by boiling in lightly salted water, or grilled. Fresh asparagus is recognized on the stiffness of the stalk, and is preferably stored in refrigerator temperature. The shelf life is maximum one week in the refrigerator, or a couple of days in room temperature."
+  },
+  {
+    "id": "gs-060",
+    "name": "Aubergine",
+    "coarseClass": "Aubergine",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Aubergine",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "aubergine",
+      "local farm",
+      "aubergine",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍆",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Aubergine/Aubergine_Iconic.jpg",
+    "description": "Aubergine, or eggplant as it is also called, is usually dark violet. It has a shiny peel and is 15-20 cm long. The pulp is white. Aubergine is always eaten cooked. In addition to Moussaka, Aubergine fits well in pots and gratins."
+  },
+  {
+    "id": "gs-061",
+    "name": "Cabbage",
+    "coarseClass": "Cabbage",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Cabbage",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.6,
+    "season": [
+      "winter",
+      "monsoon"
+    ],
+    "tags": [
+      "cabbage",
+      "local farm",
+      "cabbage",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥬",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Cabbage/Cabbage_Iconic.jpg",
+    "description": "White cabbage can be used as a raw food, but it also fits well in for example cabbage rolls, cabbage pudding, cabbage soup, etc."
+  },
+  {
+    "id": "gs-062",
+    "name": "Carrots",
+    "coarseClass": "Carrots",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Carrots",
+    "price": 1.99,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.7,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "carrots",
+      "local farm",
+      "carrots",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥕",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Carrots/Carrots_Iconic.jpg",
+    "description": "The orange red color of the carrot comes from the high content of beta carotene, which in the body is converted into vitamin A. Tastefully, carrot is sweet, with a crunchy texture. Carrots can be eaten raw, and are also used in pots, gratins, soups and wok."
+  },
+  {
+    "id": "gs-063",
+    "name": "Cucumber",
+    "coarseClass": "Cucumber",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Cucumber",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.8,
     "season": [
@@ -2122,619 +1698,460 @@
     ],
     "tags": [
       "cucumber",
-      "fresho",
+      "local farm",
+      "cucumber",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🥒",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Cucumber/Cucumber_Iconic.jpg",
+    "description": "Fresh cucumber. Fits well in the salad or on the sandwich."
   },
   {
-    "id": "bb-094",
-    "name": "Capsicum - Green (Loose)",
-    "brand": "Fresho",
+    "id": "gs-064",
+    "name": "Garlic",
+    "coarseClass": "Garlic",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.97,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "capsicum",
-      "green",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-095",
-    "name": "Tomato - Local",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.69,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "tomato",
-      "local",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🍅"
-  },
-  {
-    "id": "bb-096",
-    "name": "Potato",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.86,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.7,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "potato",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥔"
-  },
-  {
-    "id": "bb-097",
-    "name": "Coriander Leaves",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.99,
-    "discountedPrice": 1.59,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.6,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "coriander",
-      "leaves",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-098",
-    "name": "Potato - New Crop",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.18,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "potato",
-      "new",
-      "crop",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥔"
-  },
-  {
-    "id": "bb-099",
-    "name": "Ginger - Organically Grown (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.63,
-    "unit": "pack",
+    "subCategory": "Garlic",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.9,
     "season": [
-      "monsoon",
-      "winter"
+      "winter",
+      "monsoon"
+    ],
+    "tags": [
+      "garlic",
+      "local farm",
+      "garlic",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🧄",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Garlic/Garlic_Iconic.jpg",
+    "description": "Garlic has unique flavor and smell, and is a good flavoring in pasta dishes, pots, mixes, etc."
+  },
+  {
+    "id": "gs-065",
+    "name": "Ginger",
+    "coarseClass": "Ginger",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Ginger",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "winter",
+      "monsoon"
     ],
     "tags": [
       "ginger",
-      "organically",
-      "grown",
-      "loose",
-      "fresho",
+      "local farm",
+      "ginger",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🫚",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Ginger/Ginger_Iconic.jpg",
+    "description": "Ginger is a herb with a characteristically sharp taste. It is used for flavoring and accessories, especially in Asian cuisine. Vegetables and curries, rice, pickles, meat and fish are good for flavoring with ginger. The rich aroma also fits well with cookies, biscuits, marmalades and sweet desserts."
   },
   {
-    "id": "bb-100",
-    "name": "Radish - White (Loose)",
-    "brand": "Fresho",
+    "id": "gs-066",
+    "name": "Leek",
+    "coarseClass": "Leek",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.54,
-    "unit": "pack",
+    "subCategory": "Leek",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
-    "rating": 4.4,
+    "rating": 4.6,
     "season": [
-      "all-year"
+      "winter",
+      "monsoon"
     ],
     "tags": [
-      "radish",
-      "white",
-      "loose",
-      "fresho",
+      "leek",
+      "local farm",
+      "leek",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🥬",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Leek/Leek_Iconic.jpg",
+    "description": "Leek has a slightly milder onion flavor and is preferably used for soups and pots, but can also be finely shredded into a salad. It is mainly the white part that is used, although it is fine to eat the green leaves."
   },
   {
-    "id": "bb-101",
-    "name": "Beans - Haricot (Loose)",
-    "brand": "Fresho",
+    "id": "gs-067",
+    "name": "Brown Cap Mushroom",
+    "coarseClass": "Mushroom",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.69,
-    "unit": "pack",
+    "subCategory": "Mushroom",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.7,
     "season": [
       "all-year"
     ],
     "tags": [
-      "beans",
-      "haricot",
-      "loose",
-      "fresho",
+      "brown",
+      "cap",
+      "mushroom",
+      "local farm",
+      "mushroom",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍄",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Mushroom/Brown-Cap-Mushroom/Brown-Cap-Mushroom_Iconic.jpg",
+    "description": "The forest mushroom is also called chestnut mushroom, and is a brown mushroom with a fuller flavor than the white mushrooms. It can be eaten raw in for example salads, but are also good to boil, pan-fry or fry."
   },
   {
-    "id": "bb-102",
-    "name": "Carrot - Red",
-    "brand": "Fresho",
+    "id": "gs-068",
+    "name": "Yellow Onion",
+    "coarseClass": "Onion",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.69,
-    "unit": "pack",
+    "subCategory": "Onion",
+    "price": 1.99,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
-    "rating": 4.2,
+    "rating": 4.8,
     "season": [
       "all-year"
     ],
     "tags": [
-      "carrot",
-      "red",
-      "fresho",
+      "yellow",
+      "onion",
+      "local farm",
+      "onion",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🧅",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Onion/Yellow-Onion/Yellow-Onion_Iconic.jpg",
+    "description": "Yellow onion is a good flavoring. Fits well both cold and hot in cooking."
   },
   {
-    "id": "bb-103",
-    "name": "Drumstick/Moringa",
-    "brand": "Fresho",
+    "id": "gs-069",
+    "name": "Green Bell Pepper",
+    "coarseClass": "Pepper",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 4.49,
-    "discountedPrice": 3.59,
-    "unit": "pack",
+    "subCategory": "Pepper",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
-    "rating": 4.2,
+    "rating": 4.9,
     "season": [
       "all-year"
     ],
     "tags": [
-      "drumstick",
-      "moringa",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-104",
-    "name": "Chilli - Green, Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.82,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.3,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "chilli",
       "green",
-      "organically",
-      "grown",
-      "fresho",
+      "bell",
+      "pepper",
+      "local farm",
+      "pepper",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🫑",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Pepper/Green-Bell-Pepper/Green-Bell-Pepper_Iconic.jpg",
+    "description": "There are a variety of colors of peppers. The most common ones are green, yellow, orange, red and white. The paprika always starts as green, but then shifts color when the it becomes more ripe. A green pepper is an unripe and hence a little firmer than the other ones, making it suitable for warm dishes, for example chili con carne, pies, gratin and various pots."
   },
   {
-    "id": "bb-105",
-    "name": "Ridge Gourd",
-    "brand": "Fresho",
+    "id": "gs-070",
+    "name": "Orange Bell Pepper",
+    "coarseClass": "Pepper",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.89,
-    "unit": "pack",
+    "subCategory": "Pepper",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
-    "rating": 4.3,
+    "rating": 4.5,
     "season": [
-      "all-year"
+      "winter",
+      "monsoon"
     ],
     "tags": [
-      "ridge",
-      "gourd",
-      "fresho",
+      "orange",
+      "bell",
+      "pepper",
+      "local farm",
+      "pepper",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍊",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Pepper/Orange-Bell-Pepper/Orange-Bell-Pepper_Iconic.jpg",
+    "description": "The orange pepper is sweeter than the green. It also contains more vitamins and antioxidants than the green. Peppers are good to eat raw in salads and as garnish, but are also good to fry, stew or gratinate, for example with filling. Paprika also fits well in pots, gratins and pies."
   },
   {
-    "id": "bb-106",
-    "name": "Onion (Loose)",
-    "brand": "Fresho",
+    "id": "gs-071",
+    "name": "Red Bell Pepper",
+    "coarseClass": "Pepper",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.95,
-    "unit": "pack",
+    "subCategory": "Pepper",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
     "rating": 4.6,
     "season": [
       "all-year"
     ],
     "tags": [
-      "onion",
-      "loose",
-      "fresho",
+      "red",
+      "bell",
+      "pepper",
+      "local farm",
+      "pepper",
       "fruits & vegetables"
     ],
-    "imageEmoji": "🧅"
+    "imageEmoji": "🫑",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Pepper/Red-Bell-Pepper/Red-Bell-Pepper_Iconic.jpg",
+    "description": "The red peppers are much sweeter than the green ones. It also contains more vitamins and antioxidants than the green. Peppers are good to eat raw in salads and as garnish, but are also good to fry, stew or gratinate, for example. with filling. Paprika also fits well in pots, gratins and pies."
   },
   {
-    "id": "bb-107",
-    "name": "Bottle Gourd (Loose)",
-    "brand": "Fresho",
+    "id": "gs-072",
+    "name": "Yellow Bell Pepper",
+    "coarseClass": "Pepper",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.51,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.8,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "bottle",
-      "gourd",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-108",
-    "name": "Cabbage",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.79,
-    "unit": "pack",
+    "subCategory": "Pepper",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "pieces",
     "inStock": true,
     "rating": 4.7,
     "season": [
       "all-year"
     ],
     "tags": [
-      "cabbage",
-      "fresho",
+      "yellow",
+      "bell",
+      "pepper",
+      "local farm",
+      "pepper",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🫑",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Pepper/Yellow-Bell-Pepper/Yellow-Bell-Pepper_Iconic.jpg",
+    "description": "The yellow pepper is much sweeter than the green. It also contains more vitamins and antioxidants than the green. Peppers are good to eat raw in salads and as garnish, but are also good to fry, stew or gratinate, for example with filling. Paprika also fits well in pots, gratins and pies."
   },
   {
-    "id": "bb-109",
-    "name": "Palak - Organically Grown",
-    "brand": "Fresho",
+    "id": "gs-073",
+    "name": "Floury Potato",
+    "coarseClass": "Potato",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
+    "subCategory": "Potato",
     "price": 1.99,
-    "discountedPrice": 1.57,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "palak",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-110",
-    "name": "Brinjal - Varikatri (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.8,
     "season": [
       "all-year"
     ],
     "tags": [
-      "brinjal",
-      "varikatri",
-      "loose",
-      "fresho",
+      "floury",
+      "potato",
+      "local farm",
+      "potato",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🥔",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Potato/Floury-Potato/Floury-Potato_Iconic.jpg",
+    "description": "Floury potatoes. Extra good for mashed potatoes and to press."
   },
   {
-    "id": "bb-111",
-    "name": "Beetroot (Loose)",
-    "brand": "Fresho",
+    "id": "gs-074",
+    "name": "Solid Potato",
+    "coarseClass": "Potato",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.77,
-    "unit": "pack",
+    "subCategory": "Potato",
+    "price": 1.99,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.9,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "solid",
+      "potato",
+      "local farm",
+      "potato",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥔",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Potato/Solid-Potato/Solid-Potato_Iconic.jpg",
+    "description": "Solid potatoes. A good allround potato that fits well most of the time."
+  },
+  {
+    "id": "gs-075",
+    "name": "Sweet Potato",
+    "coarseClass": "Potato",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Potato",
+    "price": 1.99,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.5,
     "season": [
       "all-year"
     ],
     "tags": [
-      "beetroot",
-      "loose",
-      "fresho",
+      "sweet",
+      "potato",
+      "local farm",
+      "potato",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🥔",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Potato/Sweet-Potato/Sweet-Potato_Iconic.jpg",
+    "description": "Sweet potatoes are oblong, irregularly shaped tubers, often slightly larger than regular potatoes. The peel is light brown or red. There are two varieties, one with light pulp and one with yellow orange pulp. Sweet potatoes are used like regular potatoes, but the taste is very different. The sweet potato is very sweet and a bit softer than regular potatoes. It can also be used in desserts, pies and cakes."
   },
   {
-    "id": "bb-112",
-    "name": "Drumstick Leaves",
-    "brand": "Fresho",
+    "id": "gs-076",
+    "name": "Red Beet",
+    "coarseClass": "Red-Beet",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
+    "subCategory": "Red-Beet",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
-    "rating": 4.2,
+    "rating": 4.6,
+    "season": [
+      "winter",
+      "monsoon"
+    ],
+    "tags": [
+      "red",
+      "beet",
+      "local farm",
+      "red-beet",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🍠",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Red-Beet/Red-Beet_Iconic.jpg",
+    "description": "Red beets has an earthy and sweet taste and is often eaten on the side, either cooked or preserved, for example, to pölsa, pyttipanna or steak Lindström. It is also common to make Borstj, red beet soup, but the beet can also be shredded as raw food. Red beets are slightly sensitive to heat, frostbites and dehydration and should therefore be kept cool."
+  },
+  {
+    "id": "gs-077",
+    "name": "Beef Tomato",
+    "coarseClass": "Tomato",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Tomato",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.7,
     "season": [
       "all-year"
     ],
     "tags": [
-      "drumstick",
-      "leaves",
-      "fresho",
+      "beef",
+      "tomato",
+      "local farm",
+      "tomato",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍅",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Tomato/Beef-Tomato/Beef-Tomato_Iconic.jpg",
+    "description": "An extra large tomato suitable for well for hamburgers and on the grill or in the oven."
   },
   {
-    "id": "bb-113",
-    "name": "Carrots - Grated",
-    "brand": "Fresho",
+    "id": "gs-078",
+    "name": "Regular Tomato",
+    "coarseClass": "Tomato",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
+    "subCategory": "Tomato",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.8,
     "season": [
       "all-year"
     ],
     "tags": [
-      "carrots",
-      "grated",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-114",
-    "name": "Drumstick - Cut",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.99,
-    "discountedPrice": 1.51,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "drumstick",
-      "cut",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-115",
-    "name": "Drumstick - Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.9,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "drumstick",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-116",
-    "name": "Carrot Red Halwa",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.13,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "carrot",
-      "red",
-      "halwa",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-117",
-    "name": "Potato - Chandramukhi, Organically Grown",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 1.19,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "potato",
-      "chandramukhi",
-      "organically",
-      "grown",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "🥔"
-  },
-  {
-    "id": "bb-118",
-    "name": "Tomato - Hybrid (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.63,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.4,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
+      "regular",
       "tomato",
-      "hybrid",
-      "loose",
-      "fresho",
+      "local farm",
+      "tomato",
       "fruits & vegetables"
     ],
-    "imageEmoji": "🍅"
+    "imageEmoji": "🍅",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Tomato/Regular-Tomato/Regular-Tomato_Iconic.jpg",
+    "description": "Round and fine tomatoes from Sweden. Rinse and have in the salad or on the sandwich."
   },
   {
-    "id": "bb-119",
-    "name": "Bitter Gourd (Loose)",
-    "brand": "Fresho",
+    "id": "gs-079",
+    "name": "Vine Tomato",
+    "coarseClass": "Tomato",
+    "brand": "Local Farm",
     "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.72,
-    "unit": "pack",
-    "inStock": true,
-    "rating": 4.2,
-    "season": [
-      "all-year"
-    ],
-    "tags": [
-      "bitter",
-      "gourd",
-      "loose",
-      "fresho",
-      "fruits & vegetables"
-    ],
-    "imageEmoji": "📦"
-  },
-  {
-    "id": "bb-120",
-    "name": "Coccinia (Loose)",
-    "brand": "Fresho",
-    "category": "Fruits & Vegetables",
-    "subCategory": "Vegetable",
-    "price": 1.49,
-    "discountedPrice": 0.85,
-    "unit": "pack",
+    "subCategory": "Tomato",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
     "inStock": true,
     "rating": 4.9,
     "season": [
       "all-year"
     ],
     "tags": [
-      "coccinia",
-      "loose",
-      "fresho",
+      "vine",
+      "tomato",
+      "local farm",
+      "tomato",
       "fruits & vegetables"
     ],
-    "imageEmoji": "📦"
+    "imageEmoji": "🍅",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Tomato/Vine-Tomato/Vine-Tomato_Iconic.jpg",
+    "description": "Round tomatoes with vines in the package. Rinse and have in the salad or on the sandwich."
+  },
+  {
+    "id": "gs-080",
+    "name": "Zucchini",
+    "coarseClass": "Zucchini",
+    "brand": "Local Farm",
+    "category": "Fruits & Vegetables",
+    "subCategory": "Zucchini",
+    "price": 3.49,
+    "discountedPrice": null,
+    "unit": "kg",
+    "inStock": true,
+    "rating": 4.5,
+    "season": [
+      "all-year"
+    ],
+    "tags": [
+      "zucchini",
+      "local farm",
+      "zucchini",
+      "fruits & vegetables"
+    ],
+    "imageEmoji": "🥒",
+    "image": "/dataset/iconic-images-and-descriptions/Vegetables/Zucchini/Zucchini_Iconic.jpg",
+    "description": "Zucchini can be eaten raw, but is usually used in soups, pots, stews, etc."
   }
 ]

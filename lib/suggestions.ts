@@ -1,28 +1,34 @@
 import { ListItem, Suggestion } from '@/types';
 import substitutesData from '@/data/substitutes.json';
 import seasonalData from '@/data/seasonal.json';
+import productsData from '@/data/products.json';
 import { categorizeItem } from './categorize';
 
 type SeasonName = 'spring' | 'summer' | 'monsoon' | 'winter' | 'fall';
 
-/**
- * Get current season based on month (Northern Hemisphere / Subcontinent)
- */
 export function getCurrentSeason(): SeasonName {
   const month = new Date().getMonth(); // 0 = Jan, 11 = Dec
-  if (month === 11 || month === 0 || month === 1) return 'winter'; // Dec, Jan, Feb
-  if (month === 2 || month === 3) return 'spring'; // Mar, Apr
-  if (month === 4 || month === 5) return 'summer'; // May, Jun
-  if (month === 6 || month === 7 || month === 8) return 'monsoon'; // Jul, Aug, Sep
-  return 'fall'; // Oct, Nov
+  if (month === 11 || month === 0 || month === 1) return 'winter';
+  if (month === 2 || month === 3) return 'spring';
+  if (month === 4 || month === 5) return 'summer';
+  if (month === 6 || month === 7 || month === 8) return 'monsoon';
+  return 'fall';
 }
 
-/**
- * Generates dynamic smart suggestions combining:
- * 1. Product substitutes for items currently in list
- * 2. Seasonal recommendations for the current time of year
- * 3. Repurchase / history recommendations from recent activity
- */
+function findProductMeta(name: string) {
+  const p = (productsData as any[]).find(
+    (item) => item.name.toLowerCase() === name.toLowerCase() ||
+             item.name.toLowerCase().includes(name.toLowerCase()) ||
+             name.toLowerCase().includes(item.name.toLowerCase())
+  );
+  return {
+    image: p?.image || '',
+    description: p?.description || '',
+    price: p?.price,
+    unit: p?.unit,
+  };
+}
+
 export function generateSmartSuggestions(
   currentItems: ListItem[],
   itemHistory: string[] = []
@@ -31,10 +37,10 @@ export function generateSmartSuggestions(
   const currentItemNames = new Set(currentItems.map((i) => i.name.toLowerCase().trim()));
   const addedSuggestionItems = new Set<string>();
 
-  // 1. SUBSTITUTE SUGGESTIONS (High value when user adds a common item)
+  // 1. SUBSTITUTE SUGGESTIONS
   const substitutesMap = substitutesData as Record<
     string,
-    { name: string; reason: string; item: string; category: string }[]
+    { name: string; type: string; reason: string }[]
   >;
 
   for (const listItem of currentItems) {
@@ -45,15 +51,20 @@ export function generateSmartSuggestions(
         for (const sub of subs) {
           const subNorm = sub.name.toLowerCase();
           if (!currentItemNames.has(subNorm) && !addedSuggestionItems.has(subNorm)) {
+            const meta = findProductMeta(sub.name);
             suggestions.push({
               id: `sub-${key}-${sub.name.replace(/\s+/g, '-').toLowerCase()}`,
               type: 'substitute',
               title: `Alternative for ${listItem.name}`,
               item: sub.name,
-              category: sub.category || categorizeItem(sub.name),
+              category: categorizeItem(sub.name),
               reason: sub.reason,
               sourceItemId: listItem.id,
-              badgeColor: 'amber',
+              badgeColor: 'blue',
+              image: meta.image,
+              description: meta.description,
+              price: meta.price,
+              unit: meta.unit,
             });
             addedSuggestionItems.add(subNorm);
           }
@@ -66,58 +77,62 @@ export function generateSmartSuggestions(
   const currentSeason = getCurrentSeason();
   const seasonalCatalog = (seasonalData as Record<
     string,
-    { item: string; category: string; reason: string }[]
+    { name: string; category: string; reason: string }[]
   >)[currentSeason] || [];
 
   for (const s of seasonalCatalog) {
-    const sNorm = s.item.toLowerCase();
+    const sNorm = s.name.toLowerCase();
     if (!currentItemNames.has(sNorm) && !addedSuggestionItems.has(sNorm)) {
+      const meta = findProductMeta(s.name);
       suggestions.push({
-        id: `season-${s.item.replace(/\s+/g, '-').toLowerCase()}`,
+        id: `season-${s.name.replace(/\s+/g, '-').toLowerCase()}`,
         type: 'seasonal',
         title: `In Season (${currentSeason.toUpperCase()})`,
-        item: s.item,
-        category: s.category || categorizeItem(s.item),
+        item: s.name,
+        category: s.category || categorizeItem(s.name),
         reason: s.reason,
-        badgeColor: 'emerald',
+        badgeColor: 'orange',
+        image: meta.image,
+        description: meta.description,
+        price: meta.price,
+        unit: meta.unit,
       });
       addedSuggestionItems.add(sNorm);
     }
   }
 
   // 3. REPURCHASE / HISTORY RECOMMENDATIONS
-  // Default common staples if user history is young
   const defaultFrequentStaples = [
-    { item: 'Farm Fresh Whole Milk', reason: 'You regularly buy milk every few days' },
-    { item: 'Farm Fresh Brown Eggs (Pack of 12)', reason: 'Weekly staple recommendation' },
-    { item: 'Artisan Whole Wheat Sourdough Bread', reason: 'Frequently purchased breakfast item' },
-    { item: 'Organic Robusta Bananas', reason: 'Top healthy fruit staple' },
+    { name: 'Arla Standard Milk', reason: 'Fresh daily dairy milk' },
+    { name: 'Golden Delicious', reason: 'Classic sweet crisp apple' },
+    { name: 'Tropicana Apple Juice', reason: 'Refreshing pure squeezed apple juice' },
+    { name: 'Brown Cap Mushroom', reason: 'Essential versatile culinary mushroom' },
   ];
 
-  // If we have history of removed/completed items not currently on list:
-  const historyStaples = itemHistory.length > 0
-    ? itemHistory.map((name) => ({
-        item: name,
-        reason: `Based on your recent shopping list history`,
-      }))
+  const candidates = itemHistory.length > 0
+    ? itemHistory.map(name => ({ name, reason: 'Frequently purchased staple' }))
     : defaultFrequentStaples;
 
-  for (const h of historyStaples) {
-    const hNorm = h.item.toLowerCase();
-    if (!currentItemNames.has(hNorm) && !addedSuggestionItems.has(hNorm)) {
+  for (const c of candidates) {
+    const cNorm = c.name.toLowerCase();
+    if (!currentItemNames.has(cNorm) && !addedSuggestionItems.has(cNorm)) {
+      const meta = findProductMeta(c.name);
       suggestions.push({
-        id: `hist-${h.item.replace(/\s+/g, '-').toLowerCase()}`,
+        id: `history-${c.name.replace(/\s+/g, '-').toLowerCase()}`,
         type: 'history',
         title: 'Frequent Favorite',
-        item: h.item,
-        category: categorizeItem(h.item),
-        reason: h.reason,
-        badgeColor: 'sky',
+        item: c.name,
+        category: categorizeItem(c.name),
+        reason: c.reason,
+        badgeColor: 'purple',
+        image: meta.image,
+        description: meta.description,
+        price: meta.price,
+        unit: meta.unit,
       });
-      addedSuggestionItems.add(hNorm);
-      if (suggestions.length >= 8) break;
+      addedSuggestionItems.add(cNorm);
     }
   }
 
-  return suggestions.slice(0, 6); // Keep clean and minimalist
+  return suggestions.slice(0, 8);
 }

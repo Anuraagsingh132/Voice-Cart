@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { generateSmartSuggestions, getCurrentSeason } from '@/lib/suggestions';
 import { ListItem } from '@/types';
 
-describe('generateSmartSuggestions', () => {
+describe('generateSmartSuggestions (GroceryStoreDataset)', () => {
   it('returns valid season string', () => {
     const season = getCurrentSeason();
     expect(['spring', 'summer', 'monsoon', 'winter', 'fall']).toContain(season);
@@ -12,7 +12,7 @@ describe('generateSmartSuggestions', () => {
     const items: ListItem[] = [
       {
         id: '1',
-        name: 'Farm Fresh Whole Milk',
+        name: 'Arla Standard Milk',
         quantity: 1,
         unit: 'carton (1L)',
         category: 'Dairy & Eggs',
@@ -25,8 +25,10 @@ describe('generateSmartSuggestions', () => {
     const hasSubstitute = suggestions.some((s) => s.type === 'substitute');
     expect(hasSubstitute).toBe(true);
 
-    const almondOrOat = suggestions.find((s) => s.item.toLowerCase().includes('almond') || s.item.toLowerCase().includes('oat'));
-    expect(almondOrOat).toBeDefined();
+    const plantBased = suggestions.find(
+      (s) => s.item.toLowerCase().includes('oat') || s.item.toLowerCase().includes('soy') || s.item.toLowerCase().includes('lactose')
+    );
+    expect(plantBased).toBeDefined();
   });
 
   it('generates seasonal suggestions for the current season', () => {
@@ -39,9 +41,9 @@ describe('generateSmartSuggestions', () => {
     const items: ListItem[] = [
       {
         id: '1',
-        name: 'Alphonso Mangoes (Premium)',
+        name: 'Watermelon',
         quantity: 1,
-        unit: 'box',
+        unit: 'pieces',
         category: 'Fruits & Vegetables',
         checked: false,
         addedAt: Date.now(),
@@ -50,6 +52,6 @@ describe('generateSmartSuggestions', () => {
 
     const suggestions = generateSmartSuggestions(items);
     const suggestedNames = suggestions.map((s) => s.item.toLowerCase());
-    expect(suggestedNames).not.toContain('alphonso mangoes (premium)');
+    expect(suggestedNames).not.toContain('watermelon');
   });
 });

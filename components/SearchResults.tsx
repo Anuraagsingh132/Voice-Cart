@@ -30,13 +30,13 @@ export function SearchResults() {
           </div>
           <div>
             <h3 className="text-base font-bold text-on-surface flex items-center gap-2">
-              <span>Search Results</span>
+              <span>GroceryStoreDataset Catalog</span>
               <span className="text-xs font-semibold bg-primary-container text-white px-2 py-0.5 rounded-full">
                 {totalMatches} {totalMatches === 1 ? 'match' : 'matches'}
               </span>
             </h3>
             <p className="text-xs text-neutral-500">
-              Query: <span className="font-semibold text-neutral-700">&ldquo;{query || 'all products'}&rdquo;</span>
+              Query: <span className="font-semibold text-neutral-700">&ldquo;{query || 'all items'}&rdquo;</span>
             </p>
           </div>
         </div>
@@ -81,26 +81,43 @@ export function SearchResults() {
             No matching products found
           </p>
           <p className="text-xs text-neutral-500 max-w-xs mx-auto">
-            Try searching for another product name or removing the price filters.
+            Try searching for items like &ldquo;Golden Delicious&rdquo;, &ldquo;Apple Juice&rdquo;, &ldquo;Milk&rdquo;, or &ldquo;Potato&rdquo;.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-80 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
           {results.map((product: Product) => {
             const onList = isAlreadyInList(product.name);
             return (
               <div
                 key={product.id}
-                className="flex items-center justify-between p-3 rounded-2xl border border-neutral-200/80 bg-neutral-50/50 hover:bg-white hover:border-primary/40 transition-all shadow-2xs"
+                className="flex items-center justify-between p-3 rounded-2xl border border-neutral-200/80 bg-neutral-50/50 hover:bg-white hover:border-primary/40 transition-all shadow-2xs group"
               >
-                <div className="flex items-center gap-2.5 min-w-0 mr-2">
-                  <span className="text-2xl select-none flex-shrink-0">
-                    {product.imageEmoji || '📦'}
-                  </span>
+                <div className="flex items-center gap-3 min-w-0 mr-2">
+                  {product.image ? (
+                    <div className="w-12 h-12 rounded-xl bg-white border border-neutral-200 overflow-hidden flex-shrink-0 relative shadow-2xs">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-2xl select-none flex-shrink-0">
+                      {product.imageEmoji || '📦'}
+                    </span>
+                  )}
+
                   <div className="min-w-0">
                     <p className="text-xs font-bold text-neutral-900 truncate">
                       {product.name}
                     </p>
+                    {product.description && (
+                      <p className="text-[10px] text-neutral-500 line-clamp-1">
+                        {product.description}
+                      </p>
+                    )}
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <span className="text-[11px] font-semibold text-neutral-500 truncate">
                         {product.brand}

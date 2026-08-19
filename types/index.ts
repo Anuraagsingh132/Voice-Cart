@@ -43,6 +43,7 @@ export interface ListItem {
 export interface Product {
   id: string;
   name: string;
+  coarseClass?: string;
   brand: string;
   category: string;
   subCategory?: string;
@@ -55,6 +56,8 @@ export interface Product {
   substitutes?: string[]; // IDs or names of substitute products
   tags?: string[];
   imageEmoji?: string;
+  image?: string;
+  description?: string;
 }
 
 export type SuggestionType = 'history' | 'seasonal' | 'substitute' | 'frequent';
@@ -70,6 +73,8 @@ export interface Suggestion {
   unit?: string;
   sourceItemId?: string; // which list item triggered this (for substitutes)
   badgeColor?: string;
+  image?: string;
+  description?: string;
 }
 
 export type VoiceState = 'idle' | 'listening' | 'processing' | 'success' | 'error';
