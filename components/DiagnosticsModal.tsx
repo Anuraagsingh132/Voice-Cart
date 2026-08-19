@@ -47,25 +47,25 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-neutral-200 overflow-hidden">
+      <div className="glass-card shadow-glass-lg rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col border border-vc-border overflow-hidden animate-scale-in">
         {/* Modal Header */}
-        <div className="p-5 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/50">
+        <div className="p-5 border-b border-vc-border-subtle flex items-center justify-between bg-vc-bg-subtle/30">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-700">
+            <div className="w-10 h-10 rounded-2xl badge-emerald flex items-center justify-center">
               <Activity className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-neutral-900">System Diagnostics & Event Log</h2>
-              <p className="text-xs text-neutral-500 font-medium">Modular Monolith Telemetry & Event Sourcing</p>
+              <h2 className="text-base font-bold text-vc-text">Mission Control</h2>
+              <p className="text-xs text-vc-text-secondary font-medium">System Diagnostics & Event Log</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyLogs}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition border ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition btn-glass ${
                 copied
-                  ? 'bg-emerald-600 text-white border-emerald-600'
-                  : 'bg-white hover:bg-neutral-100 text-neutral-700 border-neutral-200'
+                  ? 'text-vc-success border-vc-success/30'
+                  : ''
               }`}
               title="Copy formatted conversation & debug logs to clipboard"
             >
@@ -83,14 +83,14 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
             </button>
             <button
               onClick={handleRefresh}
-              className="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition"
+              className="p-2 rounded-xl transition btn-glass"
               title="Refresh Metrics"
             >
               <RefreshCw className="w-4 h-4" />
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition"
+              className="p-2 rounded-xl transition btn-glass"
             >
               <X className="w-5 h-5" />
             </button>
@@ -99,43 +99,43 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
 
 
         {/* Modal Body */}
-        <div className="p-6 overflow-y-auto space-y-6">
+        <div className="p-6 overflow-y-auto styled-scroll space-y-6 bg-vc-bg/40">
           {/* Telemetry Metrics Grid */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5">
-              <Cpu className="w-3.5 h-3.5" /> Performance & Telemetry
+            <h3 className="text-xs font-bold uppercase tracking-wider text-vc-text-muted mb-3 flex items-center gap-1.5">
+              <Cpu className="w-3.5 h-3.5 text-vc-cyan" /> Performance & Telemetry
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-neutral-50 rounded-2xl p-3.5 border border-neutral-200/60">
-                <p className="text-[11px] font-semibold text-neutral-500">Fast Path Rate</p>
+              <div className="glass rounded-2xl p-3.5 border border-vc-border-subtle">
+                <p className="text-[11px] font-semibold text-vc-text-secondary">Fast Path Rate</p>
                 <div className="flex items-baseline gap-1 mt-1">
-                  <span className={`text-xl font-black ${isTargetAchieved ? 'text-emerald-600' : 'text-amber-600'}`}>
+                  <span className={`text-xl font-black ${isTargetAchieved ? 'text-vc-emerald' : 'text-vc-warning'}`}>
                     {fastPathPct}%
                   </span>
-                  <span className="text-[10px] text-neutral-400 font-medium">target &ge;80%</span>
+                  <span className="text-[10px] text-vc-text-muted font-medium">target &ge;80%</span>
                 </div>
               </div>
 
-              <div className="bg-neutral-50 rounded-2xl p-3.5 border border-neutral-200/60">
-                <p className="text-[11px] font-semibold text-neutral-500">Parser Latency</p>
+              <div className="glass rounded-2xl p-3.5 border border-vc-border-subtle">
+                <p className="text-[11px] font-semibold text-vc-text-secondary">Parser Latency</p>
                 <div className="flex items-baseline gap-1 mt-1">
-                  <span className="text-xl font-black text-emerald-600">
+                  <span className="text-xl font-black text-vc-emerald">
                     {metrics?.avg_parser_latency_ms || 0.4}ms
                   </span>
-                  <span className="text-[10px] text-neutral-400 font-medium">&lt;2ms</span>
+                  <span className="text-[10px] text-vc-text-muted font-medium">&lt;2ms</span>
                 </div>
               </div>
 
-              <div className="bg-neutral-50 rounded-2xl p-3.5 border border-neutral-200/60">
-                <p className="text-[11px] font-semibold text-neutral-500">Commands Total</p>
-                <p className="text-xl font-black text-neutral-900 mt-1">
+              <div className="glass rounded-2xl p-3.5 border border-vc-border-subtle">
+                <p className="text-[11px] font-semibold text-vc-text-secondary">Commands Total</p>
+                <p className="text-xl font-black text-vc-text mt-1">
                   {metrics?.total_commands || 0}
                 </p>
               </div>
 
-              <div className="bg-neutral-50 rounded-2xl p-3.5 border border-neutral-200/60">
-                <p className="text-[11px] font-semibold text-neutral-500">LLM Fallbacks</p>
-                <p className="text-xl font-black text-neutral-700 mt-1">
+              <div className="glass rounded-2xl p-3.5 border border-vc-border-subtle">
+                <p className="text-[11px] font-semibold text-vc-text-secondary">LLM Fallbacks</p>
+                <p className="text-xl font-black text-vc-text-secondary mt-1">
                   {metrics?.llm_fallback_count || 0}
                 </p>
               </div>
@@ -144,37 +144,37 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
 
           {/* Groq Model Cascades & Failover Hierarchy */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3 flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5" /> Groq Model Cascades & Failover Hierarchy
+            <h3 className="text-xs font-bold uppercase tracking-wider text-vc-text-muted mb-3 flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-vc-violet" /> Groq Model Cascades & Failover Hierarchy
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {/* STT Cascade */}
-              <div className="bg-neutral-50 rounded-2xl p-4 border border-neutral-200/60">
+              <div className="glass rounded-2xl p-4 border border-vc-border-subtle">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-bold text-neutral-900">🎙️ Speech-To-Text Cascade</p>
-                  <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                  <p className="text-xs font-bold text-vc-text">🎙️ Speech-To-Text Cascade</p>
+                  <span className="text-[10px] font-bold badge-emerald px-2 py-0.5 rounded-full">
                     Active
                   </span>
                 </div>
-                <div className="mt-2.5 space-y-1 text-[11px] font-mono text-neutral-600">
-                  <p>1. <span className="font-bold text-neutral-900">whisper-large-v3-turbo</span> (Primary Fast)</p>
-                  <p>2. <span className="font-bold text-neutral-800">whisper-large-v3</span> (Multilingual Precision)</p>
-                  <p>3. <span className="text-neutral-500">WebSpeech API</span> (Parallel Client Fallback)</p>
+                <div className="mt-2.5 space-y-1 text-[11px] font-mono text-vc-text-secondary">
+                  <p>1. <span className="font-bold text-vc-text">whisper-large-v3-turbo</span> (Primary Fast)</p>
+                  <p>2. <span className="font-bold text-vc-text-secondary">whisper-large-v3</span> (Multilingual)</p>
+                  <p>3. <span className="text-vc-text-muted">WebSpeech API</span> (Parallel Fallback)</p>
                 </div>
               </div>
 
               {/* LLM Cascade */}
-              <div className="bg-neutral-50 rounded-2xl p-4 border border-neutral-200/60">
+              <div className="glass rounded-2xl p-4 border border-vc-border-subtle">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-bold text-neutral-900">🧠 LLM Ambiguity Cascade</p>
-                  <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                  <p className="text-xs font-bold text-vc-text">🧠 LLM Ambiguity Cascade</p>
+                  <span className="text-[10px] font-bold badge-emerald px-2 py-0.5 rounded-full">
                     Active
                   </span>
                 </div>
-                <div className="mt-2.5 space-y-1 text-[11px] font-mono text-neutral-600">
-                  <p>1. <span className="font-bold text-neutral-900">llama-3.3-70b-versatile</span> (Top Intelligence)</p>
-                  <p>2. <span className="font-bold text-neutral-800">llama-3.1-8b-instant</span> (High TPM Fallback)</p>
-                  <p>3. <span className="text-neutral-500">Deterministic Engine</span> (Offline Fast Path)</p>
+                <div className="mt-2.5 space-y-1 text-[11px] font-mono text-vc-text-secondary">
+                  <p>1. <span className="font-bold text-vc-text">llama-3.3-70b-versatile</span> (Top Intel)</p>
+                  <p>2. <span className="font-bold text-vc-text-secondary">llama-3.1-8b-instant</span> (High TPM)</p>
+                  <p>3. <span className="text-vc-text-muted">Deterministic Engine</span> (Offline Fast Path)</p>
                 </div>
               </div>
             </div>
@@ -184,8 +184,8 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
           {/* Immutable Event Audit Log with Undo */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5" /> Immutable Event Stream ({events.length})
+              <h3 className="text-xs font-bold uppercase tracking-wider text-vc-text-muted flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-vc-cyan" /> Immutable Event Stream ({events.length})
               </h3>
               <button
                 onClick={() => {
@@ -193,7 +193,7 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
                   handleRefresh();
                 }}
                 disabled={events.length === 0}
-                className="flex items-center gap-1.5 text-xs font-bold bg-neutral-900 hover:bg-neutral-800 text-white px-3 py-1.5 rounded-xl transition disabled:opacity-40"
+                className="flex items-center gap-1.5 text-xs font-bold btn-glass px-3 py-1.5 rounded-xl transition disabled:opacity-40 text-vc-error border-vc-error/30 hover:bg-vc-error/10"
               >
                 <Undo2 className="w-3.5 h-3.5" />
                 <span>Compensating Undo</span>
@@ -201,30 +201,30 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
             </div>
 
             {events.length === 0 ? (
-              <div className="text-center py-8 bg-neutral-50 rounded-2xl border border-neutral-200/60">
-                <p className="text-xs text-neutral-400">No domain events recorded yet.</p>
+              <div className="text-center py-8 glass rounded-2xl border border-vc-border-subtle">
+                <p className="text-xs text-vc-text-muted">No domain events recorded yet.</p>
               </div>
             ) : (
-              <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+              <div className="space-y-2 max-h-60 overflow-y-auto pr-1 styled-scroll">
                 {events.map((evt) => (
                   <div
                     key={evt.event_id}
-                    className="p-3 bg-neutral-50/80 hover:bg-neutral-100/60 rounded-xl border border-neutral-200/60 flex items-center justify-between text-xs transition"
+                    className="p-3 bg-vc-bg-subtle/50 hover:bg-vc-bg-subtle rounded-xl border border-vc-border-subtle flex items-center justify-between text-xs transition"
                   >
                     <div className="min-w-0 pr-2">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-[10px] bg-neutral-200/70 text-neutral-800 px-1.5 py-0.5 rounded-md">
+                        <span className="font-mono font-bold text-[10px] badge-violet px-1.5 py-0.5 rounded-md">
                           {evt.type}
                         </span>
-                        <span className="font-bold text-neutral-900 truncate">
+                        <span className="font-bold text-vc-text truncate">
                           {evt.payload.name ? `${evt.payload.quantity ? `${evt.payload.quantity} ` : ''}${evt.payload.name}` : evt.payload.explanation || 'Action'}
                         </span>
                       </div>
-                      <p className="text-[10px] text-neutral-400 font-mono mt-0.5">
+                      <p className="text-[10px] text-vc-text-muted font-mono mt-0.5">
                         v{evt.aggregate_version} • {new Date(evt.timestamp).toLocaleTimeString()} • {evt.metadata.route}
                       </p>
                     </div>
-                    <span className="text-[10px] font-mono text-neutral-400 flex-shrink-0">
+                    <span className="text-[10px] font-mono text-vc-text-muted flex-shrink-0">
                       {evt.event_id.substring(0, 12)}
                     </span>
                   </div>

@@ -33,57 +33,54 @@ export function Suggestions() {
         return {
           icon: Sun,
           label: 'In Season',
-          color: 'text-amber-800',
-          bg: 'bg-amber-100',
+          badgeClass: 'badge-amber',
         };
       case 'substitute':
         return {
           icon: ArrowLeftRight,
           label: 'Healthy Swap',
-          color: 'text-sky-800',
-          bg: 'bg-sky-100',
+          badgeClass: 'badge-cyan',
         };
       case 'history':
       default:
         return {
           icon: History,
-          label: 'Shopping History',
-          color: 'text-emerald-800',
-          bg: 'bg-emerald-100',
+          label: 'Buy Again',
+          badgeClass: 'badge-emerald',
         };
     }
   };
 
   return (
-    <section className="w-full relative group/carousel">
+    <section className="w-full relative group/carousel animate-fade-in-up">
       {/* Section Header */}
       <div className="flex justify-between items-end mb-3">
         <div>
-          <h2 className="text-lg md:text-xl font-bold text-neutral-900 tracking-tight flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-bold text-vc-text tracking-tight flex items-center gap-2">
             <span>Smart Suggestions</span>
-            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+            <span className="badge-cyan text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
               <Sparkles className="w-3 h-3" />
-              Dynamic AI
+              AI
             </span>
           </h2>
-          <p className="text-xs text-neutral-400 font-medium">
-            Based on active list items, seasonal produce, and purchase history
+          <p className="text-xs text-vc-text-muted mt-0.5">
+            Based on your list, seasonal produce, and purchase history
           </p>
         </div>
 
-        {/* Carousel Arrow Controls */}
+        {/* Carousel Arrows */}
         <div className="flex items-center gap-1.5 opacity-0 group-hover/carousel:opacity-100 transition-opacity">
           <button
             onClick={() => scroll('left')}
             aria-label="Scroll suggestions left"
-            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95 cursor-pointer"
+            className="btn-glass w-8 h-8 !p-0 flex items-center justify-center !rounded-full focus-ring"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={() => scroll('right')}
             aria-label="Scroll suggestions right"
-            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95 cursor-pointer"
+            className="btn-glass w-8 h-8 !p-0 flex items-center justify-center !rounded-full focus-ring"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -93,7 +90,7 @@ export function Suggestions() {
       {/* Snap Scroll Container */}
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 overflow-x-auto hide-scroll pb-2 snap-x snap-mandatory px-1 -mx-1"
+        className="flex gap-3 overflow-x-auto hide-scroll pb-2 snap-x snap-mandatory px-0.5 -mx-0.5"
       >
         {suggestions.map((s) => {
           const badge = getBadgeInfo(s.type);
@@ -104,59 +101,60 @@ export function Suggestions() {
           return (
             <div
               key={s.id}
-              className="w-64 md:w-72 lg:w-80 flex-shrink-0 snap-start bg-white border border-neutral-200/90 rounded-2xl p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              className="w-60 sm:w-64 md:w-72 flex-shrink-0 snap-start glass-card glass-card-hover rounded-xl p-3.5 flex flex-col justify-between"
             >
               <div>
-                {/* Badge */}
+                {/* Badge + Price */}
                 <div className="flex items-center justify-between gap-1.5 mb-2">
-                  <span className={`inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${badge.bg} ${badge.color}`}>
+                  <span className={`inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${badge.badgeClass}`}>
                     <BadgeIcon className="w-3 h-3" />
                     {badge.label}
                   </span>
                   {s.price && (
-                    <span className="text-xs font-bold text-neutral-700">
+                    <span className="text-xs font-bold text-vc-text">
                       ${s.price}
                     </span>
                   )}
                 </div>
 
-                {/* Dominant Product Title */}
-                <h3 className="text-base font-bold text-neutral-900 mb-2 truncate" title={s.item}>
+                {/* Product Title */}
+                <h3 className="text-sm font-bold text-vc-text mb-2 truncate" title={s.item}>
                   {s.item}
                 </h3>
 
-                {/* Centered Image with soft neutral backdrop */}
-                <div className="h-28 w-full rounded-xl mb-3 bg-neutral-50 border border-neutral-100 flex items-center justify-center p-2.5 overflow-hidden relative">
+                {/* Image */}
+                <div className="h-24 w-full rounded-lg mb-2.5 bg-white/[0.03] border border-vc-border-subtle flex items-center justify-center p-2 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={imgSrc}
                     alt={s.item}
                     className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
                   />
                 </div>
 
-                {/* Explicit Intelligence Rationale Box */}
-                <div className="bg-neutral-50 rounded-xl p-2.5 mb-3 border border-neutral-100/90">
-                  <p className="text-[11px] font-semibold text-neutral-700 leading-snug">
+                {/* Rationale */}
+                <div className="rounded-lg p-2.5 mb-3 border border-vc-border-subtle bg-white/[0.02]">
+                  <p className="text-[11px] font-medium text-vc-text-secondary leading-snug">
                     💡 {s.reason}
                   </p>
                   {s.description && (
-                    <p className="text-[10px] text-neutral-400 mt-1 line-clamp-1">
+                    <p className="text-[10px] text-vc-text-muted mt-1 line-clamp-1">
                       {s.description}
                     </p>
                   )}
                 </div>
               </div>
 
-              {/* Action Button */}
+              {/* Action */}
               <button
                 type="button"
                 onClick={() => acceptSuggestion(s)}
                 disabled={onList}
-                className={`w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold transition-all active:scale-95 cursor-pointer ${
+                className={`w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all active:scale-95 cursor-pointer focus-ring ${
                   onList
-                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-default'
-                    : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs'
+                    ? 'badge-emerald cursor-default'
+                    : 'btn-primary'
                 }`}
               >
                 {onList ? (

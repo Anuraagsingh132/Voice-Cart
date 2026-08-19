@@ -1,56 +1,202 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════
+   VOICE CART — Design System Foundation
+   Premium dark-mode, futuristic, consumer-grade UI
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Base Reset ── */
 :root {
-  --background: #f8f9ff;
-  --foreground: #0b1c30;
-  --primary: #006c49;
-  --primary-container: #10b981;
+  --vc-bg: #0a0e1a;
+  --vc-bg-subtle: #0f1424;
+  --vc-text: #e8ecf4;
+  --vc-text-secondary: #8b95b0;
+  --vc-cyan: #06b6d4;
+  --vc-emerald: #10b981;
+  --vc-violet: #8b5cf6;
+  --vc-border: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: var(--vc-text);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.mesh-bg {
-  background-color: #f8f9ff;
-  background-image: 
-    radial-gradient(at 40% 20%, hsla(158, 100%, 94%, 0.5) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, hsla(189, 100%, 96%, 0.5) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(355, 0%, 98%, 0.4) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, hsla(340, 100%, 98%, 0.4) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(22, 100%, 96%, 0.5) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, hsla(242, 100%, 96%, 0.4) 0px, transparent 50%),
-    radial-gradient(at 0% 0%, hsla(343, 100%, 96%, 0.4) 0px, transparent 50%);
+::selection {
+  background: rgba(6, 182, 212, 0.3);
+  color: #e8ecf4;
 }
 
+/* ── Atmospheric Background ── */
+.vc-atmosphere {
+  background-color: #0a0e1a;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(139, 92, 246, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+}
+
+/* ── Glass Surfaces ── */
+.glass {
+  background: rgba(15, 20, 40, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(15, 20, 40, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.glass-card-hover {
+  transition: all 0.2s ease;
+}
+.glass-card-hover:hover {
+  background: rgba(20, 28, 55, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+.glass-input:focus-within {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.06);
+}
+
+/* ── Accent Badges ── */
+.badge-cyan {
+  background: rgba(6, 182, 212, 0.15);
+  color: #22d3ee;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.badge-violet {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+.badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+.badge-rose {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* ── Button Base ── */
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 12px rgba(16, 185, 129, 0.2);
+}
+.btn-primary:hover {
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8ecf4;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.btn-glass:active {
+  transform: scale(0.97);
+}
+
+/* ── Mic Pulse Animation ── */
 @keyframes pulse-ring {
-  0% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1.08); box-shadow: 0 0 0 22px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.5); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 18px rgba(6, 182, 212, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
 }
-
 .mic-pulse {
   animation: pulse-ring 2s infinite ease-in-out;
 }
 
+/* ── Voice Orb Ring ── */
+@keyframes orbRing {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.voice-ring {
+  animation: orbRing 1.5s ease-out infinite;
+}
+.voice-ring-delayed {
+  animation: orbRing 1.5s ease-out infinite 0.5s;
+}
+
+/* ── Fade Animations ── */
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 .animate-fade-in-down {
-  animation: fadeInDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Custom Scrollbar for horizontal shelf */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* ── Progress Ring ── */
+.progress-ring-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+}
+.progress-ring-fill {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+/* ── Scrollbar Styling ── */
 .hide-scroll::-webkit-scrollbar {
   display: none;
 }
@@ -59,8 +205,73 @@ body {
   scrollbar-width: none;
 }
 
-/* Carousel peek effect */
+/* Styled scrollbar for content areas */
+.styled-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.styled-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.styled-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+.styled-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Carousel ── */
 .carousel-container {
   scroll-snap-type: x mandatory;
   scroll-padding-left: 16px;
+}
+
+/* ── Skeleton Loading ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Focus Ring ── */
+.focus-ring:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.5);
+  outline-offset: 2px;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .mic-pulse, .voice-ring, .voice-ring-delayed {
+    animation: none !important;
+  }
+}
+
+/* ── Utility: Text Gradient ── */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

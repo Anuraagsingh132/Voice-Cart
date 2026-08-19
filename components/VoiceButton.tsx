@@ -19,6 +19,7 @@ export function VoiceButton({
 }: VoiceButtonProps) {
   const isListening = voiceState === 'listening';
   const isProcessing = voiceState === 'processing';
+  const isSuccess = voiceState === 'success';
 
   const handleClick = () => {
     if (isListening) {
@@ -33,12 +34,12 @@ export function VoiceButton({
       <div className="flex flex-col items-center">
         <button
           disabled
-          className="relative flex items-center justify-center w-14 h-14 rounded-full bg-neutral-200 text-neutral-400 cursor-not-allowed shadow-inner border-2 border-white"
+          className="relative flex items-center justify-center w-16 h-16 md:w-[72px] md:h-[72px] rounded-full glass opacity-50 cursor-not-allowed border border-vc-border-subtle"
           title="Speech recognition not supported in this browser. Use manual typing below."
         >
-          <MicOff className="w-6 h-6" />
+          <MicOff className="w-6 h-6 text-vc-text-muted" />
         </button>
-        <span className="mt-1 text-[10px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+        <span className="mt-2 text-xs font-medium text-vc-warning badge-amber">
           Voice unavailable in this browser
         </span>
       </div>
@@ -46,37 +47,36 @@ export function VoiceButton({
   }
 
   return (
-    <div className="relative w-20 h-20 flex items-center justify-center">
-      {/* Listening Ripple Rings: Staggered Visible Pulses */}
+    <div className="relative w-24 h-24 flex items-center justify-center">
+      {/* Listening Rings */}
       {isListening && (
         <>
-          <div className="absolute inset-0 rounded-full bg-rose-500/30 animate-ping pointer-events-none" />
-          <div
-            className="absolute inset-0 rounded-full bg-rose-500/20 animate-ping pointer-events-none"
-            style={{ animationDelay: '350ms' }}
-          />
+          <div className="absolute inset-0 rounded-full bg-vc-cyan-muted voice-ring pointer-events-none" />
+          <div className="absolute inset-0 rounded-full bg-vc-cyan-muted voice-ring-delayed pointer-events-none" />
         </>
       )}
 
-      {/* Primary Voice Button */}
+      {/* Main Button */}
       <button
         onClick={handleClick}
         disabled={isProcessing}
         aria-label={isListening ? 'Stop listening' : 'Start voice command'}
-        className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 border-4 border-white active:scale-95 ${
+        className={`relative flex items-center justify-center w-16 h-16 md:w-[72px] md:h-[72px] rounded-full transition-all duration-300 z-10 active:scale-95 focus-ring ${
           isListening
-            ? 'bg-rose-600 shadow-rose-500/40 text-white scale-105'
+            ? 'bg-vc-cyan-muted border-2 border-vc-cyan shadow-glow-cyan text-vc-cyan scale-105'
             : isProcessing
-            ? 'bg-amber-500 shadow-amber-500/40 text-white'
-            : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/30 hover:scale-105 text-white'
+            ? 'glass border-2 border-vc-warning shadow-glow-warning text-vc-warning'
+            : isSuccess
+            ? 'glass border-2 border-vc-emerald shadow-glow-emerald text-vc-emerald'
+            : 'glass border border-vc-border-accent shadow-glass text-vc-text hover:border-vc-cyan hover:shadow-glow-cyan hover:text-vc-cyan mic-pulse'
         }`}
       >
         {isProcessing ? (
-          <Loader2 className="w-6 h-6 animate-spin text-white" />
+          <Loader2 className="w-6 h-6 md:w-8 md:h-8 animate-spin" />
         ) : isListening ? (
-          <Square className="w-5 h-5 fill-white text-white" />
+          <Square className="w-5 h-5 md:w-6 md:h-6 fill-current" />
         ) : (
-          <Mic className="w-7 h-7 text-white" />
+          <Mic className="w-6 h-6 md:w-8 md:h-8" />
         )}
       </button>
     </div>

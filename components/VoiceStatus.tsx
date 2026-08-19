@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CheckCircle2, AlertCircle, RefreshCw, Loader2, Mic, Undo2 } from 'lucide-react';
+import { CheckCircle2, AlertCircle, RefreshCw, Loader2, Undo2 } from 'lucide-react';
 import { VoiceFeedback, VoiceState } from '@/types';
 
 interface VoiceStatusProps {
@@ -22,16 +22,15 @@ export function VoiceStatus({
   // Live streaming transcript while user is speaking
   if (voiceState === 'listening' && interimTranscript) {
     return (
-      <div className="bg-emerald-600 text-white border border-emerald-500 rounded-2xl py-2.5 px-5 flex items-center justify-between gap-3 shadow-lg shadow-emerald-600/20 mx-auto max-w-lg sticky top-16 z-40 animate-fade-in-down">
-        <div className="flex items-center gap-2.5 overflow-hidden">
-          <div className="w-2.5 h-2.5 rounded-full bg-white animate-ping flex-shrink-0" />
-          <p className="text-xs sm:text-sm font-medium text-white truncate flex items-center">
-            <span className="font-semibold text-emerald-100 mr-1.5">🎙️ Heard:</span>
+      <div className="glass-card border-l-4 border-l-vc-cyan py-3 px-4 flex items-center justify-between gap-3 shadow-glow-cyan mx-auto max-w-lg sticky top-16 z-40 animate-fade-in-down transition-all duration-300">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <div className="w-2.5 h-2.5 rounded-full bg-vc-cyan animate-pulse flex-shrink-0 shadow-glow-cyan" />
+          <p className="text-sm font-medium text-vc-text truncate flex items-center">
+            <span className="text-vc-text-secondary mr-2">🎙️</span>
             <span>&ldquo;{interimTranscript}&rdquo;</span>
-            <span className="inline-block w-1.5 h-3.5 bg-white ml-1.5 animate-pulse rounded-xs" />
           </p>
         </div>
-        <span className="text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white px-2 py-0.5 rounded-full flex-shrink-0">
+        <span className="badge-cyan flex-shrink-0">
           Listening
         </span>
       </div>
@@ -46,80 +45,75 @@ export function VoiceStatus({
   const { status, message, transcript } = feedback;
 
   return (
-    <div className="w-full max-w-lg mx-auto sticky top-16 z-40 animate-fade-in-down transition-all">
+    <div className="w-full max-w-lg mx-auto sticky top-16 z-40 animate-fade-in-down transition-all duration-300">
       {status === 'processing' && (
-        <div className="bg-amber-500 text-white border border-amber-400 rounded-2xl py-2.5 px-5 flex items-center justify-between gap-2 shadow-lg shadow-amber-500/20">
-          <div className="flex items-center gap-2.5 overflow-hidden">
-            <Loader2 className="w-4 h-4 text-white animate-spin flex-shrink-0" />
+        <div className="glass-card border-l-4 border-l-vc-warning py-3 px-4 flex items-center justify-between gap-2 shadow-glow-warning">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <Loader2 className="w-5 h-5 text-vc-warning animate-spin flex-shrink-0" />
             <div className="min-w-0">
-              <p className="text-xs sm:text-sm font-bold text-white truncate">
-                {transcript ? `🎙️ "${transcript}"` : 'Analyzing voice command...'}
+              <p className="text-sm font-semibold text-vc-text truncate">
+                {transcript ? `🎙️ "${transcript}"` : 'Analyzing command...'}
               </p>
-              <p className="text-[11px] text-amber-100">Groq NLP extracting intent & entities...</p>
             </div>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white px-2 py-0.5 rounded-full flex-shrink-0">
+          <span className="badge-amber flex-shrink-0">
             Parsing
           </span>
         </div>
       )}
 
       {status === 'success' && (
-        <div className="bg-white text-neutral-900 border-2 border-emerald-500 rounded-2xl py-2.5 px-5 flex items-center justify-between gap-2 shadow-lg shadow-emerald-500/10 animate-fade-in">
+        <div className="glass-card border-l-4 border-l-vc-emerald py-3 px-4 flex items-center justify-between gap-2 shadow-glow-emerald">
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 flex-shrink-0">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+            <div className="w-8 h-8 rounded-full bg-vc-emerald-muted flex items-center justify-center text-vc-emerald flex-shrink-0">
+              <CheckCircle2 className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               {transcript && (
-                <p className="text-[11px] font-semibold text-neutral-400 truncate">
-                  🎙️ Spoken: &ldquo;{transcript}&rdquo;
+                <p className="text-xs font-medium text-vc-text-muted truncate mb-0.5">
+                  🎙️ &ldquo;{transcript}&rdquo;
                 </p>
               )}
-              <p className="text-xs sm:text-sm font-bold text-emerald-800 truncate">
-                {message || 'Action executed successfully'}
+              <p className="text-sm font-semibold text-vc-text truncate">
+                {message || 'Executed successfully'}
               </p>
             </div>
           </div>
-          {onUndo ? (
+          {onUndo && (
             <button
               onClick={onUndo}
-              className="flex items-center gap-1 text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-3 py-1 rounded-xl transition flex-shrink-0 shadow-xs active:scale-95 border border-neutral-300"
+              className="btn-glass flex items-center gap-1.5 flex-shrink-0"
             >
-              <Undo2 className="w-3 h-3" />
+              <Undo2 className="w-3.5 h-3.5" />
               <span>Undo</span>
             </button>
-          ) : (
-            <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full flex-shrink-0">
-              Executed
-            </span>
           )}
         </div>
       )}
 
       {status === 'error' && (
-        <div className="bg-white text-neutral-900 border-2 border-rose-400 rounded-2xl py-2.5 px-5 flex items-center justify-between gap-2 shadow-lg shadow-rose-500/10 animate-fade-in">
+        <div className="glass-card border-l-4 border-l-vc-error py-3 px-4 flex items-center justify-between gap-2 shadow-glow-error">
           <div className="flex items-center gap-3 overflow-hidden pr-2">
-            <div className="w-8 h-8 rounded-xl bg-rose-100 flex items-center justify-center text-rose-700 flex-shrink-0">
-              <AlertCircle className="w-5 h-5 text-rose-600" />
+            <div className="w-8 h-8 rounded-full bg-vc-error/10 flex items-center justify-center text-vc-error flex-shrink-0">
+              <AlertCircle className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               {transcript && (
-                <p className="text-[11px] font-semibold text-neutral-400 truncate">
-                  🎙️ Spoken: &ldquo;{transcript}&rdquo;
+                <p className="text-xs font-medium text-vc-text-muted truncate mb-0.5">
+                  🎙️ &ldquo;{transcript}&rdquo;
                 </p>
               )}
-              <p className="text-xs sm:text-sm font-bold text-rose-800 truncate">
-                {message || 'Could not understand command.'}
+              <p className="text-sm font-semibold text-vc-text truncate">
+                {message || 'Could not understand command'}
               </p>
             </div>
           </div>
           {onRetry && (
             <button
               onClick={onRetry}
-              className="flex items-center gap-1 text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white px-3 py-1 rounded-xl transition flex-shrink-0 shadow-xs active:scale-95"
+              className="btn-glass !text-vc-error hover:!bg-vc-error/10 flex items-center gap-1.5 flex-shrink-0"
             >
-              <RefreshCw className="w-3 h-3" />
+              <RefreshCw className="w-3.5 h-3.5" />
               <span>Retry</span>
             </button>
           )}

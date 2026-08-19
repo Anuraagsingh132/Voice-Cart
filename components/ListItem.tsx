@@ -19,21 +19,21 @@ export function ListItem({
 }: ListItemProps) {
   return (
     <div
-      className={`flex items-center justify-between p-3 rounded-2xl group transition-all ${
+      className={`flex items-center justify-between p-3 sm:p-3.5 rounded-xl group transition-all duration-200 ${
         item.checked
-          ? 'opacity-60 bg-neutral-50/60 border border-neutral-200/50'
-          : 'bg-white hover:bg-neutral-50/80 border border-neutral-200/80 shadow-2xs hover:shadow-xs'
+          ? 'opacity-50 bg-white/[0.02] border border-vc-border-subtle'
+          : 'glass-card glass-card-hover'
       }`}
     >
-      {/* Left side: Checkbox + Name + Quantity subtitle */}
-      <div className="flex items-center gap-3.5 min-w-0 flex-1 mr-2">
+      {/* Left: Checkbox + Name */}
+      <div className="flex items-center gap-3 min-w-0 flex-1 mr-2">
         <button
           onClick={() => onToggleCheck(item.id)}
           aria-label={item.checked ? `Unmark ${item.name}` : `Mark ${item.name} as purchased`}
-          className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all duration-200 group-hover:scale-105 active:scale-90 flex-shrink-0 ${
+          className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all duration-200 active:scale-90 flex-shrink-0 focus-ring ${
             item.checked
-              ? 'border-emerald-600 bg-emerald-600 text-white shadow-2xs'
-              : 'border-neutral-300 hover:border-emerald-500 bg-white'
+              ? 'border-vc-emerald bg-vc-emerald text-white shadow-sm'
+              : 'border-vc-border hover:border-vc-cyan bg-transparent'
           }`}
         >
           {item.checked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -41,49 +41,50 @@ export function ListItem({
 
         <div className="min-w-0 flex-1">
           <p
-            className={`text-sm font-semibold truncate transition-all ${
+            className={`text-sm font-medium truncate transition-all ${
               item.checked
-                ? 'line-through text-neutral-400'
-                : 'text-neutral-900 font-medium'
+                ? 'line-through text-vc-text-muted'
+                : 'text-vc-text'
             }`}
           >
             {item.name}
-            <span className="text-xs font-normal text-neutral-500 ml-1.5">
-              • {item.quantity} {item.unit && item.unit !== 'pieces' ? item.unit : 'pcs'}
-            </span>
+          </p>
+          <p className="text-xs text-vc-text-muted mt-0.5">
+            {item.quantity} {item.unit && item.unit !== 'pieces' ? item.unit : 'pcs'}
+            {item.brand && <span className="ml-1.5">• {item.brand}</span>}
           </p>
         </div>
       </div>
 
-      {/* Right side: Quantity Stepper + Delete button */}
+      {/* Right: Quantity Stepper + Delete */}
       <div className="flex items-center gap-2 flex-shrink-0">
-        {/* Quantity Stepper with distinct tappable borders */}
-        <div className="flex items-center bg-neutral-50 rounded-lg p-0.5 border border-neutral-200">
+        {/* Quantity Stepper */}
+        <div className="flex items-center rounded-lg border border-vc-border bg-white/[0.03]">
           <button
             onClick={() => onModifyQty(item.id, Math.max(1, item.quantity - 1))}
             disabled={item.quantity <= 1}
             aria-label="Decrease quantity"
-            className="w-5 h-5 flex items-center justify-center rounded bg-white border border-neutral-200/80 text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 disabled:opacity-30 disabled:hover:text-neutral-600 transition shadow-2xs active:scale-95"
+            className="w-7 h-7 flex items-center justify-center text-vc-text-secondary hover:text-vc-cyan disabled:opacity-25 disabled:hover:text-vc-text-secondary transition active:scale-90 focus-ring"
           >
             <Minus className="w-3 h-3" />
           </button>
-          <span className="px-2 text-xs font-bold text-neutral-800 min-w-[1.25rem] text-center select-none">
+          <span className="px-2 text-xs font-bold text-vc-text min-w-[1.25rem] text-center select-none tabular-nums">
             {item.quantity}
           </span>
           <button
             onClick={() => onModifyQty(item.id, item.quantity + 1)}
             aria-label="Increase quantity"
-            className="w-5 h-5 flex items-center justify-center rounded bg-white border border-neutral-200/80 text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition shadow-2xs active:scale-95"
+            className="w-7 h-7 flex items-center justify-center text-vc-text-secondary hover:text-vc-cyan transition active:scale-90 focus-ring"
           >
             <Plus className="w-3 h-3" />
           </button>
         </div>
 
-        {/* Delete button: Hidden at rest, fades in on row hover */}
+        {/* Delete */}
         <button
           onClick={() => onDelete(item.id)}
           aria-label={`Delete ${item.name}`}
-          className="p-1.5 rounded-lg text-neutral-400 hover:text-rose-600 hover:bg-rose-50 opacity-0 group-hover:opacity-100 transition-opacity active:scale-95"
+          className="p-2 rounded-lg text-vc-text-muted hover:text-vc-error hover:bg-vc-error/10 opacity-0 group-hover:opacity-100 transition-all active:scale-90 focus-ring sm:p-1.5"
         >
           <Trash2 className="w-4 h-4" />
         </button>

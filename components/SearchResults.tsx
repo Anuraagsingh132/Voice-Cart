@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, X, Plus, Tag, Check, CheckCircle2 } from 'lucide-react';
+import { Search, X, Plus, Tag, Check, CheckCircle2, Package } from 'lucide-react';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { Product } from '@/types';
 
@@ -41,106 +41,109 @@ export function SearchResults() {
   };
 
   return (
-    <section className="w-full my-4 bg-white rounded-3xl border border-emerald-400/80 p-5 md:p-6 shadow-lg animate-fade-in-down relative z-20">
+    <section className="w-full my-3 glass-card rounded-2xl p-4 sm:p-5 md:p-6 border-vc-border-accent animate-fade-in-down relative z-20">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-neutral-100">
+      <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-vc-border-subtle">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700 shadow-2xs">
-            <Search className="w-4 h-4" />
+          <div className="w-9 h-9 rounded-xl bg-vc-cyan-muted flex items-center justify-center flex-shrink-0">
+            <Search className="w-4 h-4 text-vc-cyan" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2">
-              <span>{query === 'All Items' ? 'Full Store Catalog' : 'Catalog Search Results'}</span>
-              <span className="text-xs font-semibold bg-emerald-600 text-white px-2 py-0.5 rounded-full shadow-2xs">
+            <h3 className="text-sm sm:text-base font-bold text-vc-text flex items-center gap-2">
+              <span>{query === 'All Items' ? 'Store Catalog' : 'Search Results'}</span>
+              <span className="badge-cyan text-[10px] font-bold px-2 py-0.5 rounded-full tabular-nums">
                 {totalMatches} {totalMatches === 1 ? 'item' : 'items'}
               </span>
             </h3>
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-vc-text-muted">
               {query === 'All Items' ? (
-                <span>Browse all available products in store</span>
+                <span>Browse all available products</span>
               ) : (
-                <span>Query: <span className="font-semibold text-neutral-800">&ldquo;{query || 'all items'}&rdquo;</span></span>
+                <span>Query: <span className="font-semibold text-vc-text-secondary">&ldquo;{query || 'all items'}&rdquo;</span></span>
               )}
             </p>
           </div>
-
         </div>
 
         <button
           onClick={clearSearch}
           aria-label="Close search results"
-          className="flex items-center gap-1 text-xs font-semibold text-neutral-500 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 px-3 py-1.5 rounded-xl transition active:scale-95 cursor-pointer"
+          className="btn-glass text-xs flex items-center gap-1 px-3 py-1.5 focus-ring"
         >
           <span>Done</span>
           <X className="w-3.5 h-3.5" />
         </button>
       </div>
 
-      {/* Instant Success Banner on Add */}
+      {/* Success Banner */}
       {justAddedName && (
-        <div className="mb-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-xl p-2.5 flex items-center gap-2 animate-fade-in-down">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-          <span>Added &ldquo;{justAddedName}&rdquo; to your shopping list below!</span>
+        <div className="mb-3.5 badge-emerald text-xs font-semibold rounded-lg p-2.5 flex items-center gap-2 animate-fade-in-down">
+          <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+          <span>Added &ldquo;{justAddedName}&rdquo; to your shopping list!</span>
         </div>
       )}
 
-      {/* Filter Badges if applied */}
+      {/* Filter Badges */}
       {(filters?.priceMax != null || filters?.priceMin != null || filters?.brand || filters?.size) && (
         <div className="flex flex-wrap items-center gap-1.5 mb-3.5">
-          <span className="text-[11px] font-semibold text-neutral-400 mr-1 flex items-center gap-1">
+          <span className="text-[11px] font-semibold text-vc-text-muted mr-1 flex items-center gap-1">
             <Tag className="w-3 h-3" /> Filters:
           </span>
           {filters.priceMax != null && (
-            <span className="text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-lg">
-              Max Price: ${filters.priceMax}
+            <span className="badge-cyan text-[11px] font-medium px-2 py-0.5 rounded-lg">
+              Max: ${filters.priceMax}
             </span>
           )}
           {filters.priceMin != null && (
-            <span className="text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-lg">
-              Min Price: ${filters.priceMin}
+            <span className="badge-cyan text-[11px] font-medium px-2 py-0.5 rounded-lg">
+              Min: ${filters.priceMin}
             </span>
           )}
           {filters.brand && (
-            <span className="text-xs font-medium bg-neutral-100 text-neutral-700 border border-neutral-200 px-2 py-0.5 rounded-lg">
-              Brand: {filters.brand}
+            <span className="badge-violet text-[11px] font-medium px-2 py-0.5 rounded-lg">
+              {filters.brand}
             </span>
           )}
           {filters.size && (
-            <span className="text-xs font-medium bg-neutral-100 text-neutral-700 border border-neutral-200 px-2 py-0.5 rounded-lg">
-              Size: {filters.size}
+            <span className="badge-violet text-[11px] font-medium px-2 py-0.5 rounded-lg">
+              {filters.size}
             </span>
           )}
         </div>
       )}
 
-      {/* Result Cards */}
+      {/* Results */}
       {results.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-sm font-semibold text-neutral-700 mb-1">
+        <div className="text-center py-10">
+          <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-vc-border flex items-center justify-center mx-auto mb-3">
+            <Package className="w-6 h-6 text-vc-text-muted" />
+          </div>
+          <p className="text-sm font-semibold text-vc-text mb-1">
             No matching products found
           </p>
-          <p className="text-xs text-neutral-500 max-w-xs mx-auto">
-            Try searching for items like &ldquo;Apple Juice&rdquo;, &ldquo;Milk&rdquo;, &ldquo;Potato&rdquo;, or &ldquo;Ginger&rdquo;.
+          <p className="text-xs text-vc-text-muted max-w-xs mx-auto">
+            Try searching for items like &ldquo;Apple Juice&rdquo;, &ldquo;Milk&rdquo;, or &ldquo;Potato&rdquo;.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-96 overflow-y-auto styled-scroll pr-1">
           {results.map((product: Product) => {
             const onList = isAlreadyInList(product.name);
 
             return (
               <div
                 key={product.id}
-                className="flex items-center justify-between p-3.5 rounded-2xl border border-neutral-200 bg-neutral-50/60 hover:bg-white hover:border-emerald-300 transition-all shadow-2xs group"
+                className="flex items-center justify-between p-3 rounded-xl border border-vc-border-subtle bg-white/[0.02] hover:bg-white/[0.04] hover:border-vc-border transition-all group"
               >
                 <div className="flex items-center gap-3 min-w-0 mr-2">
                   {product.image ? (
-                    <div className="w-13 h-13 rounded-xl bg-white border border-neutral-200 flex items-center justify-center p-1 overflow-hidden flex-shrink-0 relative shadow-2xs">
+                    <div className="w-12 h-12 rounded-lg bg-white/[0.04] border border-vc-border-subtle flex items-center justify-center p-1 overflow-hidden flex-shrink-0">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={product.image}
                         alt={product.name}
                         className="max-h-full max-w-full object-contain"
+                        loading="lazy"
                       />
                     </div>
                   ) : (
@@ -150,24 +153,24 @@ export function SearchResults() {
                   )}
 
                   <div className="min-w-0">
-                    <p className="text-xs sm:text-sm font-bold text-neutral-900 truncate">
+                    <p className="text-xs sm:text-sm font-semibold text-vc-text truncate">
                       {product.name}
                     </p>
                     {product.description && (
-                      <p className="text-[11px] text-neutral-500 line-clamp-1">
+                      <p className="text-[11px] text-vc-text-muted line-clamp-1">
                         {product.description}
                       </p>
                     )}
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="text-[11px] font-semibold text-neutral-500 truncate">
+                      <span className="text-[11px] text-vc-text-muted truncate">
                         {product.brand}
                       </span>
-                      <span className="text-neutral-300">•</span>
-                      <span className="text-xs font-bold text-emerald-700">
+                      <span className="text-vc-text-muted">•</span>
+                      <span className="text-xs font-bold text-vc-emerald">
                         ${product.discountedPrice ?? product.price}
                       </span>
                       {product.discountedPrice && (
-                        <span className="text-[10px] line-through text-neutral-400">
+                        <span className="text-[10px] line-through text-vc-text-muted">
                           ${product.price}
                         </span>
                       )}
@@ -175,21 +178,21 @@ export function SearchResults() {
                   </div>
                 </div>
 
-                {/* Add to List Button */}
+                {/* Add Button */}
                 <button
                   type="button"
                   onClick={(e) => handleAddProduct(product, e)}
                   aria-label={`Add ${product.name} to shopping list`}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 active:scale-95 cursor-pointer shadow-xs ${
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all flex-shrink-0 active:scale-95 cursor-pointer focus-ring ${
                     onList
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100'
-                      : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                      ? 'badge-emerald'
+                      : 'btn-primary !py-2 !px-3'
                   }`}
                 >
                   {onList ? (
                     <>
                       <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                      <span>Added (+1)</span>
+                      <span>Added</span>
                     </>
                   ) : (
                     <>

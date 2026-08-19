@@ -26,23 +26,29 @@ export function LanguageSelector({
 
   return (
     <div className="relative inline-flex items-center">
-      <div className="flex items-center gap-2 bg-white border border-neutral-200 rounded-xl px-3 py-1.5 shadow-2xs text-xs font-semibold text-neutral-800 hover:border-neutral-300 transition focus-within:ring-2 focus-within:ring-emerald-500/20">
-        <Globe className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" />
+      <div className="btn-glass h-11 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 focus-within:ring-2 focus-within:ring-vc-cyan/50 transition-all cursor-pointer relative overflow-hidden">
+        <Globe className="w-4 h-4 text-vc-text-muted flex-shrink-0" />
         <span className="text-sm flex-shrink-0">{selectedLang.flag}</span>
+        
+        {/* Visible compact code */}
+        <span className="text-xs font-semibold text-vc-text pointer-events-none">
+          {selectedLang.code.split('-')[0].toUpperCase()}
+        </span>
         
         <select
           value={currentLanguage}
           onChange={(e) => onLanguageChange(e.target.value as SupportedLanguage)}
-          className="bg-transparent text-neutral-800 font-semibold cursor-pointer focus:outline-none appearance-none pr-4 text-xs"
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           aria-label="Select voice recognition language"
         >
           {LANGUAGES.map((lang) => (
-            <option key={lang.code} value={lang.code} className="text-neutral-800">
+            <option key={lang.code} value={lang.code} className="bg-vc-bg text-vc-text">
               {lang.name}
             </option>
           ))}
         </select>
-        <ChevronDown className="w-3 h-3 text-neutral-400 pointer-events-none -ml-3" />
+        
+        <ChevronDown className="w-3 h-3 text-vc-text-muted pointer-events-none hidden sm:block" />
       </div>
     </div>
   );

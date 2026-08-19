@@ -14,12 +14,13 @@ import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { voiceFeedbackService } from '@/lib/tts/voiceFeedback';
 import { SupportedLanguage } from '@/types';
+import { Mic, Zap, ShoppingCart } from 'lucide-react';
 
 
 export default function Home() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
-  const { executeOrchestratedCommand, undoLastCommand } = useShoppingList();
+  const { executeOrchestratedCommand, undoLastCommand, items } = useShoppingList();
 
   const handleProcessCommand = useCallback(
     async (text: string) => {
@@ -119,9 +120,12 @@ export default function Home() {
     setTimeout(() => startListening(), 200);
   };
 
+  const totalItems = items.length;
+  const checkedItems = items.filter((i) => i.checked).length;
+
   return (
     <>
-      {/* Top Fixed Navigation Bar with Diagnostics and Status */}
+      {/* Fixed Navigation */}
       <Header
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
@@ -137,9 +141,73 @@ export default function Home() {
         }}
       />
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto pt-20 pb-64 px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
-        {/* Floating Voice Status Toast */}
+      {/* Main Content */}
+      <main className="max-w-5xl mx-auto pt-20 pb-56 px-4 sm:px-6 lg:px-8 space-y-5 relative z-10">
+        {/* Hero / Onboarding Section — shown only when list is empty and no search active */}
+        {totalItems === 0 && !feedback.transcript && (
+          <section className="text-center py-8 sm:py-12 animate-fade-in">
+            <div className="inline-flex items-center gap-2 badge-cyan text-xs font-semibold px-3 py-1 rounded-full mb-5">
+              <Zap className="w-3.5 h-3.5" />
+              Voice-First AI Shopping
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-display font-extrabold text-vc-text tracking-tight mb-3">
+              Speak naturally.{' '}
+              <span className="text-gradient-cyan">Shop intelligently.</span>
+            </h1>
+            <p className="text-base sm:text-lg text-vc-text-secondary max-w-xl mx-auto mb-6">
+              Add items, search products, and manage your shopping list — all with your voice. 
+              Just speak, and Voice Cart handles the rest.
+            </p>
+
+            {/* Quick Stats */}
+            <div className="flex items-center justify-center gap-4 sm:gap-6 text-xs text-vc-text-muted">
+              <div className="flex items-center gap-1.5">
+                <Mic className="w-3.5 h-3.5 text-vc-cyan" />
+                <span>6 Languages</span>
+              </div>
+              <div className="w-px h-4 bg-vc-border" />
+              <div className="flex items-center gap-1.5">
+                <ShoppingCart className="w-3.5 h-3.5 text-vc-emerald" />
+                <span>27k+ Products</span>
+              </div>
+              <div className="w-px h-4 bg-vc-border" />
+              <div className="flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 text-vc-violet" />
+                <span>AI-Powered</span>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Session Stats Bar — shown when user has items */}
+        {totalItems > 0 && (
+          <div className="flex items-center justify-between glass-card rounded-xl px-4 py-2.5 text-xs animate-fade-in">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <div className="flex items-center gap-1.5">
+                <ShoppingCart className="w-3.5 h-3.5 text-vc-cyan" />
+                <span className="text-vc-text-secondary">
+                  <span className="font-bold text-vc-text tabular-nums">{totalItems}</span> items
+                </span>
+              </div>
+              <div className="w-px h-4 bg-vc-border hidden sm:block" />
+              <div className="hidden sm:flex items-center gap-1.5">
+                <span className="text-vc-text-secondary">
+                  <span className="font-bold text-vc-emerald tabular-nums">{checkedItems}</span> bought
+                </span>
+              </div>
+            </div>
+            <div className="text-vc-text-muted">
+              {voiceState === 'listening' && (
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-vc-cyan animate-pulse-soft" />
+                  Listening
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Voice Status Toast */}
         <VoiceStatus
           voiceState={voiceState}
           interimTranscript={interimTranscript}
@@ -151,29 +219,29 @@ export default function Home() {
           }}
         />
 
-        {/* Voice Search Results Tray */}
+        {/* Search Results */}
         <SearchResults />
 
-        {/* Smart Suggestions Carousel */}
+        {/* Suggestions */}
         <Suggestions />
 
-        {/* Current Shopping List */}
+        {/* Shopping List */}
         <ShoppingList />
       </main>
 
-      {/* Fixed Bottom Voice & Keyboard Control Dock */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-white via-white/95 to-transparent pt-6 pb-4 px-4">
+      {/* Fixed Bottom Voice & Input Dock */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-vc-bg via-vc-bg/95 to-transparent pt-6 pb-4 px-4">
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-2">
-          {/* Voice Hint Pill */}
-          <div className="bg-white/90 backdrop-blur-md border border-neutral-200/80 shadow-2xs rounded-full px-3.5 py-1 text-xs text-neutral-600 font-medium animate-pulse text-center">
+          {/* Voice Hint */}
+          <div className="glass text-xs text-vc-text-secondary font-medium rounded-full px-3.5 py-1 text-center max-w-md">
             {voiceState === 'listening'
-              ? '🎙️ Microphone listening • speak shopping commands anytime'
+              ? '🎙️ Listening — speak shopping commands anytime'
               : voiceState === 'processing'
               ? '⏳ Analyzing command...'
-              : 'Tap the mic or speak: "Add 5 apples to my list" • "Find juice under $5"'}
+              : 'Tap the mic or speak: "Add 5 apples" · "Find juice under $5"'}
           </div>
 
-          {/* Center Voice Button */}
+          {/* Voice Button */}
           <VoiceButton
             voiceState={voiceState}
             isSupported={isSupported}
@@ -181,7 +249,7 @@ export default function Home() {
             onStop={stopListening}
           />
 
-          {/* Manual Input Bar */}
+          {/* Manual Input */}
           <ManualInput
             onProcessText={handleProcessCommand}
             isProcessing={voiceState === 'processing'}
@@ -189,13 +257,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Voice Command Cheat Sheet Modal */}
+      {/* Modals */}
       <VoiceCommandGuide
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
       />
 
-      {/* System Diagnostics & Event Sourcing Modal */}
       <DiagnosticsModal
         isOpen={isDiagnosticsOpen}
         onClose={() => setIsDiagnosticsOpen(false)}

@@ -16,6 +16,7 @@
 
 # archives & large zip datasets
 *.zip
+*.csv
 data/archive.zip
 
 # misc

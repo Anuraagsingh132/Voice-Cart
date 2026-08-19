@@ -3,15 +3,15 @@ import './globals.css';
 import { ShoppingListProvider } from '@/context/ShoppingListContext';
 
 export const metadata: Metadata = {
-  title: 'Voice Cart - Main Dashboard',
-  description: 'Voice Command Shopping Assistant with smart suggestions, seasonal picks, and NLP parsing.',
+  title: 'Voice Cart — AI Voice Shopping Assistant',
+  description: 'Voice-first AI shopping assistant with smart suggestions, seasonal picks, and NLP parsing.',
   manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#059669',
+  themeColor: '#0a0e1a',
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -29,7 +29,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="mesh-bg text-on-surface min-h-screen relative antialiased selection:bg-primary-container selection:text-white">
+      <body className="vc-atmosphere text-vc-text min-h-screen relative antialiased">
         <ShoppingListProvider>
           {children}
         </ShoppingListProvider>

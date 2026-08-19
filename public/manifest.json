@@ -1,11 +1,11 @@
 {
   "name": "Voice Cart",
   "short_name": "Voice Cart",
-  "description": "Voice-First Shopping Assistant",
+  "description": "Voice-First AI Shopping Assistant",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#059669",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
   "icons": [
     {
       "src": "/icon.svg",

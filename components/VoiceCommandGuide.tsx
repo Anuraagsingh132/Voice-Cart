@@ -16,7 +16,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
     {
       icon: PlusCircle,
       title: 'Adding Items & Quantities',
-      color: 'text-emerald-600 bg-emerald-50',
+      badge: 'badge-emerald',
       examples: [
         '"Add milk"',
         '"I need apples and bread"',
@@ -29,7 +29,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
     {
       icon: MinusCircle,
       title: 'Removing Items',
-      color: 'text-rose-600 bg-rose-50',
+      badge: 'badge-rose',
       examples: [
         '"Remove milk from my list"',
         '"Delete apples"',
@@ -40,7 +40,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
     {
       icon: Sliders,
       title: 'Modifying Quantities',
-      color: 'text-blue-600 bg-blue-50',
+      badge: 'badge-cyan',
       examples: [
         '"Change apples to 3"',
         '"Make bananas 5 pieces"',
@@ -50,7 +50,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
     {
       icon: Search,
       title: 'Search & Price Filtering',
-      color: 'text-purple-600 bg-purple-50',
+      badge: 'badge-violet',
       examples: [
         '"Find me organic apples"',
         '"Find toothpaste under $5"',
@@ -61,7 +61,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
     {
       icon: Trash2,
       title: 'Clearing Cart & Undo',
-      color: 'text-rose-600 bg-rose-50',
+      badge: 'badge-rose',
       examples: [
         '"Clear cart" or "Clear list"',
         '"Empty my cart"',
@@ -73,7 +73,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
     {
       icon: Globe,
       title: 'Multilingual Support (Switch Language)',
-      color: 'text-amber-600 bg-amber-50',
+      badge: 'badge-amber',
       examples: [
         'Hindi: "doodh jod do", "kela hatao", "pani dhundo"',
         'Spanish: "agrega leche", "eliminar pan", "buscar manzanas"',
@@ -84,19 +84,19 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/50 backdrop-blur-xs animate-fade-in">
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-neutral-100 p-6 max-h-[85vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+      <div className="relative w-full max-w-lg glass-card shadow-glass-lg rounded-3xl p-6 max-h-[85vh] overflow-y-auto styled-scroll border border-vc-border animate-scale-in">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-100">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-vc-border-subtle">
           <div className="flex items-center space-x-2.5">
-            <div className="p-2 bg-emerald-100 text-emerald-700 rounded-xl">
+            <div className="p-2 badge-cyan rounded-xl">
               <Mic className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-neutral-900">
+              <h2 className="text-base font-bold text-vc-text">
                 Voice Command Guide
               </h2>
-              <p className="text-xs text-neutral-500">
+              <p className="text-xs text-vc-text-secondary">
                 Speak naturally — NLP understands varied phrasing
               </p>
             </div>
@@ -105,7 +105,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
           <button
             onClick={onClose}
             aria-label="Close guide"
-            className="p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-xl transition"
+            className="p-1.5 text-vc-text-secondary hover:text-vc-text focus-ring rounded-xl transition btn-glass"
           >
             <X className="w-5 h-5" />
           </button>
@@ -118,13 +118,13 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
             return (
               <div
                 key={idx}
-                className="p-3.5 rounded-2xl border border-neutral-100 bg-neutral-50/70"
+                className="p-3.5 rounded-2xl glass border border-vc-border-subtle bg-vc-bg/40"
               >
                 <div className="flex items-center space-x-2 mb-2">
-                  <div className={`p-1.5 rounded-lg ${cat.color}`}>
+                  <div className={`p-1.5 rounded-lg ${cat.badge}`}>
                     <Icon className="w-4 h-4" />
                   </div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-700">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-vc-text">
                     {cat.title}
                   </h3>
                 </div>
@@ -133,7 +133,7 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
                   {cat.examples.map((ex, i) => (
                     <div
                       key={i}
-                      className="text-xs font-medium text-neutral-800 bg-white px-2.5 py-1.5 rounded-xl border border-neutral-200/60 shadow-2xs font-mono"
+                      className="text-xs font-medium text-vc-text-secondary bg-vc-bg-subtle/50 px-2.5 py-1.5 rounded-xl border border-vc-border-subtle shadow-glass font-mono glass"
                     >
                       {ex}
                     </div>
@@ -145,14 +145,14 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
         </div>
 
         {/* Footer */}
-        <div className="mt-5 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-500">
+        <div className="mt-5 pt-3 border-t border-vc-border-subtle flex items-center justify-between text-xs text-vc-text-muted">
           <span className="flex items-center gap-1">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <Sparkles className="w-3.5 h-3.5 text-vc-emerald" />
             Powered by Groq Llama 3.1 & Web Speech API
           </span>
           <button
             onClick={onClose}
-            className="font-bold text-emerald-700 hover:text-emerald-800"
+            className="font-bold btn-primary px-4 py-2 rounded-xl text-sm"
           >
             Got it!
           </button>
