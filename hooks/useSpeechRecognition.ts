@@ -6,17 +6,20 @@ import { VoiceState, SupportedLanguage, VoiceFeedback } from '@/types';
 interface UseSpeechRecognitionProps {
   onTranscriptComplete?: (transcript: string) => void;
   defaultLanguage?: SupportedLanguage;
+  alwaysActive?: boolean;
 }
 
 export function useSpeechRecognition({
   onTranscriptComplete,
   defaultLanguage = 'en-US',
+  alwaysActive = true,
 }: UseSpeechRecognitionProps = {}) {
   const [voiceState, setVoiceState] = useState<VoiceState>('idle');
   const [transcript, setTranscript] = useState<string>('');
   const [interimTranscript, setInterimTranscript] = useState<string>('');
   const [language, setLanguage] = useState<SupportedLanguage>(defaultLanguage);
   const [isSupported, setIsSupported] = useState<boolean>(true);
+  const [isAlwaysActive, setIsAlwaysActive] = useState<boolean>(alwaysActive);
   const [feedback, setFeedback] = useState<VoiceFeedback>({
     status: 'idle',
     timestamp: Date.now(),
@@ -24,11 +27,18 @@ export function useSpeechRecognition({
 
   const recognitionRef = useRef<any>(null);
   const isListeningRef = useRef<boolean>(false);
+  const shouldKeepListeningRef = useRef<boolean>(alwaysActive);
   const onCompleteRef = useRef(onTranscriptComplete);
+  const lastProcessedTranscriptRef = useRef<string>('');
+  const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     onCompleteRef.current = onTranscriptComplete;
   }, [onTranscriptComplete]);
+
+  useEffect(() => {
+    shouldKeepListeningRef.current = isAlwaysActive;
+  }, [isAlwaysActive]);
 
   // Check browser support on client mount
   useEffect(() => {
@@ -42,6 +52,12 @@ export function useSpeechRecognition({
   }, []);
 
   const stopListening = useCallback(() => {
+    shouldKeepListeningRef.current = false;
+    setIsAlwaysActive(false);
+    if (restartTimeoutRef.current) {
+      clearTimeout(restartTimeoutRef.current);
+      restartTimeoutRef.current = null;
+    }
     if (recognitionRef.current && isListeningRef.current) {
       try {
         recognitionRef.current.stop();
@@ -50,6 +66,7 @@ export function useSpeechRecognition({
       }
     }
     isListeningRef.current = false;
+    setVoiceState('idle');
   }, []);
 
   const startListening = useCallback(() => {
@@ -62,20 +79,26 @@ export function useSpeechRecognition({
       setIsSupported(false);
       setFeedback({
         status: 'error',
-        message: 'Speech recognition is not supported in this browser. Please use Google Chrome/Edge or manual typing below.',
+        message: 'Speech recognition is not supported in this browser. Please use Chrome/Edge or manual typing.',
         timestamp: Date.now(),
       });
       setVoiceState('error');
       return;
     }
 
-    // Stop any existing instance
-    stopListening();
+    shouldKeepListeningRef.current = true;
+    setIsAlwaysActive(true);
+
+    if (recognitionRef.current && isListeningRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch {}
+    }
 
     try {
       const recognition = new SpeechRecognition();
       recognition.lang = language;
-      recognition.continuous = false; // Capture complete sentence
+      recognition.continuous = true; // Always active & continuous listening
       recognition.interimResults = true; // Real-time feedback
       recognition.maxAlternatives = 1;
 
@@ -86,11 +109,11 @@ export function useSpeechRecognition({
 
       setFeedback({
         status: 'listening',
-        message: `Listening... (${language})`,
+        message: `Listening always active (${language})`,
         timestamp: Date.now(),
       });
 
-      let finalResultReceived = '';
+      let finalBuffer = '';
 
       recognition.onstart = () => {
         setVoiceState('listening');
@@ -104,65 +127,81 @@ export function useSpeechRecognition({
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const item = event.results[i];
           if (item.isFinal) {
-            currentFinal += item[0].transcript;
+            currentFinal += item[0].transcript + ' ';
           } else {
             currentInterim += item[0].transcript;
           }
         }
 
         if (currentInterim) {
-          setInterimTranscript(currentInterim);
+          setInterimTranscript(currentInterim.trim());
         }
 
         if (currentFinal) {
-          finalResultReceived = currentFinal;
-          setTranscript(currentFinal);
+          const trimmedFinal = currentFinal.trim();
           setInterimTranscript('');
+          setTranscript(trimmedFinal);
+          finalBuffer = trimmedFinal;
+
+          // Dispatch command if not duplicate
+          if (trimmedFinal && trimmedFinal !== lastProcessedTranscriptRef.current) {
+            lastProcessedTranscriptRef.current = trimmedFinal;
+            if (onCompleteRef.current) {
+              onCompleteRef.current(trimmedFinal);
+            }
+          }
         }
       };
 
       recognition.onerror = (event: any) => {
-        console.warn('Speech recognition error event:', event.error);
-        isListeningRef.current = false;
+        console.warn('Speech recognition status:', event.error);
 
-        let errorMsg = 'Could not process audio. Please try again.';
-        if (event.error === 'not-allowed') {
-          errorMsg = 'Microphone permission denied. Please allow microphone access in your browser.';
-        } else if (event.error === 'no-speech') {
-          errorMsg = 'No speech detected. Tap the mic and speak clearly.';
-        } else if (event.error === 'network') {
-          errorMsg = 'Network error with speech recognition service.';
-        } else if (event.error === 'audio-capture') {
-          errorMsg = 'No microphone was found on your device.';
+        if (event.error === 'no-speech') {
+          // Normal silence gap in continuous mode - do not show scary error, keep listening
+          return;
         }
 
-        setVoiceState('error');
-        setFeedback({
-          status: 'error',
-          message: errorMsg,
-          timestamp: Date.now(),
-        });
+        if (event.error === 'not-allowed') {
+          shouldKeepListeningRef.current = false;
+          setIsAlwaysActive(false);
+          isListeningRef.current = false;
+          setVoiceState('error');
+          setFeedback({
+            status: 'error',
+            message: 'Microphone permission denied. Please enable mic access.',
+            timestamp: Date.now(),
+          });
+          return;
+        }
+
+        // For transient errors, attempt seamless auto-restart if always active
+        if (shouldKeepListeningRef.current) {
+          if (restartTimeoutRef.current) clearTimeout(restartTimeoutRef.current);
+          restartTimeoutRef.current = setTimeout(() => {
+            if (shouldKeepListeningRef.current) {
+              try {
+                recognition.start();
+              } catch {}
+            }
+          }, 400);
+        }
       };
 
       recognition.onend = () => {
         isListeningRef.current = false;
-        const textToProcess = finalResultReceived || transcript || interimTranscript;
 
-        if (textToProcess && textToProcess.trim()) {
-          setVoiceState('processing');
-          setFeedback({
-            status: 'processing',
-            transcript: textToProcess.trim(),
-            message: `Processing: "${textToProcess.trim()}"...`,
-            timestamp: Date.now(),
-          });
-
-          if (onCompleteRef.current) {
-            onCompleteRef.current(textToProcess.trim());
-          }
+        // In continuous mode, browsers periodically close socket on silence. Auto-restart immediately!
+        if (shouldKeepListeningRef.current) {
+          if (restartTimeoutRef.current) clearTimeout(restartTimeoutRef.current);
+          restartTimeoutRef.current = setTimeout(() => {
+            if (shouldKeepListeningRef.current) {
+              try {
+                recognition.start();
+              } catch {}
+            }
+          }, 200);
         } else {
-          // If ended without any words captured and not in error state
-          setVoiceState((prev) => (prev === 'error' ? 'error' : 'idle'));
+          setVoiceState('idle');
         }
       };
 
@@ -171,14 +210,9 @@ export function useSpeechRecognition({
     } catch (err: any) {
       console.error('Failed to start speech recognition:', err);
       setVoiceState('error');
-      setFeedback({
-        status: 'error',
-        message: err?.message || 'Could not access microphone.',
-        timestamp: Date.now(),
-      });
       isListeningRef.current = false;
     }
-  }, [language, stopListening, transcript, interimTranscript]);
+  }, [language]);
 
   const resetState = useCallback(() => {
     stopListening();
@@ -199,6 +233,7 @@ export function useSpeechRecognition({
     feedback,
     setFeedback,
     isSupported,
+    isAlwaysActive,
     language,
     setLanguage,
     startListening,

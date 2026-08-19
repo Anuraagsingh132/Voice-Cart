@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from '@/components/Header';
 import { VoiceButton } from '@/components/VoiceButton';
 import { VoiceStatus } from '@/components/VoiceStatus';
@@ -22,16 +22,23 @@ export default function Home() {
     async (text: string) => {
       if (!text || !text.trim()) return;
 
-      setVoiceState('processing');
-      setFeedback({
-        status: 'processing',
-        transcript: text,
-        message: `Analyzing: "${text}"...`,
-        timestamp: Date.now(),
-      });
-
       try {
         const parsed = await parseIntent(text, language);
+
+        // Filter residual non-shopping background talk quietly
+        if (parsed.intent === 'UNKNOWN') {
+          setVoiceState('listening');
+          return;
+        }
+
+        setVoiceState('processing');
+        setFeedback({
+          status: 'processing',
+          transcript: text,
+          message: `Analyzing: "${text}"...`,
+          timestamp: Date.now(),
+        });
+
         const outcome = processParsedIntent(parsed);
 
         if (outcome.success) {
@@ -45,8 +52,8 @@ export default function Home() {
           });
 
           setTimeout(() => {
-            setVoiceState((prev) => (prev === 'success' ? 'idle' : prev));
-          }, 4000);
+            setVoiceState('listening');
+          }, 3000);
         } else {
           setVoiceState('error');
           setFeedback({
@@ -56,16 +63,14 @@ export default function Home() {
             intent: parsed.intent,
             timestamp: Date.now(),
           });
+
+          setTimeout(() => {
+            setVoiceState('listening');
+          }, 3000);
         }
       } catch (err: any) {
         console.error('Error processing command:', err);
-        setVoiceState('error');
-        setFeedback({
-          status: 'error',
-          transcript: text,
-          message: 'Failed to process voice command. Please try again.',
-          timestamp: Date.now(),
-        });
+        setVoiceState('listening');
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,6 +84,7 @@ export default function Home() {
     feedback,
     setFeedback,
     isSupported,
+    isAlwaysActive,
     language,
     setLanguage,
     startListening,
@@ -87,11 +93,23 @@ export default function Home() {
   } = useSpeechRecognition({
     onTranscriptComplete: handleProcessCommand,
     defaultLanguage: 'en-US',
+    alwaysActive: true,
   });
+
+  // Auto-start always active listening once page is mounted
+  useEffect(() => {
+    if (isSupported && typeof window !== 'undefined') {
+      const timer = setTimeout(() => {
+        startListening();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isSupported, startListening]);
 
   const handleLanguageChange = (newLang: SupportedLanguage) => {
     setLanguage(newLang);
     resetState();
+    setTimeout(() => startListening(), 200);
   };
 
   return (
@@ -129,9 +147,9 @@ export default function Home() {
           {/* Subtle Voice Hint Pill */}
           <div className="bg-white/90 backdrop-blur-md border border-neutral-200/80 shadow-2xs rounded-full px-3.5 py-1 text-xs text-neutral-600 font-medium animate-pulse text-center">
             {voiceState === 'listening'
-              ? '🎙️ Listening... speak naturally'
+              ? '🎙️ Microphone always active • speak shopping commands anytime'
               : voiceState === 'processing'
-              ? '⏳ Analyzing voice command...'
+              ? '⏳ Analyzing command...'
               : 'Try saying: "Add 5 apples to my list" • "Find juice under $5"'}
           </div>
 

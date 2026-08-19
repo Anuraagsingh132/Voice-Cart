@@ -1,7 +1,31 @@
 import { describe, it, expect } from 'vitest';
-import { parseIntentClientFallback } from '@/lib/intentParser';
+import { parseIntentClientFallback, isShoppingRelated } from '@/lib/intentParser';
 
-describe('parseIntentClientFallback (NLP Fallback Parser)', () => {
+describe('parseIntentClientFallback & Residual Speech Filter', () => {
+  it('identifies shopping-related queries and filters casual background chatter', () => {
+    expect(isShoppingRelated('Add milk')).toBe(true);
+    expect(isShoppingRelated('5 eggs and two breads')).toBe(true);
+    expect(isShoppingRelated('Find juice under $5')).toBe(true);
+    expect(isShoppingRelated('Delete apples')).toBe(true);
+
+    // Non-shopping residual talk
+    expect(isShoppingRelated('what time is it')).toBe(false);
+    expect(isShoppingRelated('yeah I was talking to John yesterday')).toBe(false);
+    expect(isShoppingRelated('turn on the television')).toBe(false);
+    expect(isShoppingRelated('thank you so much')).toBe(false);
+    expect(isShoppingRelated('hello how are you')).toBe(false);
+  });
+
+  it('silently filters residual talk to UNKNOWN intent', () => {
+    const res1 = parseIntentClientFallback('what time is it');
+    expect(res1.intent).toBe('UNKNOWN');
+    expect(res1.confidence).toBe(0);
+
+    const res2 = parseIntentClientFallback('yeah sure okay');
+    expect(res2.intent).toBe('UNKNOWN');
+    expect(res2.confidence).toBe(0);
+  });
+
   it('parses basic ADD intent with default quantity', () => {
     const res = parseIntentClientFallback('Add milk');
     expect(res.intent).toBe('ADD');
@@ -90,9 +114,9 @@ describe('parseIntentClientFallback (NLP Fallback Parser)', () => {
   });
 
   it('parses SEARCH intent with price range constraints', () => {
-    const res1 = parseIntentClientFallback('Find toothpaste under $5');
+    const res1 = parseIntentClientFallback('Find juice under $5');
     expect(res1.intent).toBe('SEARCH');
-    expect(res1.item).toBe('Toothpaste');
+    expect(res1.item).toBe('Juice');
     expect(res1.filters?.priceMax).toBe(5);
 
     const res2 = parseIntentClientFallback('Find me organic apples');

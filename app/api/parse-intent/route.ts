@@ -49,7 +49,17 @@ SUPPORTED INTENTS:
 - "SEARCH": User wants to search/filter products (e.g., "Find me organic apples", "Find toothpaste under $5").
 - "CLEAR": User wants to clear/empty the whole shopping list.
 - "HELP": User asks what commands they can say.
-- "UNKNOWN": Completely unrelated speech.
+- "UNKNOWN": Completely unrelated speech, casual conversation, or background talk.
+
+RESIDUAL TALK FILTER (CRITICAL):
+The microphone is always active. If the user says casual non-shopping conversation (e.g., "what time is it", "yeah I saw that", "how are you", "thank you", "okay bye", "turn up the TV", "hello", "yes", "no"):
+You MUST return:
+{
+  "intent": "UNKNOWN",
+  "confidence": 0,
+  "explanation": "Filtered background talk"
+}
+Do NOT attempt to force non-shopping conversations into an ADD intent.
 
 COMPOUND MULTI-ITEM SUPPORT (VERY IMPORTANT):
 If the user mentions multiple items in a single sentence (e.g., "5 eggs and two breads", "milk and cookies", "add 2 waters, 5 apples, and a loaf of bread"):

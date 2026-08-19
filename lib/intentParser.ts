@@ -5,6 +5,58 @@ const numberWordMap: Record<string, number> = {
   nine: 9, ten: 10, eleven: 11, twelve: 12, dozen: 12, 'half a dozen': 6,
 };
 
+const GROCERY_KEYWORDS = new Set([
+  'apple', 'apples', 'banana', 'bananas', 'milk', 'eggs', 'egg', 'bread', 'breads',
+  'juice', 'water', 'potato', 'potatoes', 'tomato', 'tomatoes', 'onion', 'onions',
+  'garlic', 'ginger', 'mango', 'mangoes', 'orange', 'oranges', 'pear', 'pears',
+  'lemon', 'lemons', 'lime', 'limes', 'avocado', 'avocados', 'kiwi', 'kiwis',
+  'melon', 'watermelon', 'cantaloupe', 'nectarine', 'peach', 'peaches', 'pineapple',
+  'plum', 'plums', 'pomegranate', 'grapefruit', 'satsumas', 'sour cream', 'sour milk',
+  'yoghurt', 'yogurt', 'oat milk', 'soy milk', 'oatghurt', 'soyghurt', 'asparagus',
+  'aubergine', 'cabbage', 'carrots', 'carrot', 'cucumber', 'leek', 'mushroom',
+  'mushrooms', 'pepper', 'peppers', 'beet', 'zucchini', 'toothpaste', 'soap', 'doodh',
+  'chawal', 'palak', 'anda', 'ande', 'kela', 'pani', 'makhan', 'ghee'
+]);
+
+const ACTION_KEYWORDS = new Set([
+  'add', 'buy', 'need', 'get', 'want', 'put', 'bring', 'remove', 'delete', 'take off',
+  'drop', 'cut', 'change', 'update', 'make', 'set', 'modify', 'find', 'search',
+  'look for', 'show', 'filter', 'clear', 'empty', 'reset', 'help', 'list', 'cart',
+  'jodo', 'daalo', 'hatao', 'dhundo', 'khojo', 'badlo', 'lao', 'agrega', 'buscar',
+  'quitar', 'eliminar', 'supprimer', 'ajouter', 'kaufen', 'hinzufügen'
+]);
+
+/**
+ * Intelligent filter that distinguishes genuine shopping commands from background residual chatter.
+ */
+export function isShoppingRelated(text: string): boolean {
+  if (!text || text.trim().length < 2) return false;
+  const clean = text.toLowerCase().trim();
+  const words = clean.split(/[\s,.-]+/).filter(Boolean);
+
+  // 1. Check for action verbs
+  for (const word of words) {
+    if (ACTION_KEYWORDS.has(word)) return true;
+  }
+
+  // 2. Check for multi-word action phrases
+  if (/(?:look for|search for|take off|hata do|show me|want to buy|need to get)/i.test(clean)) {
+    return true;
+  }
+
+  // 3. Check for grocery items
+  for (const word of words) {
+    if (GROCERY_KEYWORDS.has(word)) return true;
+  }
+
+  // 4. Check for quantity + unit patterns (e.g. "2 bottles", "5 kg", "1 pack")
+  if (/\d+\s*(?:bottles?|packs?|kg|liters?|boxes?|cartons?|cans?|loaves|pieces?)/i.test(clean)) {
+    return true;
+  }
+
+  return false;
+}
+
 /**
  * Phonetic/speech recognition normalizer for grocery terms
  */
@@ -26,7 +78,6 @@ function parseSingleItemClause(clause: string): ParsedItemEntity | null {
   let clean = clause.trim();
   if (!clean) return null;
 
-  // Clean leading noise words
   clean = clean
     .replace(/^(please\s+)?(i\s+want\s+(?:to\s+(?:buy|get)\s+)?|i\s+need\s+(?:to\s+(?:buy|get)\s+)?|put\s+|add\s+|buy\s+|get\s+|purchase\s+|need\s+|want\s+|bring\s+|jodo\s+|daalo\s+|lao\s+|agregar\s+)+/i, '')
     .replace(/\s+(to|on|into)\s+(my\s+)?(shopping\s+)?(list|cart)$/i, '')
@@ -38,7 +89,6 @@ function parseSingleItemClause(clause: string): ParsedItemEntity | null {
   let unit = 'pieces';
   let extractedItem = clean;
 
-  // Pattern: "5 eggs", "2 bottles of water", "a loaf of bread", "two packs of chips"
   const qtyMatch = clean.match(/^(\d+(?:\.\d+)?|one|a|an|two|three|four|five|six|seven|eight|nine|ten|twelve|dozen)\s+(bottles?|packs?|cartons?|cans?|boxes?|bags?|bunches?|kg|grams?|liters?|pcs?|pieces?|loaves|loaf)?\s*(?:of\s+)?(.+)$/i);
 
   if (qtyMatch) {
@@ -68,10 +118,21 @@ function parseSingleItemClause(clause: string): ParsedItemEntity | null {
 
 /**
  * Intelligent client-side heuristic NLP fallback parser.
- * Handles single and compound multi-item commands (e.g. "5 eggs and two breads").
+ * Filters residual non-shopping talk and handles single and compound multi-item commands.
  */
 export function parseIntentClientFallback(transcript: string): ParsedIntent {
   const clean = cleanPhoneticMistakes((transcript || '').toLowerCase().trim());
+
+  // 0. RESIDUAL SPEECH FILTER GATE
+  // If the speech does NOT contain any shopping verbs, items, or units, discard it quietly.
+  if (!isShoppingRelated(clean)) {
+    return {
+      intent: 'UNKNOWN',
+      confidence: 0,
+      rawQuery: transcript,
+      explanation: 'Filtered non-shopping background talk',
+    };
+  }
 
   // 1. CLEAR LIST INTENT
   if (/^(clear|empty|delete all|remove all|reset)\s*(the|my)?\s*(list|cart|items)?$/i.test(clean)) {
@@ -94,7 +155,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   }
 
   // 3. SEARCH & FILTER INTENT
-  // e.g. "Find toothpaste under $5", "search for organic apples", "find milk", "look for Fresho"
   const searchPattern = /^(find|search|search for|look for|show me|filter|khojo|dhundo|buscar)\s+(.+)$/i;
   const searchMatch = clean.match(searchPattern);
   if (searchMatch) {
@@ -116,7 +176,7 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
     }
 
     let brand: string | null = null;
-    const brands = ['Fresho', 'Amul', 'Colgate', 'Sensodyne', 'Britannia', 'Dove', 'Dettol', 'Oatly', 'Silk', 'Lays', 'Barilla'];
+    const brands = ['Arla', 'Tropicana', 'Bravo', 'God Morgon', 'Garant', 'Oatly', 'Alpro', 'Valio', 'Yoggi', 'Fresho', 'Amul', 'Colgate'];
     for (const b of brands) {
       if (new RegExp(`\\b${b}\\b`, 'i').test(queryBody)) {
         brand = b;
@@ -142,7 +202,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   }
 
   // 4. MODIFY INTENT
-  // e.g. "Change apples to 3", "make bananas 5", "update milk to 2 liters"
   const modifyPattern = /^(change|update|make|set|modify|badlo)\s*(?:the\s*(?:quantity\s*(?:of)?)?)?\s*(.+?)(?:\s+(?:to|as|into|=)\s+|\s+)(\d+)\s*(.*)$/i;
   const modMatch = clean.match(modifyPattern);
   if (modMatch) {
@@ -163,7 +222,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   }
 
   // 5. REMOVE INTENT
-  // e.g. "Remove milk from my list", "delete apples", "take off bread"
   const removePattern = /^(remove|delete|take off|drop|cut|hatao|hata do|quitar|eliminar)\s+(.+?)(?:\s+(?:from|off)\s+(?:my\s+)?(?:list|cart))?$/i;
   const removeMatch = clean.match(removePattern);
   if (removeMatch) {
@@ -178,14 +236,12 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   }
 
   // 6. ADD INTENT & COMPOUND MULTI-ITEM DETECTION
-  // e.g. "5 eggs and two breads", "Add milk and 2 apples", "doodh aur bread"
   let addPhrase = clean;
   addPhrase = addPhrase
     .replace(/^(please\s+)?(i\s+want\s+(?:to\s+(?:buy|get)\s+)?|i\s+need\s+(?:to\s+(?:buy|get)\s+)?|put\s+|add\s+|buy\s+|get\s+|purchase\s+|need\s+|want\s+|bring\s+|jodo\s+|daalo\s+|lao\s+|agregar\s+)+/i, '')
     .replace(/\s+(to|on|into)\s+(my\s+)?(shopping\s+)?(list|cart)$/i, '')
     .trim();
 
-  // Split on compound conjunctions: "and", "aur", "plus", ",", "&"
   const parts = addPhrase.split(/\s+(?:and|aur|plus|y|\&)\s+|\s*,\s*/i).map(p => p.trim()).filter(Boolean);
 
   if (parts.length > 1) {
@@ -229,9 +285,9 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
 
   return {
     intent: 'UNKNOWN',
-    confidence: 0.2,
+    confidence: 0,
     rawQuery: transcript,
-    explanation: 'Could not detect item name in voice input',
+    explanation: 'Could not detect valid grocery action',
   };
 }
 
@@ -248,6 +304,16 @@ export async function parseIntent(
       confidence: 0,
       rawQuery: '',
       explanation: 'Empty voice transcript',
+    };
+  }
+
+  // Quick client residual filter check
+  if (!isShoppingRelated(transcript)) {
+    return {
+      intent: 'UNKNOWN',
+      confidence: 0,
+      rawQuery: transcript,
+      explanation: 'Filtered non-shopping background talk',
     };
   }
 
