@@ -14,6 +14,10 @@
 # production
 /build
 
+# archives & large zip datasets
+*.zip
+data/archive.zip
+
 # misc
 .DS_Store
 *.pem
