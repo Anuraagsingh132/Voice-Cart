@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ShoppingBag, HelpCircle } from 'lucide-react';
+import { HelpCircle, Sparkles } from 'lucide-react';
 import { LanguageSelector } from './LanguageSelector';
 import { SupportedLanguage } from '@/types';
 
@@ -17,38 +17,34 @@ export function Header({
   onOpenGuide,
 }: HeaderProps) {
   return (
-    <header className="w-full max-w-3xl mx-auto flex items-center justify-between py-4 px-2 mb-2">
-      {/* Brand logo & title */}
-      <div className="flex items-center space-x-2.5">
-        <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white shadow-md shadow-emerald-500/20">
-          <ShoppingBag className="w-5 h-5" />
-        </div>
-        <div>
-          <h1 className="text-base font-extrabold tracking-tight text-neutral-900 leading-tight">
+    <header className="fixed top-0 left-0 right-0 w-full z-50 backdrop-blur-md border-b border-neutral-200/50 shadow-xs bg-white/90 transition-all duration-300">
+      <div className="max-w-4xl mx-auto flex justify-between items-center px-4 md:px-8 py-3.5">
+        {/* Brand logo & title */}
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-white shadow-sm shadow-primary/20">
+            <span className="text-base font-bold">🛒</span>
+          </div>
+          <span className="font-bold text-xl md:text-2xl text-primary tracking-tight">
             Voice Cart
-          </h1>
-          <p className="text-[11px] font-semibold text-emerald-700 uppercase tracking-wider">
-            Shopping Assistant
-          </p>
+          </span>
         </div>
-      </div>
 
-      {/* Right controls: Language Selector + Help Button */}
-      <div className="flex items-center space-x-2">
-        <LanguageSelector
-          currentLanguage={currentLanguage}
-          onLanguageChange={onLanguageChange}
-        />
+        {/* Right controls: Language Selector + Help Button */}
+        <div className="flex items-center gap-3">
+          <LanguageSelector
+            currentLanguage={currentLanguage}
+            onLanguageChange={onLanguageChange}
+          />
 
-        <button
-          onClick={onOpenGuide}
-          aria-label="View Voice Command Guide"
-          className="flex items-center space-x-1 p-2 rounded-xl bg-white/90 border border-neutral-200/80 text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 shadow-xs transition"
-          title="Voice Commands Guide"
-        >
-          <HelpCircle className="w-4 h-4" />
-          <span className="hidden sm:inline text-xs font-semibold">Guide</span>
-        </button>
+          <button
+            onClick={onOpenGuide}
+            aria-label="Help & Voice Command Guide"
+            className="flex items-center justify-center w-9 h-9 rounded-xl text-primary hover:bg-primary/10 transition-all active:scale-95"
+            title="Voice Commands Guide"
+          >
+            <HelpCircle className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </header>
   );

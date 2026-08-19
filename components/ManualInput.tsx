@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, Sparkles, Loader2 } from 'lucide-react';
+import { Send, Keyboard, Loader2 } from 'lucide-react';
 
 interface ManualInputProps {
   onProcessText: (text: string) => Promise<void> | void;
@@ -23,27 +23,25 @@ export function ManualInput({ onProcessText, isProcessing }: ManualInputProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-xl mx-auto mt-4"
+      className="w-full max-w-2xl mx-auto"
     >
-      <div className="relative flex items-center bg-white rounded-2xl border border-neutral-200/90 shadow-sm focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-100 transition-all p-1.5">
-        <div className="pl-3 text-neutral-400">
-          <Sparkles className="w-4 h-4 text-emerald-600" />
-        </div>
+      <div className="w-full bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-full flex items-center px-4 md:px-5 py-2 md:py-2.5 shadow-sm hover:shadow-md transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+        <Keyboard className="w-5 h-5 text-neutral-400 mr-2.5 flex-shrink-0" />
 
         <input
           type="text"
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
           disabled={isProcessing}
-          placeholder="Or type a command... (e.g., 'Add 2 bottles of water', 'Find apples under $4')"
-          className="w-full px-3 py-2 text-sm text-neutral-800 placeholder-neutral-400 bg-transparent focus:outline-none disabled:opacity-50"
+          placeholder="Or type an item to add, search, or modify..."
+          className="w-full bg-transparent border-none focus:outline-none text-on-surface text-xs md:text-sm placeholder-neutral-400 p-0"
         />
 
         <button
           type="submit"
           disabled={!inputVal.trim() || isProcessing}
           aria-label="Submit command"
-          className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:bg-neutral-100 disabled:text-neutral-300 text-white transition-all shadow-xs disabled:shadow-none flex-shrink-0"
+          className="text-white bg-primary hover:bg-primary-container disabled:bg-neutral-200 disabled:text-neutral-400 p-2 rounded-full transition-all ml-2 flex-shrink-0 active:scale-95 shadow-2xs"
         >
           {isProcessing ? (
             <Loader2 className="w-4 h-4 animate-spin" />
@@ -52,9 +50,6 @@ export function ManualInput({ onProcessText, isProcessing }: ManualInputProps) {
           )}
         </button>
       </div>
-      <p className="text-[11px] text-center text-neutral-400 mt-1.5">
-        Type natural phrases or tap the microphone above to speak
-      </p>
     </form>
   );
 }

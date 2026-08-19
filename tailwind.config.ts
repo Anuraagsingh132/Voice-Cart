@@ -9,30 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        primary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-        },
+        "primary": "#006c49",
+        "primary-container": "#10b981",
+        "on-primary": "#ffffff",
+        "on-primary-container": "#00422b",
+        "secondary": "#006c4a",
+        "surface": "#f8f9ff",
+        "on-surface": "#0b1c30",
+        "on-surface-variant": "#3c4a42",
+        "surface-container-low": "#eff4ff",
+        "surface-container": "#e5eeff",
+        "error": "#ba1a1a",
+        "error-container": "#ffdad6",
       },
-      animation: {
-        'pulse-subtle': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ripple': 'ripple 1.5s ease-out infinite',
-      },
-      keyframes: {
-        ripple: {
-          '0%': { transform: 'scale(0.95)', opacity: '0.8' },
-          '100%': { transform: 'scale(1.4)', opacity: '0' },
-        },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
     },
   },

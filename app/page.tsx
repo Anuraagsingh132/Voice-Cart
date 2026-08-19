@@ -101,17 +101,47 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen px-4 py-6 md:py-10 max-w-3xl mx-auto flex flex-col justify-between">
-      <div>
-        {/* Top Header */}
-        <Header
-          currentLanguage={language}
-          onLanguageChange={handleLanguageChange}
-          onOpenGuide={() => setIsGuideOpen(true)}
+    <>
+      {/* Fixed Top Navigation Bar */}
+      <Header
+        currentLanguage={language}
+        onLanguageChange={handleLanguageChange}
+        onOpenGuide={() => setIsGuideOpen(true)}
+      />
+
+      {/* Main Content Container */}
+      <main className="max-w-4xl mx-auto pt-20 pb-56 px-4 md:px-8 space-y-6 relative z-10">
+        {/* Floating Voice Status Toast (Sticky below header) */}
+        <VoiceStatus
+          voiceState={voiceState}
+          interimTranscript={interimTranscript}
+          feedback={feedback}
+          onRetry={startListening}
         />
 
-        {/* Central Voice Control Section */}
-        <section className="my-6 flex flex-col items-center justify-center">
+        {/* Voice Search Results Tray (Active when SEARCH intent triggered) */}
+        <SearchResults />
+
+        {/* Smart Suggestions Horizontal Carousel Shelf */}
+        <Suggestions />
+
+        {/* Current Shopping List Card */}
+        <ShoppingList />
+      </main>
+
+      {/* Bottom Action Area (Voice Centerpiece + Manual Input) */}
+      <div className="fixed bottom-0 left-0 w-full z-40 bg-gradient-to-t from-white via-white/95 to-transparent pt-6 pb-4 px-4">
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-2.5">
+          {/* Voice Prompt Hint */}
+          <p className="text-xs md:text-sm text-on-surface-variant font-medium animate-pulse opacity-75 text-center">
+            {voiceState === 'listening'
+              ? 'Listening to your speech...'
+              : voiceState === 'processing'
+              ? 'Processing command...'
+              : 'Try saying: "Add 5 apples to my list" or "Find toothpaste under $5"'}
+          </p>
+
+          {/* Centerpiece Voice Button */}
           <VoiceButton
             voiceState={voiceState}
             isSupported={isSupported}
@@ -119,37 +149,19 @@ export default function Home() {
             onStop={stopListening}
           />
 
-          <VoiceStatus
-            voiceState={voiceState}
-            interimTranscript={interimTranscript}
-            feedback={feedback}
-            onRetry={startListening}
+          {/* Manual Input Bar */}
+          <ManualInput
+            onProcessText={handleProcessCommand}
+            isProcessing={voiceState === 'processing'}
           />
-        </section>
-
-        {/* Voice Search Results (Conditional) */}
-        <SearchResults />
-
-        {/* Smart Suggestions & Substitutes Shelf */}
-        <Suggestions />
-
-        {/* Shopping List Management */}
-        <ShoppingList />
+        </div>
       </div>
-
-      {/* Manual Input Fallback (Bottom Sticky Bar) */}
-      <footer className="sticky bottom-2 z-20 pt-4 pb-2">
-        <ManualInput
-          onProcessText={handleProcessCommand}
-          isProcessing={voiceState === 'processing'}
-        />
-      </footer>
 
       {/* Voice Command Reference Modal */}
       <VoiceCommandGuide
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
       />
-    </main>
+    </>
   );
 }
