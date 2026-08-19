@@ -114,21 +114,38 @@ JSON OUTPUT SCHEMA:
 
 Return ONLY valid JSON.`;
 
-    const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        { role: 'system', content: systemPrompt },
-        {
-          role: 'user',
-          content: `Language: ${language}\nSpoken command: "${preCleaned}"`,
-        },
-      ],
-      model: 'llama-3.1-8b-instant',
-      temperature: 0.05,
-      max_tokens: 450,
-      response_format: { type: 'json_object' },
-    });
+    let content = '{}';
+    const messages = [
+      { role: 'system', content: systemPrompt },
+      {
+        role: 'user',
+        content: `Language: ${language}\nSpoken command: "${preCleaned}"`,
+      },
+    ];
 
-    const content = chatCompletion.choices[0]?.message?.content?.trim() || '{}';
+    try {
+      // 1. Fast Path (High speed, lower cost)
+      const chatCompletion = await groq.chat.completions.create({
+        messages: messages as any,
+        model: 'llama-3.1-8b-instant',
+        temperature: 0.05,
+        max_tokens: 450,
+        response_format: { type: 'json_object' },
+      });
+      content = chatCompletion.choices[0]?.message?.content?.trim() || '{}';
+    } catch (fastError) {
+      console.warn('Fast path LLM failed or rate-limited. Escalating to heavy model...', fastError);
+      
+      // 2. Escalation Layer (Higher precision, heavier model)
+      const escalationCompletion = await groq.chat.completions.create({
+        messages: messages as any,
+        model: 'llama-3.1-70b-versatile',
+        temperature: 0.05,
+        max_tokens: 450,
+        response_format: { type: 'json_object' },
+      });
+      content = escalationCompletion.choices[0]?.message?.content?.trim() || '{}';
+    }
     let parsed: ParsedIntent;
 
     try {
