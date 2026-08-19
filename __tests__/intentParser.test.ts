@@ -142,4 +142,16 @@ describe('parseIntentClientFallback & Residual Speech Filter', () => {
     const resHelp = parseIntentClientFallback('Help me');
     expect(resHelp.intent).toBe('HELP');
   });
+
+  it('parses documented multilingual commands in the offline fallback', () => {
+    expect(parseIntentClientFallback('doodh jod do')).toMatchObject({ intent: 'ADD', item: 'Milk' });
+    expect(parseIntentClientFallback('agrega leche')).toMatchObject({ intent: 'ADD', item: 'Milk' });
+    expect(parseIntentClientFallback('chercher des pommes')).toMatchObject({ intent: 'SEARCH', item: 'Apples' });
+    expect(parseIntentClientFallback('milch hinzufügen')).toMatchObject({ intent: 'ADD', item: 'Milk' });
+  });
+
+  it('parses bounded price ranges and package sizes', () => {
+    const result = parseIntentClientFallback('Find milk between $2 and $4 1L');
+    expect(result).toMatchObject({ intent: 'SEARCH', item: 'Milk', filters: { priceMin: 2, priceMax: 4, size: '1l' } });
+  });
 });

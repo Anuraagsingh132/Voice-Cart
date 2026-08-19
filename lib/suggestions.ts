@@ -102,16 +102,7 @@ export function generateSmartSuggestions(
   }
 
   // 3. REPURCHASE / HISTORY RECOMMENDATIONS
-  const defaultFrequentStaples = [
-    { name: 'Arla Standard Milk', reason: 'Fresh daily dairy milk' },
-    { name: 'Golden Delicious', reason: 'Classic sweet crisp apple' },
-    { name: 'Tropicana Apple Juice', reason: 'Refreshing pure squeezed apple juice' },
-    { name: 'Brown Cap Mushroom', reason: 'Essential versatile culinary mushroom' },
-  ];
-
-  const candidates = itemHistory.length > 0
-    ? itemHistory.map(name => ({ name, reason: 'Frequently purchased staple' }))
-    : defaultFrequentStaples;
+  const candidates = itemHistory.map(name => ({ name, reason: 'Previously added to your list' }));
 
   for (const c of candidates) {
     const cNorm = c.name.toLowerCase();

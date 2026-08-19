@@ -1,4 +1,5 @@
 import { ParsedIntent, ParsedItemEntity } from '@/types';
+import productsData from '@/data/products.json';
 
 const numberWordMap: Record<string, number> = {
   one: 1, a: 1, an: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
@@ -26,12 +27,44 @@ const ACTION_KEYWORDS = new Set([
   'quitar', 'eliminar', 'supprimer', 'ajouter', 'kaufen', 'hinzufügen'
 ]);
 
+const ITEM_TRANSLATIONS: Record<string, string> = {
+  doodh: 'milk', kela: 'bananas', pani: 'water', aalu: 'potatoes', pyaz: 'onions',
+  leche: 'milk', pan: 'bread', manzana: 'apples', manzanas: 'apples', agua: 'water', platano: 'bananas', plátano: 'bananas',
+  lait: 'milk', pain: 'bread', pomme: 'apples', pommes: 'apples', eau: 'water', banane: 'bananas', bananes: 'bananas',
+  milch: 'milk', brot: 'bread', apfel: 'apples', äpfel: 'apples', wasser: 'water', bananen: 'bananas',
+};
+
+function canonicalizeCommand(text: string): string {
+  let value = cleanPhoneticMistakes(text.toLowerCase().trim());
+  value = value
+    .replace(/^(.+?)\s+(?:jod|jodo)\s+do$/i, 'add $1')
+    .replace(/^(.+?)\s+(?:hata|hatao)\s+do$/i, 'remove $1')
+    .replace(/^(.+?)\s+(?:dhund|dhundo|khoj|khojo)\s+do$/i, 'search $1')
+    .replace(/^(?:agrega|añade|anade|agregar)\s+/i, 'add ')
+    .replace(/^(?:elimina|eliminar|quita|quitar)\s+/i, 'remove ')
+    .replace(/^(?:busca|buscar)\s+/i, 'search ')
+    .replace(/^(?:ajoute|ajouter)\s+/i, 'add ')
+    .replace(/^(?:supprime|supprimer|enleve|enlève)\s+/i, 'remove ')
+    .replace(/^(?:cherche|chercher)\s+/i, 'search ')
+    .replace(/^(?:füge|fuge)\s+/i, 'add ')
+    .replace(/\s+(?:hinzu|hinzufügen|hinzufugen)$/i, '')
+    .replace(/^(?:suche|suchen)\s+/i, 'search ')
+    .replace(/^(.+?)\s+(?:suche|suchen)$/i, 'search $1');
+
+  value = value.replace(/\b(?:des|du|de|la|le|el|los|las)\b/gi, ' ').replace(/\s+/g, ' ').trim();
+  return value.replace(/\b[^\s]+\b/g, (word) => ITEM_TRANSLATIONS[word] || word);
+}
+
+function catalogBrands(): string[] {
+  return Array.from(new Set((productsData as { brand: string }[]).map((product) => product.brand)));
+}
+
 /**
  * Intelligent filter that distinguishes genuine shopping commands from background residual chatter.
  */
 export function isShoppingRelated(text: string): boolean {
   if (!text || text.trim().length < 2) return false;
-  const clean = text.toLowerCase().trim();
+  const clean = canonicalizeCommand(text);
   const words = clean.split(/[\s,.-]+/).filter(Boolean);
 
   // 1. Check for action verbs
@@ -139,7 +172,7 @@ function parseSingleItemClause(clause: string): ParsedItemEntity | null {
  * Filters residual non-shopping talk and handles single and compound multi-item commands.
  */
 export function parseIntentClientFallback(transcript: string): ParsedIntent {
-  const clean = cleanPhoneticMistakes((transcript || '').toLowerCase().trim());
+  const clean = canonicalizeCommand(transcript || '');
 
   // 0. RESIDUAL SPEECH FILTER GATE
   // If the speech does NOT contain any shopping verbs, items, or units, discard it quietly.
@@ -181,6 +214,13 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
     let priceMax: number | null = null;
     let priceMin: number | null = null;
 
+    const rangeMatch = queryBody.match(/(?:between|from)\s*(?:\$|rs|inr)?\s*(\d+(?:\.\d+)?)\s*(?:and|to|-)\s*(?:\$|rs|inr)?\s*(\d+(?:\.\d+)?)/i);
+    if (rangeMatch) {
+      priceMin = parseFloat(rangeMatch[1]);
+      priceMax = parseFloat(rangeMatch[2]);
+      queryBody = queryBody.replace(rangeMatch[0], '').trim();
+    }
+
     const underMatch = queryBody.match(/(?:under|below|less than|cheaper than|upto|up to)\s*(?:\$|rs|inr)?\s*(\d+(?:\.\d+)?)/i);
     if (underMatch) {
       priceMax = parseFloat(underMatch[1]);
@@ -194,7 +234,7 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
     }
 
     let brand: string | null = null;
-    const brands = ['Arla', 'Tropicana', 'Bravo', 'God Morgon', 'Garant', 'Oatly', 'Alpro', 'Valio', 'Yoggi', 'Fresho', 'Amul', 'Colgate'];
+    const brands = catalogBrands();
     for (const b of brands) {
       if (new RegExp(`\\b${b}\\b`, 'i').test(queryBody)) {
         brand = b;
@@ -202,7 +242,11 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
       }
     }
 
-    const cleanItem = queryBody.replace(/\b(organic|fresh|under|for|me)\b/gi, '').trim() || queryBody;
+    const sizeMatch = queryBody.match(/\b(\d+(?:\.\d+)?\s?(?:kg|g|grams?|ml|l|liters?|litres?|oz|lb|pack|packs|pieces?))\b/i);
+    const size = sizeMatch ? sizeMatch[1].replace(/\s+/g, '') : null;
+    if (sizeMatch) queryBody = queryBody.replace(sizeMatch[0], '').trim();
+
+    const cleanItem = queryBody.replace(/\b(fresh|under|for|me)\b/gi, '').trim() || queryBody;
     const finalItem = cleanItem.replace(/^(me\s+)/i, '').trim();
 
     return {
@@ -212,6 +256,7 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
         priceMax,
         priceMin,
         brand,
+        size,
       },
       confidence: 0.85,
       rawQuery: transcript,

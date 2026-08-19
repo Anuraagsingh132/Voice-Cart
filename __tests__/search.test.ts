@@ -38,4 +38,15 @@ describe('searchProducts (Catalog Search & Filtering - GroceryStoreDataset)', ()
     expect(results).toEqual([]);
     expect(totalMatches).toBe(0);
   });
+
+  it('supports the documented organic, toothpaste, brand, and size queries', () => {
+    const organic = searchProducts('organic apples');
+    expect(organic.results.map((product) => product.name)).toContain('Organic Fuji Apples');
+
+    const toothpaste = searchProducts('toothpaste', { priceMax: 5 });
+    expect(toothpaste.results.some((product) => product.brand === 'Colgate')).toBe(true);
+
+    const milk = searchProducts('milk', { brand: 'Amul', size: '1L' });
+    expect(milk.results.map((product) => product.name)).toContain('Amul Taaza Milk');
+  });
 });

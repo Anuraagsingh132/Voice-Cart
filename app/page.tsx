@@ -22,6 +22,14 @@ export default function Home() {
     async (text: string) => {
       if (!text || !text.trim()) return;
 
+      setVoiceState('processing');
+      setFeedback({
+        status: 'processing',
+        transcript: text,
+        message: `Analyzing: "${text}"...`,
+        timestamp: Date.now(),
+      });
+
       try {
         const parsed = await parseIntent(text, language);
 
@@ -30,14 +38,6 @@ export default function Home() {
           setVoiceState('listening');
           return;
         }
-
-        setVoiceState('processing');
-        setFeedback({
-          status: 'processing',
-          transcript: text,
-          message: `Analyzing: "${text}"...`,
-          timestamp: Date.now(),
-        });
 
         const outcome = processParsedIntent(parsed);
 
@@ -70,7 +70,13 @@ export default function Home() {
         }
       } catch (err: any) {
         console.error('Error processing command:', err);
-        setVoiceState('listening');
+        setVoiceState('error');
+        setFeedback({
+          status: 'error',
+          transcript: text,
+          message: 'Something went wrong while processing that command. Please try again.',
+          timestamp: Date.now(),
+        });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

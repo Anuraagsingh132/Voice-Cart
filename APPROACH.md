@@ -1,11 +1,9 @@
 # Engineering Approach: Voice Command Shopping Assistant
 
-**Problem & Strategy:**
-Building a reliable, hands-free shopping assistant requires low latency, natural conversational tolerance, and crisp visual feedback. I designed a voice-first architecture pairing the browser-native Web Speech API with Groq’s high-speed Llama-3.1-8B model for sub-second intent and entity extraction.
+The app uses the browser Web Speech API for transcription and sends the resulting text to a small Next.js API route. When `GROQ_API_KEY` is configured, Groq extracts structured shopping intents; a deterministic client parser remains available for common English, Hindi, Spanish, French, and German commands when the service is unavailable.
 
-**Architecture & Implementation:**
-1. **Speech & NLP Pipeline:** Spoken audio streams through the Web Speech API with real-time interim transcription and multilingual support (English, Hindi, Spanish, French, German). The serverless API route proxies commands to Groq Llama 3.1, extracting structured JSON intents (`ADD`, `REMOVE`, `MODIFY`, `SEARCH`) with quantity, units, and price filters. A resilient client-side heuristic fallback guarantees offline reliability.
-2. **State & Smart Intelligence:** State is managed via React Context synchronized with `localStorage`. Item additions trigger automatic categorization (e.g., Produce, Dairy, Personal Care) and smart suggestions (seasonal produce, plant-based substitutes like almond milk, and purchase history favorites).
-3. **Voice Search & UX:** Users can search and filter catalog items by brand, category, and price bounds (e.g., "toothpaste under $5"). The minimalist mobile-first UI features stateful micro-animations, loading indicators, and manual text fallback.
+Shopping-list state and prior additions are stored in `localStorage`. New items are categorized with transparent rules, while opt-in suggestions combine the user’s own prior additions, the current season, and a curated substitute map. No sample purchase history is injected for a new user.
 
-**Trade-offs:** Client-side storage and curated datasets enabled rapid delivery within the 8-hour budget while maintaining production-quality code.
+Search runs against a documented local catalog with name, brand, package-size, and price filtering. This deliberately avoids a retailer integration so the demo remains reproducible and free to run. The interface is mobile-first, shows live recognition/processing feedback, and includes typed input for browsers without speech recognition.
+
+Trade-off: the catalog and recommendations are deterministic rather than personalized by a remote service; this keeps the take-home testable while making the boundary explicit.

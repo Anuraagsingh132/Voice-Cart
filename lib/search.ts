@@ -52,7 +52,14 @@ export function searchProducts(
       }
     }
 
-    // 4. Price Max Filter (e.g., "under $5")
+    // 4. Package-size filter (e.g., "1L milk" or "500g bread")
+    if (filters.size) {
+      const sizeFilter = filters.size.toLowerCase().replace(/\s+/g, '');
+      const productSize = (p.unit || '').toLowerCase().replace(/\s+/g, '');
+      if (!productSize.includes(sizeFilter)) return false;
+    }
+
+    // 5. Price Max Filter (e.g., "under $5")
     const actualPrice = p.discountedPrice ?? p.price;
     if (priceMax !== null && !isNaN(priceMax)) {
       if (actualPrice > priceMax) {
@@ -60,7 +67,7 @@ export function searchProducts(
       }
     }
 
-    // 5. Price Min Filter
+    // 6. Price Min Filter
     if (priceMin !== null && !isNaN(priceMin)) {
       if (actualPrice < priceMin) {
         return false;

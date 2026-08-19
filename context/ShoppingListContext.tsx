@@ -15,6 +15,7 @@ interface SearchResultState {
     brand?: string | null;
     priceMax?: number | null;
     priceMin?: number | null;
+    size?: string | null;
   };
   results: Product[];
   totalMatches: number;
@@ -34,55 +35,16 @@ interface ShoppingListContextType {
   clearList: () => void;
   acceptSuggestion: (suggestion: Suggestion) => void;
   dismissSuggestion: (id: string) => void;
-  executeSearch: (query: string, filters?: { brand?: string | null; priceMax?: number | null; priceMin?: number | null }) => void;
+  executeSearch: (query: string, filters?: { brand?: string | null; priceMax?: number | null; priceMin?: number | null; size?: string | null }) => void;
   clearSearch: () => void;
   processParsedIntent: (intent: ParsedIntent) => { success: boolean; message: string; type: string };
 }
 
 const ShoppingListContext = createContext<ShoppingListContextType | undefined>(undefined);
 
-const INITIAL_ITEMS: ListItem[] = [
-  {
-    id: 'init-1',
-    name: 'Organic Fuji Apples',
-    quantity: 3,
-    unit: 'pieces',
-    category: 'Fruits & Vegetables',
-    checked: false,
-    addedAt: Date.now() - 3600000,
-    priceEstimate: 3.99,
-  },
-  {
-    id: 'init-2',
-    name: 'Farm Fresh Whole Milk',
-    quantity: 1,
-    unit: 'carton (1L)',
-    category: 'Dairy & Eggs',
-    checked: false,
-    addedAt: Date.now() - 7200000,
-    priceEstimate: 2.99,
-  },
-  {
-    id: 'init-3',
-    name: 'Whole Wheat Sourdough Bread',
-    quantity: 1,
-    unit: 'loaf (400g)',
-    category: 'Bakery & Snacks',
-    checked: true,
-    addedAt: Date.now() - 10800000,
-    priceEstimate: 3.29,
-  },
-];
-
 export function ShoppingListProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useLocalStorage<ListItem[]>('shopping_list_items', INITIAL_ITEMS);
-  const [history, setHistory] = useLocalStorage<string[]>('shopping_list_history', [
-    'Milk',
-    'Eggs',
-    'Bread',
-    'Bananas',
-    'Butter',
-  ]);
+  const [items, setItems] = useLocalStorage<ListItem[]>('shopping_list_items', []);
+  const [history, setHistory] = useLocalStorage<string[]>('shopping_list_history', []);
   const [dismissedSuggestions, setDismissedSuggestions] = useState<string[]>([]);
   const [searchState, setSearchState] = useState<SearchResultState>({
     isActive: false,
@@ -266,12 +228,14 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
         brand?: string | null;
         priceMax?: number | null;
         priceMin?: number | null;
+        size?: string | null;
       }
     ) => {
       const searchRes = searchProducts(query, {
-        brand: filters?.brand || undefined,
-        priceMax: filters?.priceMax || undefined,
-        priceMin: filters?.priceMin || undefined,
+        brand: filters?.brand ?? undefined,
+        priceMax: filters?.priceMax ?? undefined,
+        priceMin: filters?.priceMin ?? undefined,
+        size: filters?.size ?? undefined,
       });
 
       setSearchState({

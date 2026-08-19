@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { Sun, ArrowLeftRight, History, Plus, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sun, ArrowLeftRight, History, Plus, Check, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { Suggestion } from '@/types';
 
@@ -22,7 +22,7 @@ export function Suggestions() {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const offset = direction === 'left' ? -260 : 260;
+      const offset = direction === 'left' ? -280 : 280;
       scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
     }
   };
@@ -32,23 +32,23 @@ export function Suggestions() {
       case 'seasonal':
         return {
           icon: Sun,
-          label: 'Peak Season',
-          color: 'text-amber-700',
+          label: 'In Season',
+          color: 'text-amber-800',
           bg: 'bg-amber-100',
         };
       case 'substitute':
         return {
           icon: ArrowLeftRight,
           label: 'Healthy Swap',
-          color: 'text-sky-700',
+          color: 'text-sky-800',
           bg: 'bg-sky-100',
         };
       case 'history':
       default:
         return {
           icon: History,
-          label: 'Usually Bought',
-          color: 'text-emerald-700',
+          label: 'Shopping History',
+          color: 'text-emerald-800',
           bg: 'bg-emerald-100',
         };
     }
@@ -59,11 +59,15 @@ export function Suggestions() {
       {/* Section Header */}
       <div className="flex justify-between items-end mb-3">
         <div>
-          <h2 className="text-lg md:text-xl font-bold text-neutral-900 tracking-tight">
-            Smart Suggestions
+          <h2 className="text-lg md:text-xl font-bold text-neutral-900 tracking-tight flex items-center gap-2">
+            <span>Smart Suggestions</span>
+            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              Dynamic AI
+            </span>
           </h2>
           <p className="text-xs text-neutral-400 font-medium">
-            Based on your list and seasonal picks
+            Based on active list items, seasonal produce, and purchase history
           </p>
         </div>
 
@@ -72,21 +76,21 @@ export function Suggestions() {
           <button
             onClick={() => scroll('left')}
             aria-label="Scroll suggestions left"
-            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95"
+            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95 cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={() => scroll('right')}
             aria-label="Scroll suggestions right"
-            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95"
+            className="w-7 h-7 rounded-full bg-white border border-neutral-200 shadow-xs flex items-center justify-center text-neutral-600 hover:text-emerald-700 hover:border-emerald-300 transition-all active:scale-95 cursor-pointer"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* Snap Scroll Container with partial card peek */}
+      {/* Snap Scroll Container */}
       <div
         ref={scrollContainerRef}
         className="flex gap-4 overflow-x-auto hide-scroll pb-2 snap-x snap-mandatory px-1 -mx-1"
@@ -100,15 +104,20 @@ export function Suggestions() {
           return (
             <div
               key={s.id}
-              className="w-60 md:w-64 lg:w-72 flex-shrink-0 snap-start bg-white border border-neutral-200/90 rounded-2xl p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              className="w-64 md:w-72 lg:w-80 flex-shrink-0 snap-start bg-white border border-neutral-200/90 rounded-2xl p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 {/* Badge */}
-                <div className="flex items-center gap-1.5 mb-2">
+                <div className="flex items-center justify-between gap-1.5 mb-2">
                   <span className={`inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${badge.bg} ${badge.color}`}>
                     <BadgeIcon className="w-3 h-3" />
                     {badge.label}
                   </span>
+                  {s.price && (
+                    <span className="text-xs font-bold text-neutral-700">
+                      ${s.price}
+                    </span>
+                  )}
                 </div>
 
                 {/* Dominant Product Title */}
@@ -116,7 +125,7 @@ export function Suggestions() {
                   {s.item}
                 </h3>
 
-                {/* Optical Centered Image with soft neutral backdrop */}
+                {/* Centered Image with soft neutral backdrop */}
                 <div className="h-28 w-full rounded-xl mb-3 bg-neutral-50 border border-neutral-100 flex items-center justify-center p-2.5 overflow-hidden relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -126,17 +135,25 @@ export function Suggestions() {
                   />
                 </div>
 
-                {/* Description */}
-                <p className="text-xs text-neutral-500 mb-3.5 line-clamp-2 leading-relaxed" title={s.description || s.reason}>
-                  {s.description || s.reason}
-                </p>
+                {/* Explicit Intelligence Rationale Box */}
+                <div className="bg-neutral-50 rounded-xl p-2.5 mb-3 border border-neutral-100/90">
+                  <p className="text-[11px] font-semibold text-neutral-700 leading-snug">
+                    💡 {s.reason}
+                  </p>
+                  {s.description && (
+                    <p className="text-[10px] text-neutral-400 mt-1 line-clamp-1">
+                      {s.description}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              {/* Action Button: Consistent Emerald Palette */}
+              {/* Action Button */}
               <button
+                type="button"
                 onClick={() => acceptSuggestion(s)}
                 disabled={onList}
-                className={`w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold transition-all active:scale-95 ${
+                className={`w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold transition-all active:scale-95 cursor-pointer ${
                   onList
                     ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-default'
                     : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-xs'
@@ -145,7 +162,7 @@ export function Suggestions() {
                 {onList ? (
                   <>
                     <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                    <span>Added</span>
+                    <span>Added to List</span>
                   </>
                 ) : (
                   <>
@@ -157,7 +174,6 @@ export function Suggestions() {
             </div>
           );
         })}
-        {/* Spacer for intentional peek effect */}
         <div className="w-4 flex-shrink-0" />
       </div>
     </section>

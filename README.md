@@ -6,16 +6,16 @@
 
 ## 🌟 Overview & Features
 
-This project was built as a solution for the Technical Assessment Project challenge. It implements 100% of the required functional and technical specifications:
+This project is a voice-first take-home implementation. It uses a curated local catalog and browser speech recognition; deployment details are intentionally supplied separately with the submission.
 
 ### 1. 🎙️ Voice Input & NLP Pipeline
 - **Voice Command Recognition:** Hands-free voice capture powered by browser-native Web Speech API with real-time audio waveform/pulsing indicators.
 - **Natural Language Processing (NLP):** Powered by **Groq Llama 3.1 8B Instant**, extracting structured intents (`ADD`, `REMOVE`, `MODIFY`, `SEARCH`, `CLEAR`, `HELP`) across varied phrasing (e.g., *"I want to buy bananas"*, *"Add 2 bottles of water"*, *"Change apples to 3"*).
 - **Multilingual Support:** One-click language switching between **English (US/India)**, **Hindi (हिन्दी)**, **Spanish (Español)**, **French (Français)**, and **German (Deutsch)**.
-- **Zero-Crash Hybrid Resilience:** Built-in client-side heuristic parser ensures full functionality even offline or if API keys are unconfigured.
+- **Fallback Parsing:** A deterministic parser covers the documented common commands when Groq is unavailable; Groq handles broader phrasing when configured.
 
 ### 2. 💡 Smart Suggestions & Substitutes
-- **Product Recommendations:** Intelligently suggests staples based on previous shopping list activity and repurchase cycles.
+- **Product Recommendations:** Suggests items from the user’s own prior additions, once history exists.
 - **Seasonal Recommendations:** Dynamic suggestions based on current calendar season (e.g., *Alphonso Mangoes in Summer*, *Valencia Oranges in Winter*, *Immune Tea in Monsoon*).
 - **Substitutes:** Offers healthy and dietary alternatives for items added to the list (e.g., *Almond/Oat Milk for Whole Milk*, *Vegan Butter for Dairy Butter*, *Raw Honey for Sugar*).
 - **Opt-In Control (BR-002):** Suggestions are advisory and never auto-added without explicit user confirmation.
@@ -29,7 +29,7 @@ This project was built as a solution for the Technical Assessment Project challe
 ### 4. 🔍 Voice-Activated Search & Price Filtering
 - **Item Search:** Query products by name, brand, or category (e.g., *"Find me organic apples"*, *"Search for Fresho milk"*).
 - **Price Range & Brand Filters:** Spoken price constraints (e.g., *"Find toothpaste under $5"*, *"Show snacks below $3"*).
-- **Catalog Dataset:** 50+ curated products adapted from public supermarket catalogs (BigBasket) with real pricing, brands, and ratings.
+- **Catalog Dataset:** Curated sample catalog with product names, brands, package sizes, prices, and ratings for repeatable demo searches.
 
 ### 5. 📱 Minimalist Mobile-First UI & Feedback
 - **Real-Time Visual Feedback:** Live streaming transcript display, state transitions (`idle` → `listening` → `processing` → `success` / `error`), and quick-retry capabilities.
@@ -133,7 +133,7 @@ Open [http://localhost:3000](http://localhost:3000) in **Google Chrome** or **Mi
 ```bash
 npm test
 ```
-Runs **29 unit tests** across 5 test suites covering categorization, fuzzy matching, heuristic NLP entity extraction, catalog search with price filters, and dynamic recommendations.
+Runs unit tests covering categorization, fuzzy matching, multilingual fallback parsing, catalog filtering, and dynamic recommendations.
 
 ### Manual Voice Test Scenarios
 
@@ -144,18 +144,18 @@ Try the following voice or typed commands to test the NLP and list management:
 | 1 | *"Add milk"* | Adds "Farm Fresh Whole Milk" under **Dairy & Eggs** |
 | 2 | *"I want to buy bananas"* | Varied phrasing recognized, adds **Robusta Bananas** |
 | 3 | *"Add 2 bottles of water"* | Correctly parses quantity (2) and unit ("bottles") |
-| 4 | *"Find toothpaste under $5"* | Searches catalog and shows Colgate & Ayurvedic options under $5 |
+| 4 | *"Find toothpaste under $5"* | Searches catalog and shows the Colgate toothpaste option under $5 |
 | 5 | *"Find me organic apples"* | Shows organic Fuji apples with price tags |
 | 6 | *"Change apples to 3"* | Updates quantity of existing apples to 3 |
 | 7 | *"Remove milk from my list"* | Removes milk with visual confirmation |
-| 8 | *"doodh jod do"* (Hindi mode) | Adds milk using Hindi voice command |
+| 8 | *"doodh jod do"*, *"agrega leche"*, *"chercher des pommes"* | Exercises Hindi, Spanish, and French fallback commands |
 | 9 | Check suggestions | Notice almond milk substitute recommended for milk |
 | 10 | *"Clear list"* | Clears entire shopping list |
 
 ---
 
 ## 📄 Deliverables Checklist
-- [x] Hosted public URL (deployable via Vercel in 1 click)
-- [x] GitHub repository with full source code
+- [ ] Hosted public URL — add the deployed URL before submitting
+- [ ] GitHub repository — add the public repository URL before submitting
 - [x] Comprehensive documentation and README
 - [x] 200-word engineering approach write-up ([`APPROACH.md`](./APPROACH.md))

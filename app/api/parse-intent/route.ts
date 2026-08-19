@@ -4,6 +4,19 @@ import { ParsedIntent } from '@/types';
 
 export const runtime = 'nodejs';
 
+const VALID_INTENTS = new Set(['ADD', 'REMOVE', 'MODIFY', 'SEARCH', 'CLEAR', 'HELP', 'UNKNOWN']);
+
+function isParsedIntent(value: unknown): value is ParsedIntent {
+  if (!value || typeof value !== 'object') return false;
+  const candidate = value as Record<string, unknown>;
+  if (typeof candidate.intent !== 'string' || !VALID_INTENTS.has(candidate.intent)) return false;
+  if (candidate.item != null && typeof candidate.item !== 'string') return false;
+  if (candidate.quantity != null && (typeof candidate.quantity !== 'number' || !Number.isFinite(candidate.quantity))) return false;
+  if (candidate.items != null && !Array.isArray(candidate.items)) return false;
+  if (candidate.filters != null && typeof candidate.filters !== 'object') return false;
+  return true;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -29,7 +42,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const groq = new Groq({ apiKey });
+    const groq = new Groq({ apiKey, timeout: 8000, maxRetries: 1 });
 
     const systemPrompt = `You are an expert AI assistant for a Voice Command Shopping List application.
 Your job is to parse spoken voice commands into clean, structured JSON representing user intent.
@@ -140,6 +153,13 @@ Return ONLY pure valid JSON.`;
       } else {
         throw new Error('Failed to parse JSON response from LLM');
       }
+    }
+
+    if (!isParsedIntent(parsed)) {
+      return NextResponse.json(
+        { error: 'INVALID_MODEL_RESPONSE', message: 'The command parser returned an invalid response.' },
+        { status: 502 }
+      );
     }
 
     parsed.rawQuery = transcript;

@@ -80,17 +80,17 @@ export function SearchResults() {
       )}
 
       {/* Filter Badges if applied */}
-      {(filters?.priceMax || filters?.priceMin || filters?.brand) && (
+      {(filters?.priceMax != null || filters?.priceMin != null || filters?.brand || filters?.size) && (
         <div className="flex flex-wrap items-center gap-1.5 mb-3.5">
           <span className="text-[11px] font-semibold text-neutral-400 mr-1 flex items-center gap-1">
             <Tag className="w-3 h-3" /> Filters:
           </span>
-          {filters.priceMax && (
+          {filters.priceMax != null && (
             <span className="text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-lg">
               Max Price: ${filters.priceMax}
             </span>
           )}
-          {filters.priceMin && (
+          {filters.priceMin != null && (
             <span className="text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-lg">
               Min Price: ${filters.priceMin}
             </span>
@@ -98,6 +98,11 @@ export function SearchResults() {
           {filters.brand && (
             <span className="text-xs font-medium bg-neutral-100 text-neutral-700 border border-neutral-200 px-2 py-0.5 rounded-lg">
               Brand: {filters.brand}
+            </span>
+          )}
+          {filters.size && (
+            <span className="text-xs font-medium bg-neutral-100 text-neutral-700 border border-neutral-200 px-2 py-0.5 rounded-lg">
+              Size: {filters.size}
             </span>
           )}
         </div>
