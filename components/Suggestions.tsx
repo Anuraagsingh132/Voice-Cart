@@ -100,7 +100,7 @@ export function Suggestions() {
           return (
             <div
               key={s.id}
-              className="w-56 md:w-64 flex-shrink-0 snap-start bg-white border border-neutral-200/90 rounded-2xl p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              className="w-60 md:w-64 lg:w-72 flex-shrink-0 snap-start bg-white border border-neutral-200/90 rounded-2xl p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 {/* Badge */}

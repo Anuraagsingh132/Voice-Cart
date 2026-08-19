@@ -167,8 +167,8 @@ export function ShoppingList() {
                 </span>
               </div>
 
-              {/* Items in this category */}
-              <div className="space-y-1.5">
+              {/* Items in this category in a responsive 2-column grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                 {catItems.map((item) => (
                   <ListItem
                     key={item.id}

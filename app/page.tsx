@@ -129,8 +129,8 @@ export default function Home() {
         }}
       />
 
-      {/* Main Content Area with generous bottom scroll clearance */}
-      <main className="max-w-4xl mx-auto pt-20 pb-64 px-4 md:px-8 space-y-6 relative z-10">
+      {/* Main Content Area with spacious wide max-w-7xl grid and generous bottom scroll clearance */}
+      <main className="max-w-7xl mx-auto pt-20 pb-64 px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
         {/* Floating Voice Status Toast */}
         <VoiceStatus
           voiceState={voiceState}
