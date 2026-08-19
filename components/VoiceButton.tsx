@@ -33,12 +33,12 @@ export function VoiceButton({
       <div className="flex flex-col items-center">
         <button
           disabled
-          className="relative flex items-center justify-center w-16 h-16 rounded-full bg-neutral-200 text-neutral-400 cursor-not-allowed shadow-inner border-4 border-white"
+          className="relative flex items-center justify-center w-14 h-14 rounded-full bg-neutral-200 text-neutral-400 cursor-not-allowed shadow-inner border-2 border-white"
           title="Speech recognition not supported in this browser. Use manual typing below."
         >
-          <MicOff className="w-7 h-7" />
+          <MicOff className="w-6 h-6" />
         </button>
-        <span className="mt-1.5 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+        <span className="mt-1 text-[10px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
           Voice unavailable in this browser
         </span>
       </div>
@@ -46,10 +46,10 @@ export function VoiceButton({
   }
 
   return (
-    <div className="relative w-24 h-24 flex items-center justify-center">
+    <div className="relative w-20 h-20 flex items-center justify-center">
       {/* Listening Ring (Active State with pulse ripple animation) */}
       {isListening && (
-        <div className="absolute inset-0 rounded-full bg-primary/15 border-4 border-primary/40 mic-pulse pointer-events-none" />
+        <div className="absolute inset-0 rounded-full bg-rose-500/20 border-2 border-rose-500/40 mic-pulse pointer-events-none" />
       )}
 
       {/* Primary Voice Button */}
@@ -57,7 +57,7 @@ export function VoiceButton({
         onClick={handleClick}
         disabled={isProcessing}
         aria-label={isListening ? 'Stop listening' : 'Start voice command'}
-        className={`relative w-20 h-20 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 z-10 border-4 border-white active:scale-95 ${
+        className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 border-4 border-white active:scale-95 ${
           isListening
             ? 'bg-rose-600 shadow-rose-500/40 text-white scale-105'
             : isProcessing
@@ -66,11 +66,11 @@ export function VoiceButton({
         }`}
       >
         {isProcessing ? (
-          <Loader2 className="w-8 h-8 animate-spin" />
+          <Loader2 className="w-6 h-6 animate-spin" />
         ) : isListening ? (
-          <Square className="w-7 h-7 fill-white" />
+          <Square className="w-6 h-6 fill-white" />
         ) : (
-          <Mic className="w-8 h-8" />
+          <Mic className="w-7 h-7" />
         )}
       </button>
     </div>

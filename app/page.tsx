@@ -18,7 +18,6 @@ export default function Home() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const { processParsedIntent } = useShoppingList();
 
-  // Core Intent Processing function
   const handleProcessCommand = useCallback(
     async (text: string) => {
       if (!text || !text.trim()) return;
@@ -32,13 +31,9 @@ export default function Home() {
       });
 
       try {
-        // 1. NLP Parse Intent via Groq LLM (with heuristic fallback)
         const parsed = await parseIntent(text, language);
-
-        // 2. Execute List Action based on parsed intent
         const outcome = processParsedIntent(parsed);
 
-        // 3. Update feedback state
         if (outcome.success) {
           setVoiceState('success');
           setFeedback({
@@ -49,7 +44,6 @@ export default function Home() {
             timestamp: Date.now(),
           });
 
-          // Reset to idle after 4 seconds
           setTimeout(() => {
             setVoiceState((prev) => (prev === 'success' ? 'idle' : prev));
           }, 4000);
@@ -102,16 +96,16 @@ export default function Home() {
 
   return (
     <>
-      {/* Fixed Top Navigation Bar */}
+      {/* Top Fixed Navigation Bar */}
       <Header
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
         onOpenGuide={() => setIsGuideOpen(true)}
       />
 
-      {/* Main Content Container */}
-      <main className="max-w-4xl mx-auto pt-20 pb-56 px-4 md:px-8 space-y-6 relative z-10">
-        {/* Floating Voice Status Toast (Sticky below header) */}
+      {/* Main Content Area with generous bottom scroll clearance */}
+      <main className="max-w-4xl mx-auto pt-20 pb-64 px-4 md:px-8 space-y-6 relative z-10">
+        {/* Floating Voice Status Toast */}
         <VoiceStatus
           voiceState={voiceState}
           interimTranscript={interimTranscript}
@@ -119,29 +113,29 @@ export default function Home() {
           onRetry={startListening}
         />
 
-        {/* Voice Search Results Tray (Active when SEARCH intent triggered) */}
+        {/* Voice Search Results Tray */}
         <SearchResults />
 
-        {/* Smart Suggestions Horizontal Carousel Shelf */}
+        {/* Smart Suggestions Carousel */}
         <Suggestions />
 
-        {/* Current Shopping List Card */}
+        {/* Current Shopping List */}
         <ShoppingList />
       </main>
 
-      {/* Bottom Action Area (Voice Centerpiece + Manual Input) */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-gradient-to-t from-white via-white/95 to-transparent pt-6 pb-4 px-4">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-2.5">
-          {/* Voice Prompt Hint */}
-          <p className="text-xs md:text-sm text-on-surface-variant font-medium animate-pulse opacity-75 text-center">
+      {/* Fixed Bottom Voice & Keyboard Control Dock */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-white via-white/95 to-transparent pt-6 pb-4 px-4">
+        <div className="max-w-2xl mx-auto flex flex-col items-center gap-2">
+          {/* Subtle Voice Hint Pill */}
+          <div className="bg-white/90 backdrop-blur-md border border-neutral-200/80 shadow-2xs rounded-full px-3.5 py-1 text-xs text-neutral-600 font-medium animate-pulse text-center">
             {voiceState === 'listening'
-              ? 'Listening to your speech...'
+              ? '🎙️ Listening... speak naturally'
               : voiceState === 'processing'
-              ? 'Processing command...'
-              : 'Try saying: "Add 5 apples to my list" or "Find toothpaste under $5"'}
-          </p>
+              ? '⏳ Analyzing voice command...'
+              : 'Try saying: "Add 5 apples to my list" • "Find juice under $5"'}
+          </div>
 
-          {/* Centerpiece Voice Button */}
+          {/* Center Voice Button */}
           <VoiceButton
             voiceState={voiceState}
             isSupported={isSupported}
@@ -157,7 +151,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Voice Command Reference Modal */}
+      {/* Voice Command Cheat Sheet Modal */}
       <VoiceCommandGuide
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
