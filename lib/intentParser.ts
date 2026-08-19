@@ -1,12 +1,15 @@
 import { ParsedIntent, ParsedItemEntity } from '@/types';
 import productsData from '@/data/products.json';
+import { resolveGroceryItem, correctTranscriptPhonetics, HOMOPHONE_MAP } from './phoneticMatcher';
+import { normalizeText } from './fuzzyMatch';
+import { KNOWN_GROCERY_SET } from './groceryOntology';
 
 const numberWordMap: Record<string, number> = {
   one: 1, a: 1, an: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
   nine: 9, ten: 10, eleven: 11, twelve: 12, dozen: 12, 'half a dozen': 6,
 };
 
-// Build comprehensive grocery keywords set from GroceryStoreDataset + common staples
+// Build comprehensive grocery keywords set from GroceryStoreDataset + Ontology + Staples
 const GROCERY_KEYWORDS = new Set<string>([
   'apple', 'apples', 'banana', 'bananas', 'milk', 'eggs', 'egg', 'bread', 'breads',
   'juice', 'water', 'potato', 'potatoes', 'tomato', 'tomatoes', 'onion', 'onions',
@@ -15,14 +18,16 @@ const GROCERY_KEYWORDS = new Set<string>([
   'melon', 'watermelon', 'cantaloupe', 'nectarine', 'peach', 'peaches', 'pineapple',
   'plum', 'plums', 'pomegranate', 'grapefruit', 'satsumas', 'sour cream', 'sour milk',
   'yoghurt', 'yogurt', 'oat milk', 'soy milk', 'oatghurt', 'soyghurt', 'asparagus',
-  'aubergine', 'cabbage', 'carrots', 'carrot', 'cucumber', 'leek', 'mushroom',
+  'aubergine', 'cabbage', 'carrots', 'carrot', 'cucumber', 'leek', 'leeks', 'mushroom',
   'mushrooms', 'pepper', 'peppers', 'beet', 'zucchini', 'toothpaste', 'soap', 'doodh',
-  'chawal', 'palak', 'anda', 'ande', 'kela', 'pani', 'makhan', 'ghee', 'sugar',
+  'chawal', 'palak', 'anda', 'ande', 'kela', 'pani', 'paani', 'makhan', 'ghee', 'sugar',
   'salt', 'oil', 'tea', 'coffee', 'rice', 'flour', 'cheese', 'butter', 'cookies',
-  'chips', 'pasta', 'sauce', 'honey', 'jam', 'shampoo', 'detergent', 'meat', 'chicken'
+  'chips', 'pasta', 'sauce', 'honey', 'jam', 'shampoo', 'detergent', 'meat', 'chicken',
+  'adrak', 'pyaz', 'alu', 'aalu', 'atta', 'dahi', 'paneer', 'namak', 'chini', 'cheeni',
+  'dal', 'daal', 'turmeric', 'haldi', 'jeera', 'masala', 'biscuit', 'biscuits'
 ]);
 
-// Add all product names, subcategories, coarseClasses, and tags from dataset into keywords
+// Add all product names and tags from dataset into keywords
 (productsData as any[]).forEach((p) => {
   if (p.name) {
     p.name.toLowerCase().split(/[\s-]+/).forEach((w: string) => {
@@ -44,6 +49,9 @@ const GROCERY_KEYWORDS = new Set<string>([
   }
 });
 
+// Also include all items from the grocery ontology
+KNOWN_GROCERY_SET.forEach((item) => GROCERY_KEYWORDS.add(item));
+
 const ACTION_KEYWORDS = new Set([
   'add', 'buy', 'need', 'get', 'want', 'put', 'bring', 'remove', 'delete', 'take off',
   'drop', 'cut', 'change', 'update', 'make', 'set', 'modify', 'find', 'search',
@@ -53,14 +61,20 @@ const ACTION_KEYWORDS = new Set([
 ]);
 
 const ITEM_TRANSLATIONS: Record<string, string> = {
-  doodh: 'milk', kela: 'bananas', pani: 'water', aalu: 'potatoes', pyaz: 'onions',
-  leche: 'milk', pan: 'bread', manzana: 'apples', manzanas: 'apples', agua: 'water', platano: 'bananas', plátano: 'bananas',
-  lait: 'milk', pain: 'bread', pomme: 'apples', pommes: 'apples', eau: 'water', banane: 'bananas', bananes: 'bananas',
-  milch: 'milk', brot: 'bread', apfel: 'apples', äpfel: 'apples', wasser: 'water', bananen: 'bananas',
+  doodh: 'milk', dudh: 'milk', kela: 'bananas', pani: 'water', paani: 'water',
+  aalu: 'potatoes', alu: 'potatoes', pyaz: 'onions', piaz: 'onions',
+  adrak: 'ginger', lahsun: 'garlic', dahi: 'yogurt', makhan: 'butter',
+  atta: 'flour', chawal: 'rice', cheeni: 'sugar', chini: 'sugar', namak: 'salt',
+  leche: 'milk', pan: 'bread', manzana: 'apples', manzanas: 'apples', agua: 'water',
+  platano: 'bananas', plátano: 'bananas',
+  lait: 'milk', pain: 'bread', pomme: 'apples', pommes: 'apples', eau: 'water',
+  banane: 'bananas', bananes: 'bananas',
+  milch: 'milk', brot: 'bread', apfel: 'apples', äpfel: 'apples', wasser: 'water',
+  bananen: 'bananas',
 };
 
 function canonicalizeCommand(text: string): string {
-  let value = cleanPhoneticMistakes((text || '').toLowerCase().trim());
+  let value = correctTranscriptPhonetics((text || '').toLowerCase().trim());
   value = value
     .replace(/^(.+?)\s+(?:jod|jodo)\s+do$/i, 'add $1')
     .replace(/^(.+?)\s+(?:hata|hatao)\s+do$/i, 'remove $1')
@@ -85,12 +99,14 @@ function catalogBrands(): string[] {
 }
 
 const OBVIOUS_NON_SHOPPING = [
-  /^(what|who|where|when|why|how)\s+(is|are|was|were|the|time|weather|you|your)/i,
+  /^(what|who|where|when|why|how)\s+(is|are|was|were|the|time|weather|you|your|these)/i,
   /^tell\s+me/i,
   /^turn\s+(on|off|up|down)/i,
   /^(hello|hey|hi|good\s+morning|good\s+night|good\s+evening)\b/i,
   /^(thank\s+you|thanks|bye|goodbye|see\s+you|ok\s+bye)\b/i,
   /^(yeah|yes|no|nope|sure|okay|ok)\b/i,
+  /^(i\s+want\s+what\s+i\s+talk)/i,
+  /^(generate\s+a\s+complete)/i,
 ];
 
 /**
@@ -101,67 +117,59 @@ export function isShoppingRelated(text: string): boolean {
   const clean = canonicalizeCommand(text);
   const words = clean.split(/[\s,.-]+/).filter(Boolean);
 
-  // 1. Check for action verbs
-  for (const word of words) {
-    if (ACTION_KEYWORDS.has(word)) return true;
-  }
-
-  // 2. Check for multi-word action phrases
-  if (/(?:look for|search for|take off|hata do|show me|want to buy|need to get|add to list)/i.test(clean)) {
-    return true;
-  }
-
-  // 3. Check for grocery items
-  for (const word of words) {
-    if (GROCERY_KEYWORDS.has(word)) return true;
-  }
-
-  // 4. Check for quantity + unit patterns (e.g. "2 bottles", "5 kg", "1 pack", "5")
-  if (/\d+\s*(?:bottles?|packs?|kg|liters?|boxes?|cartons?|cans?|loaves|pieces?)/i.test(clean)) {
-    return true;
-  }
-
-  // 5. Reject obvious non-shopping questions/chatter
+  // 1. Check for explicit rejection patterns
   for (const pattern of OBVIOUS_NON_SHOPPING) {
     if (pattern.test(clean)) return false;
   }
 
-  // 6. If it's a short 1-4 word query and not rejected, it's very likely an item name!
-  if (words.length >= 1 && words.length <= 4) {
+  // 2. Check for action verbs
+  for (const word of words) {
+    if (ACTION_KEYWORDS.has(word)) return true;
+  }
+
+  // 3. Check for multi-word action phrases
+  if (/(?:look for|search for|take off|hata do|show me|want to buy|need to get|add to list)/i.test(clean)) {
+    return true;
+  }
+
+  // 4. Check for known grocery items or ontology match
+  for (const word of words) {
+    if (GROCERY_KEYWORDS.has(word)) return true;
+  }
+
+  const resolution = resolveGroceryItem(clean);
+  if (resolution.matched && resolution.confidence >= 0.7) {
+    return true;
+  }
+
+  // 5. Check for quantity + grocery unit patterns (e.g. "2 bottles", "5 kg", "1 pack")
+  if (/\d+\s*(?:bottles?|packs?|kg|liters?|boxes?|cartons?|cans?|loaves|pieces?)/i.test(clean)) {
     return true;
   }
 
   return false;
 }
 
-/**
- * Phonetic/speech recognition normalizer for grocery terms
- */
-function cleanPhoneticMistakes(text: string): string {
-  return text
-    .replace(/\bbreadth\b/gi, 'bread')
-    .replace(/\bbreads\b/gi, 'bread')
-    .replace(/\bbred\b/gi, 'bread')
-    .replace(/\bmalk\b/gi, 'milk')
-    .replace(/\bmelk\b/gi, 'milk')
-    .replace(/\bwatar\b/gi, 'water')
-    .replace(/\bbanan\b/gi, 'banana');
-}
-
 export function normalizeItemName(name: string): string {
   if (!name) return '';
   let clean = name.trim();
 
-  // Strip leading stray unit words, transliteration fragments, or filler particles (e.g. "kilo ab ginger" -> "Ginger")
+  // Strip leading stray unit words, transliteration fragments, or filler particles
   clean = clean
     .replace(/^(?:some|any|a|an|the|of|kilo|kilos|kg|litres?|liters?|grams?|packs?|bottles?|dozen|pieces?|pcs|loaves|loaf|box|boxes|can|cans|ek|do|ab|aur|bhi|chahiye|de|un|una|des|du|der|die|das)\s+/gi, '')
     .replace(/\s+(?:chahiye|do|daalo|jodo|lao|please|plz)$/gi, '')
     .trim();
 
-  // Repeat once to catch chained prefixes like "kilo ab"
   clean = clean
     .replace(/^(?:kilo|kilos|kg|litres?|liters?|grams?|packs?|bottles?|pieces?|pcs|ab|ek|aur)\s+/gi, '')
     .trim();
+
+  const cleanLower = clean.toLowerCase();
+  const normalized = normalizeText(cleanLower);
+
+  if (HOMOPHONE_MAP[cleanLower] || HOMOPHONE_MAP[normalized]) {
+    return HOMOPHONE_MAP[cleanLower] || HOMOPHONE_MAP[normalized];
+  }
 
   return capitalize(clean);
 }
@@ -178,7 +186,7 @@ function parseSingleItemClause(clause: string): ParsedItemEntity | null {
     .replace(/\s+(to|on|into)\s+(my\s+)?(shopping\s+)?(list|cart)$/i, '')
     .trim();
 
-  clean = cleanPhoneticMistakes(clean);
+  clean = correctTranscriptPhonetics(clean);
 
   let quantity = 1;
   let unit = 'pieces';
@@ -213,7 +221,6 @@ function parseSingleItemClause(clause: string): ParsedItemEntity | null {
 
 /**
  * Intelligent client-side heuristic NLP fallback parser.
- * Filters residual non-shopping talk and handles single and compound multi-item commands.
  */
 export function parseIntentClientFallback(transcript: string): ParsedIntent {
   const clean = canonicalizeCommand(transcript || '');
@@ -290,11 +297,11 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
     if (sizeMatch) queryBody = queryBody.replace(sizeMatch[0], '').trim();
 
     const cleanItem = queryBody.replace(/\b(fresh|under|for|me)\b/gi, '').trim() || queryBody;
-    const finalItem = cleanItem.replace(/^(me\s+)/i, '').trim();
+    const finalItem = normalizeItemName(cleanItem);
 
     return {
       intent: 'SEARCH',
-      item: capitalize(finalItem),
+      item: finalItem,
       filters: {
         priceMax,
         priceMin,
@@ -312,18 +319,19 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   const modMatch = clean.match(modifyPattern);
   if (modMatch) {
     const itemRaw = modMatch[2].trim();
+    const resolved = normalizeItemName(itemRaw);
     const qty = parseInt(modMatch[3], 10) || 1;
     const unit = modMatch[4]?.trim() || 'pieces';
 
     return {
       intent: 'MODIFY',
-      item: capitalize(itemRaw),
-      targetItem: itemRaw,
+      item: resolved,
+      targetItem: resolved,
       quantity: qty,
       unit: unit || 'pieces',
       confidence: 0.9,
       rawQuery: transcript,
-      explanation: `Change ${itemRaw} quantity to ${qty} ${unit}`,
+      explanation: `Change ${resolved} quantity to ${qty} ${unit}`,
     };
   }
 
@@ -332,12 +340,13 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
   const removeMatch = clean.match(removePattern);
   if (removeMatch) {
     const itemRaw = removeMatch[2].replace(/\b(from|off|my|the|list)\b/gi, '').trim();
+    const resolved = normalizeItemName(itemRaw);
     return {
       intent: 'REMOVE',
-      item: capitalize(itemRaw),
+      item: resolved,
       confidence: 0.9,
       rawQuery: transcript,
-      explanation: `Remove ${itemRaw} from shopping list`,
+      explanation: `Remove ${resolved} from shopping list`,
     };
   }
 
@@ -386,21 +395,6 @@ export function parseIntentClientFallback(transcript: string): ParsedIntent {
       confidence: 0.85,
       rawQuery: transcript,
       explanation: `Add ${singleParsed.quantity} ${singleParsed.unit} of ${singleParsed.item} to shopping list`,
-    };
-  }
-
-  // Final fallback: if clean has words, treat as ADD item
-  if (clean && clean.length >= 2) {
-    const item = capitalize(clean);
-    return {
-      intent: 'ADD',
-      items: [{ item, quantity: 1, unit: 'pieces' }],
-      item,
-      quantity: 1,
-      unit: 'pieces',
-      confidence: 0.75,
-      rawQuery: transcript,
-      explanation: `Add ${item} to shopping list`,
     };
   }
 

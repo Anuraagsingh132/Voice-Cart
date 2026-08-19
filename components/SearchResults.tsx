@@ -50,15 +50,20 @@ export function SearchResults() {
           </div>
           <div>
             <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2">
-              <span>Catalog Search Results</span>
+              <span>{query === 'All Items' ? 'Full Store Catalog' : 'Catalog Search Results'}</span>
               <span className="text-xs font-semibold bg-emerald-600 text-white px-2 py-0.5 rounded-full shadow-2xs">
-                {totalMatches} {totalMatches === 1 ? 'match' : 'matches'}
+                {totalMatches} {totalMatches === 1 ? 'item' : 'items'}
               </span>
             </h3>
             <p className="text-xs text-neutral-500">
-              Query: <span className="font-semibold text-neutral-800">&ldquo;{query || 'all items'}&rdquo;</span>
+              {query === 'All Items' ? (
+                <span>Browse all available products in store</span>
+              ) : (
+                <span>Query: <span className="font-semibold text-neutral-800">&ldquo;{query || 'all items'}&rdquo;</span></span>
+              )}
             </p>
           </div>
+
         </div>
 
         <button

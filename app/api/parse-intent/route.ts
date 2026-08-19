@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 import { ParsedIntent } from '@/types';
+import { correctTranscriptPhonetics, resolveGroceryItem } from '@/lib/phoneticMatcher';
 
 export const runtime = 'nodejs';
 
@@ -31,7 +32,6 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.GROQ_API_KEY;
 
-    // If no Groq API Key is configured in environment, return a helpful notice
     if (!apiKey || apiKey.trim() === '' || apiKey === 'YOUR_GROQ_API_KEY') {
       return NextResponse.json(
         {
@@ -44,100 +44,87 @@ export async function POST(request: Request) {
 
     const groq = new Groq({ apiKey, timeout: 8000, maxRetries: 1 });
 
+    const preCleaned = correctTranscriptPhonetics(transcript);
+
     const systemPrompt = `You are an expert AI assistant for a Voice Command Shopping List application.
-Your job is to parse spoken voice commands into clean, structured JSON representing user intent.
+Your job is to parse spoken voice commands into clean, structured JSON representing grocery shopping actions.
 
-The user might speak in English, Hindi ("doodh jod do", "kela aur bread"), Spanish ("agrega leche y pan"), French, German, or mixed phrases.
-CRITICAL: Correct phonetic speech-to-text misspellings into standard grocery items:
-- "breadth" / "bred" -> "Bread"
-- "malk" / "melk" / "doodh" -> "Milk"
-- "ande" / "egg" -> "Eggs"
-- "banan" / "kela" -> "Bananas"
-- "watar" / "pani" -> "Water"
+CRITICAL GROCERY PHONETIC & MULTILINGUAL CORRECTION RULES:
+1. Speech-to-text often mishears accented, multilingual, or fast grocery names into non-grocery words:
+   - "adventure" / "advent" / "adrak" -> "Ginger"
+   - "telugu" / "tail" / "tel" -> "Cooking Oil"
+   - "leak" / "leaks" -> "Leek"
+   - "flower" / "flouer" / "atta" -> "Flour" (or "Wheat Flour (Atta)")
+   - "serial" -> "Cereal"
+   - "breadth" / "bred" / "pav" -> "Bread"
+   - "malk" / "melk" / "doodh" / "dudh" -> "Milk"
+   - "ande" / "anda" / "huevos" / "oeufs" -> "Eggs"
+   - "kela" / "platano" / "banan" -> "Bananas"
+   - "pani" / "paani" / "agua" -> "Water"
+   - "pyaz" / "piaz" / "cebolla" -> "Onions"
+   - "aalu" / "alu" / "patata" -> "Potatoes"
+   - "tamatar" / "tomate" -> "Tomatoes"
+   - "dahi" / "curd" -> "Yogurt"
+   - "paneer" / "panir" -> "Paneer"
 
-SUPPORTED INTENTS:
-- "ADD": User wants to add one or MORE items (e.g., "5 eggs and two breads", "Add milk, 2 apples and bread", "I want to buy bananas").
-- "REMOVE": User wants to remove one or more items (e.g., "Remove milk from my list", "delete eggs and apples").
-- "MODIFY": User wants to change quantity/unit (e.g., "Change apples to 3", "make bananas 5").
-- "SEARCH": User wants to search/filter products (e.g., "Find me organic apples", "Find toothpaste under $5").
-- "CLEAR": User wants to clear/empty the whole shopping list.
-- "HELP": User asks what commands they can say.
-- "UNKNOWN": Completely unrelated speech, casual conversation, or background talk.
+2. RESIDUAL SPEECH & NON-GROCERY FILTER (CRITICAL):
+   If the spoken phrase is casual conversation, general questions, noise, or unrelated to groceries (e.g. "what time is it", "who are you", "yeah I saw that", "why these", "hello", "okay bye", "turn on lights", "great job"):
+   You MUST return:
+   {
+     "intent": "UNKNOWN",
+     "confidence": 0,
+     "explanation": "Filtered background talk / non-grocery speech"
+   }
+   NEVER convert random words like "adventure", "telugu", "movie", "weather" into an ADD item unless explicitly commanded as a grocery context.
 
-RESIDUAL TALK FILTER (CRITICAL):
-The microphone is always active. If the user says casual non-shopping conversation (e.g., "what time is it", "yeah I saw that", "how are you", "thank you", "okay bye", "turn up the TV", "hello", "yes", "no"):
-You MUST return:
-{
-  "intent": "UNKNOWN",
-  "confidence": 0,
-  "explanation": "Filtered background talk"
-}
-Do NOT attempt to force non-shopping conversations into an ADD intent.
-
-COMPOUND MULTI-ITEM SUPPORT (VERY IMPORTANT):
-If the user mentions multiple items in a single sentence (e.g., "5 eggs and two breads", "milk and cookies", "add 2 waters, 5 apples, and a loaf of bread"):
-You MUST populate the "items" array with individual objects for each item!
+3. SUPPORTED INTENTS:
+   - "ADD": Add one or more grocery items (e.g., "Add 2 leeks and ginger", "5 eggs and two breads", "get milk and bananas").
+   - "REMOVE": Delete item(s) (e.g., "Remove milk from list", "delete eggs").
+   - "MODIFY": Update quantity/unit (e.g., "Change apples to 5", "make milk 2 liters").
+   - "SEARCH": Search catalog (e.g., "Find toothpaste under $5", "look for organic milk").
+   - "CLEAR": Clear whole shopping list (e.g., "clear list", "empty cart").
+   - "HELP": Voice help (e.g., "what commands can I say").
+   - "UNKNOWN": Non-shopping speech or ungrounded input.
 
 JSON OUTPUT SCHEMA:
 {
   "intent": "ADD" | "REMOVE" | "MODIFY" | "SEARCH" | "CLEAR" | "HELP" | "UNKNOWN",
   "items": [
     {
-      "item": string,           // Clean singular or standard grocery name (e.g. "Eggs", "Bread", "Whole Milk")
-      "quantity": number,       // Parsed numeric quantity (e.g. 5, 2, 1)
-      "unit": string,           // "pieces", "bottles", "packs", "kg", "liters", "cans", "boxes", "loaf"
+      "item": string,           // Standardized grocery name (e.g. "Leek", "Ginger", "Eggs", "Milk")
+      "quantity": number,       // Parsed quantity (default 1)
+      "unit": string,           // "pieces", "bottles", "packs", "kg", "liters", "dozen", "bunches", "cans", "boxes"
       "brand": string | null
     }
   ],
-  "item": string | null,        // Primary item or comma-separated summary (e.g. "Eggs, Bread")
+  "item": string | null,        // Primary item name summary
   "quantity": number,           // First item quantity
   "unit": string,               // First item unit
-  "targetItem": string | null,  // For MODIFY, the item to change
+  "targetItem": string | null,  // For MODIFY
   "filters": {
     "brand": string | null,
-    "priceMax": number | null,  // Max price ceiling if mentioned (e.g., "under $5" -> 5)
+    "priceMax": number | null,
     "priceMin": number | null,
     "size": string | null,
     "category": string | null
   },
-  "confidence": number,         // 0.0 to 1.0
-  "explanation": string         // Summary message, e.g. "Add 5 Eggs and 2 Bread"
+  "confidence": number,
+  "explanation": string
 }
 
-EXAMPLES:
-1. "5 eggs and two breads" ->
-   intent: "ADD",
-   items: [
-     {"item": "Eggs", "quantity": 5, "unit": "pieces"},
-     {"item": "Bread", "quantity": 2, "unit": "pieces"}
-   ],
-   explanation: "Add 5 Eggs and 2 Bread"
-
-2. "Add 2 bottles of water and milk" ->
-   intent: "ADD",
-   items: [
-     {"item": "Water", "quantity": 2, "unit": "bottles"},
-     {"item": "Milk", "quantity": 1, "unit": "pieces"}
-   ]
-
-3. "Find toothpaste under $5" ->
-   intent: "SEARCH",
-   item: "Toothpaste",
-   filters: {"priceMax": 5}
-
-Return ONLY pure valid JSON.`;
+Return ONLY valid JSON.`;
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
         { role: 'system', content: systemPrompt },
         {
           role: 'user',
-          content: `Language: ${language}\nSpoken command: "${transcript}"`,
+          content: `Language: ${language}\nSpoken command: "${preCleaned}"`,
         },
       ],
       model: 'llama-3.1-8b-instant',
-      temperature: 0.1,
-      max_tokens: 400,
+      temperature: 0.05,
+      max_tokens: 450,
       response_format: { type: 'json_object' },
     });
 
@@ -160,6 +147,25 @@ Return ONLY pure valid JSON.`;
         { error: 'INVALID_MODEL_RESPONSE', message: 'The command parser returned an invalid response.' },
         { status: 502 }
       );
+    }
+
+    // Secondary Grounding Pass: Verify and clean item names against ontology
+    if (parsed.intent === 'ADD' && parsed.items && parsed.items.length > 0) {
+      for (const it of parsed.items) {
+        const resolution = resolveGroceryItem(it.item);
+        if (resolution.matched) {
+          it.item = resolution.resolvedName;
+        }
+      }
+      parsed.item = parsed.items.map((i) => i.item).join(', ');
+    } else if (parsed.intent === 'ADD' && parsed.item) {
+      const resolution = resolveGroceryItem(parsed.item);
+      if (resolution.matched) {
+        parsed.item = resolution.resolvedName;
+        if (parsed.items && parsed.items[0]) {
+          parsed.items[0].item = resolution.resolvedName;
+        }
+      }
     }
 
     parsed.rawQuery = transcript;

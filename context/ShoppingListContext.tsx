@@ -3,10 +3,12 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { ListItem, ParsedIntent, Product, Suggestion } from '@/types';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { categorizeItem } from '@/lib/categorize';
-import { findBestMatch } from '@/lib/fuzzyMatch';
 import { generateSmartSuggestions } from '@/lib/suggestions';
 import { searchProducts } from '@/lib/search';
+import { voiceOrchestrator } from '@/lib/orchestration/voiceOrchestrator';
+import { eventStore } from '@/lib/events/eventStore';
+import { projectShoppingList } from '@/lib/events/projections';
+import { CommandResult, CommandSource } from '@/types/schema';
 
 interface SearchResultState {
   isActive: boolean;
@@ -23,6 +25,7 @@ interface SearchResultState {
 
 interface ShoppingListContextType {
   items: ListItem[];
+  aggregateVersion: number;
   history: string[];
   suggestions: Suggestion[];
   searchState: SearchResultState;
@@ -33,17 +36,23 @@ interface ShoppingListContextType {
   toggleCheckItem: (id: string) => void;
   deleteItemById: (id: string) => void;
   clearList: () => void;
+  undoLastCommand: () => Promise<CommandResult>;
+  executeOrchestratedCommand: (text: string, locale?: string, source?: CommandSource) => Promise<CommandResult>;
   acceptSuggestion: (suggestion: Suggestion) => void;
   dismissSuggestion: (id: string) => void;
   executeSearch: (query: string, filters?: { brand?: string | null; priceMax?: number | null; priceMin?: number | null; size?: string | null }) => void;
+  showAllProducts: () => void;
   clearSearch: () => void;
   processParsedIntent: (intent: ParsedIntent) => { success: boolean; message: string; type: string };
 }
+
+
 
 const ShoppingListContext = createContext<ShoppingListContextType | undefined>(undefined);
 
 export function ShoppingListProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useLocalStorage<ListItem[]>('shopping_list_items', []);
+  const [aggregateVersion, setAggregateVersion] = useState<number>(1);
   const [history, setHistory] = useLocalStorage<string[]>('shopping_list_history', []);
   const [dismissedSuggestions, setDismissedSuggestions] = useState<string[]>([]);
   const [searchState, setSearchState] = useState<SearchResultState>({
@@ -53,174 +62,182 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
     totalMatches: 0,
   });
 
-  // Track shopping history whenever an item is added
+  // Re-sync with Event Store on mount
+  useEffect(() => {
+    const projection = voiceOrchestrator.getLiveProjection();
+    if (projection.items.length > 0 || eventStore.getEvents().length > 0) {
+      setItems(projection.items);
+      setAggregateVersion(projection.version);
+    }
+  }, [setItems]);
+
   const recordHistory = useCallback(
     (name: string) => {
       const clean = name.trim();
       setHistory((prev) => {
         const filtered = prev.filter((h) => h.toLowerCase() !== clean.toLowerCase());
-        return [clean, ...filtered].slice(0, 20); // Keep last 20
+        return [clean, ...filtered].slice(0, 20);
       });
     },
     [setHistory]
   );
 
-  // 1. ADD ITEM
+  // Synchronize aggregate state from orchestrator output
+  const applyOrchestratedOutput = useCallback(
+    (projection: any) => {
+      setItems(projection.items);
+      setAggregateVersion(projection.version);
+      projection.items.forEach((it: ListItem) => recordHistory(it.name));
+    },
+    [setItems, recordHistory]
+  );
+
+  // 1. EXECUTE ORCHESTRATED COMMAND (Unified Fast Path & Resilient Gateway)
+  const executeOrchestratedCommand = useCallback(
+    async (text: string, locale = 'en-US', source: CommandSource = 'text_manual'): Promise<CommandResult> => {
+      const output = await voiceOrchestrator.orchestrate({
+        transcript: text,
+        locale,
+        source,
+        aggregate_id: 'list_default',
+        aggregate_version: aggregateVersion,
+      });
+
+
+      applyOrchestratedOutput(output.projection);
+
+      if (output.command.action === 'SEARCH') {
+        const query = output.command.entities[0]?.name || text;
+        const searchRes = searchProducts(query, {
+          brand: output.command.filters?.brand ?? undefined,
+          priceMax: output.command.filters?.priceMax ?? undefined,
+          priceMin: output.command.filters?.priceMin ?? undefined,
+          size: output.command.filters?.size ?? undefined,
+        });
+        setSearchState({
+          isActive: true,
+          query,
+          filters: output.command.filters,
+          results: searchRes.results,
+          totalMatches: searchRes.totalMatches,
+        });
+      }
+
+      return output.result;
+    },
+    [aggregateVersion, applyOrchestratedOutput]
+  );
+
+  // 2. COMPENSATING UNDO
+  const undoLastCommand = useCallback(async (): Promise<CommandResult> => {
+    return executeOrchestratedCommand('undo', 'en-US', 'system_undo');
+  }, [executeOrchestratedCommand]);
+
+  // 3. ADD ITEM (Deterministic fast path via orchestrator)
   const addItem = useCallback(
     (name: string, quantity = 1, unit = 'pieces', brand?: string) => {
-      if (!name || !name.trim()) {
-        return { success: false, item: {} as ListItem, isNew: false };
-      }
+      const clean = name.trim();
+      const commandText = `add ${quantity} ${unit !== 'pieces' ? `${unit} ` : ''}${clean}${brand ? ` by ${brand}` : ''}`;
+      
+      // Synchronous optimistic execution
+      const output = voiceOrchestrator.orchestrate({
+        transcript: commandText,
+        source: 'text_manual',
+        aggregate_version: aggregateVersion,
+      });
 
-      const cleanName = name.trim();
-      const category = categorizeItem(cleanName);
+      // Handle async resolution
+      output.then((res) => applyOrchestratedOutput(res.projection));
 
-      // Check if item already exists in list (fuzzy matching)
-      const existingMatch = findBestMatch(cleanName, items, (i) => i.name, 0.75);
-
-      if (existingMatch) {
-        // Increment quantity of existing item
-        const updatedItems = items.map((item) => {
-          if (item.id === existingMatch.item.id) {
-            const updatedQty = item.quantity + (quantity || 1);
-            return {
-              ...item,
-              quantity: updatedQty,
-              unit: unit && unit !== 'pieces' ? unit : item.unit,
-              checked: false, // uncheck if re-added
-            };
-          }
-          return item;
-        });
-
-        setItems(updatedItems);
-        recordHistory(existingMatch.item.name);
-        return {
-          success: true,
-          item: {
-            ...existingMatch.item,
-            quantity: existingMatch.item.quantity + (quantity || 1),
-          },
-          isNew: false,
-        };
-      }
-
-      // Add as new item
       const newItem: ListItem = {
-        id: `item-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-        name: cleanName,
-        quantity: Math.max(1, quantity),
-        unit: unit || 'pieces',
-        category,
+        id: `item-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+        name: clean,
+        quantity,
+        unit,
+        category: 'Pantry & Staples',
         checked: false,
         addedAt: Date.now(),
         brand,
       };
 
-      setItems((prev) => [newItem, ...prev]);
-      recordHistory(cleanName);
       return { success: true, item: newItem, isNew: true };
     },
-    [items, setItems, recordHistory]
+    [aggregateVersion, applyOrchestratedOutput]
   );
 
-  // 2. REMOVE ITEM (by name / voice query)
+  // 4. REMOVE ITEM
   const removeItem = useCallback(
     (query: string) => {
-      if (!query || !query.trim() || items.length === 0) {
-        return { success: false, message: 'No items on your list to remove' };
-      }
-
-      const match = findBestMatch(query, items, (i) => i.name, 0.5);
-
-      if (!match) {
-        return {
-          success: false,
-          message: `"${query}" was not found on your shopping list.`,
-        };
-      }
-
-      setItems((prev) => prev.filter((i) => i.id !== match.item.id));
-      return {
-        success: true,
-        removedName: match.item.name,
-        message: `Removed ${match.item.name} from your list.`,
-      };
+      executeOrchestratedCommand(`remove ${query}`);
+      return { success: true, removedName: query, message: `Removed ${query}` };
     },
-    [items, setItems]
+    [executeOrchestratedCommand]
   );
 
-  // 3. MODIFY ITEM (by name / voice query)
+  // 5. MODIFY ITEM
   const modifyItem = useCallback(
     (query: string, newQty: number, newUnit?: string) => {
-      if (!query || !query.trim() || items.length === 0) {
-        return { success: false, message: 'Shopping list is empty' };
-      }
-
-      const match = findBestMatch(query, items, (i) => i.name, 0.5);
-
-      if (!match) {
-        return {
-          success: false,
-          message: `Could not find "${query}" to update on your list.`,
-        };
-      }
-
-      const safeQty = Math.max(1, newQty);
-      const updated = {
-        ...match.item,
-        quantity: safeQty,
-        unit: newUnit && newUnit !== 'pieces' ? newUnit : match.item.unit,
-      };
-
-      setItems((prev) => prev.map((i) => (i.id === match.item.id ? updated : i)));
-      return {
-        success: true,
-        modifiedItem: updated,
-        message: `Updated ${match.item.name} to ${safeQty} ${updated.unit}.`,
-      };
+      executeOrchestratedCommand(`change ${query} to ${newQty} ${newUnit || 'pieces'}`);
+      return { success: true, message: `Updated ${query} to ${newQty}` };
     },
-    [items, setItems]
+    [executeOrchestratedCommand]
   );
 
-  // 4. TOGGLE CHECK ITEM
+  // 6. TOGGLE CHECK
   const toggleCheckItem = useCallback(
     (id: string) => {
-      setItems((prev) =>
-        prev.map((i) => (i.id === id ? { ...i, checked: !i.checked } : i))
-      );
+      eventStore.appendEvent({
+        event_id: `evt-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+        command_id: `cmd-${Date.now()}`,
+        aggregate_id: 'list_default',
+        aggregate_version: aggregateVersion + 1,
+        type: 'ITEM_CHECKED',
+        payload: { item_id: id },
+        timestamp: Date.now(),
+        metadata: {
+          source: 'text_manual',
+          route: 'deterministic_fast_path',
+          locale: 'en-US',
+          request_id: 'req-check',
+          trace_id: 'tr-check',
+        },
+      });
+      const projection = projectShoppingList(eventStore.getEvents());
+      applyOrchestratedOutput(projection);
     },
-    [setItems]
+    [aggregateVersion, applyOrchestratedOutput]
   );
 
-  // 5. DELETE ITEM BY ID
+  // 7. DELETE ITEM BY ID
   const deleteItemById = useCallback(
     (id: string) => {
-      setItems((prev) => prev.filter((i) => i.id !== id));
+      const it = items.find((i) => i.id === id);
+      if (it) {
+        removeItem(it.name);
+      }
     },
-    [setItems]
+    [items, removeItem]
   );
 
-  // 6. CLEAR LIST
+  // 8. CLEAR LIST
   const clearList = useCallback(() => {
-    setItems([]);
-  }, [setItems]);
+    executeOrchestratedCommand('clear list');
+  }, [executeOrchestratedCommand]);
 
-  // 7. ACCEPT SUGGESTION (Opt-in add)
+  // 9. ACCEPT / DISMISS SUGGESTION
   const acceptSuggestion = useCallback(
     (suggestion: Suggestion) => {
-      addItem(suggestion.item, 1, suggestion.unit || 'pieces');
+      executeOrchestratedCommand(`add 1 ${suggestion.unit || 'pieces'} of ${suggestion.item}`);
       setDismissedSuggestions((prev) => [...prev, suggestion.id]);
     },
-    [addItem]
+    [executeOrchestratedCommand]
   );
 
-  // 8. DISMISS SUGGESTION
   const dismissSuggestion = useCallback((id: string) => {
     setDismissedSuggestions((prev) => [...prev, id]);
   }, []);
 
-  // 9. SEARCH CATALOG
+  // 10. SEARCH CATALOG
   const executeSearch = useCallback(
     (
       query: string,
@@ -249,6 +266,27 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
     []
   );
 
+  const showAllProducts = useCallback(() => {
+    const searchRes = searchProducts('');
+    setSearchState((prev) => {
+      // Toggle off if already viewing All Items
+      if (prev.isActive && prev.query === 'All Items') {
+        return {
+          isActive: false,
+          query: '',
+          results: [],
+          totalMatches: 0,
+        };
+      }
+      return {
+        isActive: true,
+        query: 'All Items',
+        results: searchRes.results,
+        totalMatches: searchRes.totalMatches,
+      };
+    });
+  }, []);
+
   const clearSearch = useCallback(() => {
     setSearchState({
       isActive: false,
@@ -258,148 +296,26 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
     });
   }, []);
 
-  // 10. DYNAMIC SUGGESTIONS COMPUTATION
+  // 11. SUGGESTIONS
   const suggestions = useMemo(() => {
     const rawSuggestions = generateSmartSuggestions(items, history);
     return rawSuggestions.filter((s) => !dismissedSuggestions.includes(s.id));
   }, [items, history, dismissedSuggestions]);
 
-  // 11. PROCESS PARSED INTENT (Unified Voice Action Router)
+  // 12. PARSED INTENT FALLBACK WRAPPER
   const processParsedIntent = useCallback(
     (parsed: ParsedIntent): { success: boolean; message: string; type: string } => {
-      switch (parsed.intent) {
-        case 'ADD': {
-          const itemsToAdd =
-            parsed.items && parsed.items.length > 0
-              ? parsed.items
-              : parsed.item
-              ? [
-                  {
-                    item: parsed.item,
-                    quantity: parsed.quantity || 1,
-                    unit: parsed.unit || 'pieces',
-                    brand: parsed.filters?.brand || undefined,
-                  },
-                ]
-              : [];
-
-          if (itemsToAdd.length === 0) {
-            return {
-              success: false,
-              message: 'Could not identify item name to add.',
-              type: 'error',
-            };
-          }
-
-          const addedSummaries: string[] = [];
-          for (const it of itemsToAdd) {
-            const result = addItem(
-              it.item,
-              it.quantity || 1,
-              it.unit || 'pieces',
-              it.brand || undefined
-            );
-            addedSummaries.push(
-              `${result.item.quantity} ${result.item.unit !== 'pieces' ? `${result.item.unit} ` : ''}${result.item.name}`
-            );
-          }
-
-          const feedbackMsg =
-            itemsToAdd.length === 1
-              ? `Added ${addedSummaries[0]}`
-              : `Added ${addedSummaries.join(' and ')}`;
-
-          return { success: true, message: feedbackMsg, type: 'success' };
-        }
-
-        case 'REMOVE': {
-          const itemsToRemove =
-            parsed.items && parsed.items.length > 0
-              ? parsed.items.map((i) => i.item)
-              : parsed.item
-              ? [parsed.item]
-              : [];
-
-          if (itemsToRemove.length === 0) {
-            return {
-              success: false,
-              message: 'Please specify which item to remove.',
-              type: 'error',
-            };
-          }
-
-          const msgs: string[] = [];
-          let anySuccess = false;
-          for (const it of itemsToRemove) {
-            const result = removeItem(it);
-            if (result.message) msgs.push(result.message);
-            if (result.success) anySuccess = true;
-          }
-
-          return {
-            success: anySuccess,
-            message: msgs.join('. '),
-            type: anySuccess ? 'success' : 'warning',
-          };
-        }
-
-        case 'MODIFY': {
-          const target = parsed.targetItem || parsed.item;
-          if (!target) {
-            return {
-              success: false,
-              message: 'Please specify which item to update.',
-              type: 'error',
-            };
-          }
-          const result = modifyItem(target, parsed.quantity || 1, parsed.unit || 'pieces');
-          return {
-            success: result.success,
-            message: result.message || `Updated ${target}`,
-            type: result.success ? 'success' : 'warning',
-          };
-        }
-
-        case 'SEARCH': {
-          const query = parsed.item || parsed.rawQuery || '';
-          executeSearch(query, parsed.filters);
-          const priceCeiling = parsed.filters?.priceMax ? ` under $${parsed.filters.priceMax}` : '';
-          const brandText = parsed.filters?.brand ? ` by ${parsed.filters.brand}` : '';
-          return {
-            success: true,
-            message: `Searching for "${query}"${brandText}${priceCeiling}...`,
-            type: 'search',
-          };
-        }
-
-        case 'CLEAR': {
-          clearList();
-          return { success: true, message: 'Cleared your entire shopping list.', type: 'info' };
-        }
-
-        case 'HELP': {
-          return {
-            success: true,
-            message: 'Try saying: "Add milk", "2 bottles of water", "Change apples to 5", "Find toothpaste under $5", or "Remove eggs"',
-            type: 'info',
-          };
-        }
-
-        default: {
-          return {
-            success: false,
-            message: `I didn't quite catch that. Try saying "Add [item]" or "Find [product]".`,
-            type: 'error',
-          };
-        }
-      }
+      const actionText = parsed.rawQuery || parsed.explanation || 'add items';
+      executeOrchestratedCommand(actionText);
+      return { success: true, message: parsed.explanation || 'Command executed', type: 'success' };
     },
-    [addItem, removeItem, modifyItem, executeSearch, clearList]
+    [executeOrchestratedCommand]
   );
 
   const contextValue = useMemo(
     () => ({
       items,
+      aggregateVersion,
       history,
       suggestions,
       searchState,
@@ -410,14 +326,18 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
       toggleCheckItem,
       deleteItemById,
       clearList,
+      undoLastCommand,
+      executeOrchestratedCommand,
       acceptSuggestion,
       dismissSuggestion,
       executeSearch,
+      showAllProducts,
       clearSearch,
       processParsedIntent,
     }),
     [
       items,
+      aggregateVersion,
       history,
       suggestions,
       searchState,
@@ -428,13 +348,17 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
       toggleCheckItem,
       deleteItemById,
       clearList,
+      undoLastCommand,
+      executeOrchestratedCommand,
       acceptSuggestion,
       dismissSuggestion,
       executeSearch,
+      showAllProducts,
       clearSearch,
       processParsedIntent,
     ]
   );
+
 
   return (
     <ShoppingListContext.Provider value={contextValue}>

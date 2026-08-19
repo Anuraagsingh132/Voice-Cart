@@ -154,4 +154,21 @@ describe('parseIntentClientFallback & Residual Speech Filter', () => {
     const result = parseIntentClientFallback('Find milk between $2 and $4 1L');
     expect(result).toMatchObject({ intent: 'SEARCH', item: 'Milk', filters: { priceMin: 2, priceMax: 4, size: '1l' } });
   });
+
+  it('corrects homophone misrecognitions like leak, adventure, and telugu in ADD commands', () => {
+    const res1 = parseIntentClientFallback('Add 2 leak');
+    expect(res1.intent).toBe('ADD');
+    expect(res1.item).toBe('Leek');
+    expect(res1.quantity).toBe(2);
+
+    const res2 = parseIntentClientFallback('Add 2 adventure');
+    expect(res2.intent).toBe('ADD');
+    expect(res2.item).toBe('Ginger');
+    expect(res2.quantity).toBe(2);
+
+    const res3 = parseIntentClientFallback('Add 1 telugu');
+    expect(res3.intent).toBe('ADD');
+    expect(res3.item).toBe('Cooking Oil');
+  });
 });
+

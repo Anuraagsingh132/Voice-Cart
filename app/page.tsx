@@ -9,14 +9,17 @@ import { Suggestions } from '@/components/Suggestions';
 import { SearchResults } from '@/components/SearchResults';
 import { ManualInput } from '@/components/ManualInput';
 import { VoiceCommandGuide } from '@/components/VoiceCommandGuide';
+import { DiagnosticsModal } from '@/components/DiagnosticsModal';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { useShoppingList } from '@/context/ShoppingListContext';
-import { parseIntent } from '@/lib/intentParser';
+import { voiceFeedbackService } from '@/lib/tts/voiceFeedback';
 import { SupportedLanguage } from '@/types';
+
 
 export default function Home() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
-  const { processParsedIntent } = useShoppingList();
+  const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
+  const { executeOrchestratedCommand, undoLastCommand } = useShoppingList();
 
   const handleProcessCommand = useCallback(
     async (text: string) => {
@@ -31,35 +34,20 @@ export default function Home() {
       });
 
       try {
-        const parsed = await parseIntent(text, language);
+        const result = await executeOrchestratedCommand(text, language, 'voice_whisper');
 
-        if (parsed.intent === 'UNKNOWN') {
-          setVoiceState('listening');
-          setFeedback({
-            status: 'error',
-            transcript: text,
-            message: `Could not recognize "${text}". Try saying "Add milk" or "Find apples".`,
-            intent: 'UNKNOWN',
-            timestamp: Date.now(),
-          });
-
-          setTimeout(() => {
-            setFeedback({ status: 'idle', timestamp: Date.now() });
-          }, 3000);
-          return;
-        }
-
-        const outcome = processParsedIntent(parsed);
-
-        if (outcome.success) {
+        if (result.success) {
           setVoiceState('success');
           setFeedback({
             status: 'success',
             transcript: text,
-            message: outcome.message,
-            intent: parsed.intent,
+            message: result.message,
+            intent: result.action as any,
             timestamp: Date.now(),
           });
+
+          // Conversational TTS audio reply
+          voiceFeedbackService.speak(result.message, language);
 
           setTimeout(() => {
             setVoiceState('listening');
@@ -69,15 +57,18 @@ export default function Home() {
           setFeedback({
             status: 'error',
             transcript: text,
-            message: outcome.message,
-            intent: parsed.intent,
+            message: result.message,
+            intent: result.action as any,
             timestamp: Date.now(),
           });
+
+          voiceFeedbackService.speak(result.message, language);
 
           setTimeout(() => {
             setVoiceState('listening');
           }, 3000);
         }
+
       } catch (err: any) {
         console.error('Error processing command:', err);
         setVoiceState('error');
@@ -90,7 +81,7 @@ export default function Home() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [processParsedIntent]
+    [executeOrchestratedCommand]
   );
 
   const {
@@ -111,7 +102,6 @@ export default function Home() {
     alwaysActive: true,
   });
 
-  // Attempt auto-start on load if supported
   useEffect(() => {
     if (isSupported && typeof window !== 'undefined') {
       const timer = setTimeout(() => {
@@ -131,11 +121,12 @@ export default function Home() {
 
   return (
     <>
-      {/* Top Fixed Navigation Bar with Live Background Voice Status */}
+      {/* Top Fixed Navigation Bar with Diagnostics and Status */}
       <Header
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
         onOpenGuide={() => setIsGuideOpen(true)}
+        onOpenDiagnostics={() => setIsDiagnosticsOpen(true)}
         voiceState={voiceState}
         onToggleVoice={() => {
           if (voiceState === 'listening') {
@@ -146,7 +137,7 @@ export default function Home() {
         }}
       />
 
-      {/* Main Content Area with spacious wide max-w-7xl grid and generous bottom scroll clearance */}
+      {/* Main Content Area */}
       <main className="max-w-7xl mx-auto pt-20 pb-64 px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
         {/* Floating Voice Status Toast */}
         <VoiceStatus
@@ -169,7 +160,7 @@ export default function Home() {
       {/* Fixed Bottom Voice & Keyboard Control Dock */}
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-white via-white/95 to-transparent pt-6 pb-4 px-4">
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-2">
-          {/* Subtle Voice Hint Pill */}
+          {/* Voice Hint Pill */}
           <div className="bg-white/90 backdrop-blur-md border border-neutral-200/80 shadow-2xs rounded-full px-3.5 py-1 text-xs text-neutral-600 font-medium animate-pulse text-center">
             {voiceState === 'listening'
               ? '🎙️ Microphone listening • speak shopping commands anytime'
@@ -198,6 +189,15 @@ export default function Home() {
       <VoiceCommandGuide
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
+      />
+
+      {/* System Diagnostics & Event Sourcing Modal */}
+      <DiagnosticsModal
+        isOpen={isDiagnosticsOpen}
+        onClose={() => setIsDiagnosticsOpen(false)}
+        onTriggerUndo={async () => {
+          await undoLastCommand();
+        }}
       />
     </>
   );

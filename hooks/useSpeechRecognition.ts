@@ -20,6 +20,7 @@ export function useSpeechRecognition({
   const [language, setLanguage] = useState<SupportedLanguage>(defaultLanguage);
   const [isSupported, setIsSupported] = useState<boolean>(true);
   const [isAlwaysActive, setIsAlwaysActive] = useState<boolean>(alwaysActive);
+  const [isRecordingAudio, setIsRecordingAudio] = useState<boolean>(false);
   const [feedback, setFeedback] = useState<VoiceFeedback>({
     status: 'idle',
     timestamp: Date.now(),
@@ -32,6 +33,12 @@ export function useSpeechRecognition({
   const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const silenceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const latestSpeechBufferRef = useRef<string>('');
+  const lastDispatchedRef = useRef<{ text: string; time: number }>({ text: '', time: 0 });
+
+  // MediaRecorder refs for Whisper audio recording
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
     onCompleteRef.current = onTranscriptComplete;
@@ -41,12 +48,11 @@ export function useSpeechRecognition({
     shouldKeepListeningRef.current = isAlwaysActive;
   }, [isAlwaysActive]);
 
-  // Check browser support on client mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const SpeechRecognition =
         (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      if (!SpeechRecognition) {
+      if (!SpeechRecognition && !navigator.mediaDevices?.getUserMedia) {
         setIsSupported(false);
       }
     }
@@ -66,11 +72,21 @@ export function useSpeechRecognition({
     }
   };
 
-  // Dispatch text to handler and reset buffer
+  // Dispatch text to handler and guard against rapid duplicate emissions
   const dispatchCommand = useCallback((text: string) => {
     const clean = (text || '').trim();
-    if (!clean) return;
+    if (!clean || clean.length < 2) return;
 
+    const now = Date.now();
+    if (
+      lastDispatchedRef.current.text.toLowerCase() === clean.toLowerCase() &&
+      now - lastDispatchedRef.current.time < 2500
+    ) {
+      // Ignore duplicate within 2.5s window
+      return;
+    }
+
+    lastDispatchedRef.current = { text: clean, time: now };
     latestSpeechBufferRef.current = '';
     setInterimTranscript('');
     setTranscript(clean);
@@ -80,11 +96,90 @@ export function useSpeechRecognition({
     }
   }, []);
 
+  // Transcribe recorded audio with Groq Whisper
+  const transcribeAudioBlob = useCallback(
+    async (blob: Blob, fallbackText: string) => {
+      try {
+        const formData = new FormData();
+        formData.append('file', blob, 'recording.webm');
+        formData.append('language', language);
+
+        const response = await fetch('/api/transcribe', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.transcript && data.transcript.trim()) {
+            dispatchCommand(data.transcript.trim());
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Whisper API call failed, falling back to WebSpeech transcript:', err);
+      }
+
+      // Fallback to WebSpeech transcript if Whisper failed or was skipped
+      if (fallbackText) {
+        dispatchCommand(fallbackText);
+      }
+    },
+    [language, dispatchCommand]
+  );
+
+  const startAudioRecording = useCallback(async () => {
+    if (typeof window === 'undefined' || !navigator.mediaDevices?.getUserMedia) return;
+    try {
+      if (!mediaStreamRef.current) {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaStreamRef.current = stream;
+      }
+
+      audioChunksRef.current = [];
+      const options = MediaRecorder.isTypeSupported('audio/webm') ? { mimeType: 'audio/webm' } : undefined;
+      const mediaRecorder = new MediaRecorder(mediaStreamRef.current, options);
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data && event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        setIsRecordingAudio(false);
+        if (audioChunksRef.current.length > 0) {
+          const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+          transcribeAudioBlob(audioBlob, latestSpeechBufferRef.current);
+        } else if (latestSpeechBufferRef.current) {
+          dispatchCommand(latestSpeechBufferRef.current);
+        }
+      };
+
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start(250);
+      setIsRecordingAudio(true);
+    } catch (err) {
+      console.warn('Microphone audio stream recording initialization error:', err);
+    }
+  }, [transcribeAudioBlob, dispatchCommand]);
+
+  const stopAudioRecording = useCallback(() => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+      try {
+        mediaRecorderRef.current.stop();
+      } catch {}
+    }
+    setIsRecordingAudio(false);
+  }, []);
+
   const stopListening = useCallback(() => {
     shouldKeepListeningRef.current = false;
     setIsAlwaysActive(false);
     clearRestartTimer();
     clearSilenceTimer();
+
+    stopAudioRecording();
 
     if (recognitionRef.current && isListeningRef.current) {
       try {
@@ -93,7 +188,7 @@ export function useSpeechRecognition({
     }
     isListeningRef.current = false;
     setVoiceState('idle');
-  }, []);
+  }, [stopAudioRecording]);
 
   const startListening = useCallback(() => {
     if (typeof window === 'undefined') return;
@@ -117,7 +212,6 @@ export function useSpeechRecognition({
     clearRestartTimer();
     clearSilenceTimer();
 
-    // If already listening on same language, don't restart
     if (isListeningRef.current && recognitionRef.current) {
       return;
     }
@@ -132,6 +226,7 @@ export function useSpeechRecognition({
       recognition.onstart = () => {
         isListeningRef.current = true;
         setVoiceState('listening');
+        startAudioRecording();
       };
 
       recognition.onresult = (event: any) => {
@@ -152,24 +247,28 @@ export function useSpeechRecognition({
           latestSpeechBufferRef.current = activeText;
           setInterimTranscript(activeText);
 
-          // Reset silence debounce timer: If user pauses for 1200ms, immediately dispatch!
+          // Reset silence debounce timer: If user pauses for 1400ms, finalize command
           clearSilenceTimer();
           silenceTimeoutRef.current = setTimeout(() => {
-            if (latestSpeechBufferRef.current) {
+            if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+              mediaRecorderRef.current.stop();
+            } else if (latestSpeechBufferRef.current) {
               dispatchCommand(latestSpeechBufferRef.current);
             }
-          }, 1200);
+          }, 1400);
         }
 
-        // If browser directly emitted final chunk, dispatch immediately
         if (currentFinal.trim()) {
           clearSilenceTimer();
-          dispatchCommand(currentFinal.trim());
+          if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            mediaRecorderRef.current.stop();
+          } else {
+            dispatchCommand(currentFinal.trim());
+          }
         }
       };
 
       recognition.onerror = (event: any) => {
-        // Silently ignore normal lifecycle aborts or silence gaps
         if (event.error === 'no-speech' || event.error === 'aborted') {
           return;
         }
@@ -193,12 +292,6 @@ export function useSpeechRecognition({
       recognition.onend = () => {
         isListeningRef.current = false;
 
-        // If we had speech in buffer when socket closed, dispatch it!
-        if (latestSpeechBufferRef.current) {
-          dispatchCommand(latestSpeechBufferRef.current);
-        }
-
-        // Auto-restart seamlessly if always-active is enabled
         if (shouldKeepListeningRef.current) {
           clearRestartTimer();
           restartTimeoutRef.current = setTimeout(() => {
@@ -211,7 +304,7 @@ export function useSpeechRecognition({
                 }
               }
             }
-          }, 300);
+          }, 350);
         } else {
           setVoiceState('idle');
         }
@@ -225,7 +318,7 @@ export function useSpeechRecognition({
       }
       isListeningRef.current = false;
     }
-  }, [language, dispatchCommand]);
+  }, [language, startAudioRecording, dispatchCommand]);
 
   const resetState = useCallback(() => {
     stopListening();
@@ -238,19 +331,22 @@ export function useSpeechRecognition({
     });
   }, [stopListening]);
 
-  // Clean up on component unmount
   useEffect(() => {
     return () => {
       shouldKeepListeningRef.current = false;
       clearRestartTimer();
       clearSilenceTimer();
+      stopAudioRecording();
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach((t) => t.stop());
+      }
       if (recognitionRef.current) {
         try {
           recognitionRef.current.abort();
         } catch {}
       }
     };
-  }, []);
+  }, [stopAudioRecording]);
 
   return {
     voiceState,
@@ -261,6 +357,7 @@ export function useSpeechRecognition({
     setFeedback,
     isSupported,
     isAlwaysActive,
+    isRecordingAudio,
     language,
     setLanguage,
     startListening,

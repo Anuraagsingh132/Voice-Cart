@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { X, Mic, PlusCircle, MinusCircle, Sliders, Search, Globe, Sparkles } from 'lucide-react';
+import { X, Mic, PlusCircle, MinusCircle, Sliders, Search, Globe, Sparkles, Trash2 } from 'lucide-react';
+
 
 interface VoiceCommandGuideProps {
   isOpen: boolean;
@@ -57,6 +58,18 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
         '"Look for gluten free bread"',
       ],
     },
+    {
+      icon: Trash2,
+      title: 'Clearing Cart & Undo',
+      color: 'text-rose-600 bg-rose-50',
+      examples: [
+        '"Clear cart" or "Clear list"',
+        '"Empty my cart"',
+        '"Delete all items from cart"',
+        '"Undo" (Reverts previous action)',
+      ],
+    },
+
     {
       icon: Globe,
       title: 'Multilingual Support (Switch Language)',
