@@ -6,11 +6,6 @@ export const metadata: Metadata = {
   title: 'Voice Cart - Main Dashboard',
   description: 'Voice Command Shopping Assistant with smart suggestions, seasonal picks, and NLP parsing.',
   manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    title: 'Voice Cart',
-    statusBarStyle: 'default',
-  },
 };
 
 export const viewport: Viewport = {
