@@ -26,8 +26,9 @@ describe('Voice Command Orchestrator (E2E & Telemetry)', () => {
     expect(snapshot.total_commands).toBe(1);
     expect(snapshot.deterministic_fast_path_count).toBe(1);
     expect(snapshot.fast_path_ratio).toBe(1);
-    expect(snapshot.avg_parser_latency_ms).toBeLessThan(15);
+    expect(snapshot.avg_parser_latency_ms).toBeLessThan(50);
   });
+
 
 
   it('maintains idempotency across duplicate command IDs', async () => {

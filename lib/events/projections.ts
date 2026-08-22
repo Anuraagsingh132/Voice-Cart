@@ -94,20 +94,34 @@ export function projectShoppingList(
       case 'COMMAND_COMPENSATED_UNDO': {
         // Compensating events carry their inverse mutation payload
         if (event.payload.action === 'REVERT_ADD') {
-          items = items.filter((i) => i.id !== event.payload.item_id && i.name !== event.payload.name);
+          items = items.filter((i) =>
+            event.payload.item_id
+              ? i.id !== event.payload.item_id
+              : i.name.toLowerCase() !== (event.payload.name || '').toLowerCase()
+          );
         } else if (event.payload.action === 'REVERT_REMOVE') {
           if (event.payload.restored_item) {
             items.unshift(event.payload.restored_item);
           }
         } else if (event.payload.action === 'REVERT_MODIFY') {
-          items = items.map((i) =>
-            i.name === event.payload.name ? { ...i, quantity: event.payload.previous_quantity } : i
-          );
+          items = items.map((i) => {
+            const isMatch = event.payload.item_id
+              ? i.id === event.payload.item_id
+              : i.name.toLowerCase() === (event.payload.name || '').toLowerCase();
+            return isMatch
+              ? {
+                  ...i,
+                  quantity: event.payload.previous_quantity ?? i.quantity,
+                  unit: event.payload.previous_unit ?? i.unit,
+                }
+              : i;
+          });
         } else if (event.payload.action === 'REVERT_CLEAR') {
           if (Array.isArray(event.payload.previous_items)) {
             items = [...event.payload.previous_items];
           }
         }
+
         break;
       }
     }
