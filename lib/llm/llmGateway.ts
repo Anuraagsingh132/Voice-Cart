@@ -7,12 +7,24 @@ export interface LLMCascadeOutput extends LLMInterpretationResult {
 
 export class LLMGateway {
   public async interpret(transcript: string, locale = 'en-US'): Promise<LLMCascadeOutput> {
+    if (typeof window === 'undefined') {
+      return {
+        action: 'UNKNOWN',
+        entities: [],
+        target_item: null,
+        confidence: 0.1,
+        explanation: 'Non-browser runtime; local deterministic fallback active',
+        model_used: 'local_deterministic_fallback',
+      };
+    }
+
     try {
       const response = await fetch('/api/parse-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transcript, language: locale }),
       });
+
 
       if (!response.ok) {
         throw new Error(`Backend error: ${response.status}`);

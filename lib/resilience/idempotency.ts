@@ -30,13 +30,15 @@ class IdempotencyManager {
   private persistToStorage() {
     if (typeof window !== 'undefined' && window.localStorage) {
       try {
-        // Keep last 100 in localStorage
-        const entries: [string, CommandResult][] = [];
-        // Map entries
+        // Retain last 100 entries in localStorage
+        const entries = this.cache.entries().slice(-100);
         window.localStorage.setItem(this.storageKey, JSON.stringify(entries));
-      } catch {}
+      } catch (err) {
+        console.warn('Failed to persist idempotency log to localStorage:', err);
+      }
     }
   }
+
 
   public get(commandId: string): CommandResult | undefined {
     return this.cache.get(commandId);

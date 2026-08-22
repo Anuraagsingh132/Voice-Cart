@@ -119,12 +119,10 @@ export class CommandValidator {
         if (entity.quantity > 99) {
           return { isValid: false, tier: 3, error: `Quantity for ${entity.name} cannot exceed 99` };
         }
-        if (entity.unit && !VALID_UNITS.has(entity.unit.toLowerCase())) {
-          entity.unit = 'pieces';
-        }
       }
     }
     return { isValid: true, tier: 3 };
+
   }
 }
 

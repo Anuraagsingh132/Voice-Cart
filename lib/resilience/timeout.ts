@@ -7,7 +7,7 @@ export async function withTimeout<T>(
   fallback?: () => Promise<T> | T,
   operationName = 'Operation'
 ): Promise<T> {
-  let timer: NodeJS.Timeout;
+  let timer: ReturnType<typeof setTimeout> | undefined;
 
   const timeoutPromise = new Promise<T>((_, reject) => {
     timer = setTimeout(() => {
@@ -15,15 +15,21 @@ export async function withTimeout<T>(
     }, timeoutMs);
   });
 
+  // Attach safe handler to prevent unhandled rejection if promise resolves/rejects after timeout
+  promise.catch(() => {});
+
   try {
     const result = await Promise.race([promise, timeoutPromise]);
-    clearTimeout(timer!);
     return result;
   } catch (error) {
-    clearTimeout(timer!);
     if (fallback) {
       return await fallback();
     }
     throw error;
+  } finally {
+    if (timer) {
+      clearTimeout(timer);
+    }
   }
 }
+

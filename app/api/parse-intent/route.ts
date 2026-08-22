@@ -117,8 +117,9 @@ Return ONLY valid JSON.`;
     let parsed: ParsedIntent | null = null;
     let lastError: any = null;
 
-    // Fast Path & Escalation Cascade
-    const modelsToTry = ['openai/gpt-oss-20b', 'openai/gpt-oss-120b'];
+    // Fast Path & Escalation Cascade: Primary High-Intelligence model, secondary high-throughput model
+    const modelsToTry = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+
 
     for (const model of modelsToTry) {
       try {

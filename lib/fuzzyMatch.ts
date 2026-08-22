@@ -29,13 +29,28 @@ export function levenshteinDistance(a: string, b: string): number {
  * Normalize string for comparison (removes punctuation, plurals, lowercase)
  */
 export function normalizeText(text: string): string {
-  return text
+  let clean = text
     .toLowerCase()
     .replace(/[^\w\s]/g, '')
-    .trim()
-    .replace(/s$/, '') // simple singularization (apples -> apple, eggs -> egg)
-    .replace(/es$/, '');
+    .trim();
+
+  // Strip trailing plural 's' safely
+  if (clean.endsWith('s') && !clean.endsWith('ss') && !clean.endsWith('is') && !clean.endsWith('us')) {
+    if (clean.endsWith('ies') && clean.length > 4) {
+      clean = clean.slice(0, -3) + 'y'; // berries -> berry
+    } else if (clean.endsWith('oes') && clean.length > 4) {
+      clean = clean.slice(0, -2); // tomatoes -> tomato, potatoes -> potato
+    } else if (clean.endsWith('boxes') || clean.endsWith('bunches') || clean.endsWith('dishes') || clean.endsWith('classes') || clean.endsWith('glasses')) {
+      clean = clean.slice(0, -2); // boxes -> box, bunches -> bunch
+    } else {
+      clean = clean.slice(0, -1); // apples -> apple, eggs -> egg, bananas -> banana
+    }
+  }
+
+  return clean;
 }
+
+
 
 /**
  * Finds the closest matching item from an array of candidates.

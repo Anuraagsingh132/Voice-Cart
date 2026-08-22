@@ -52,4 +52,16 @@ export class LRUCache<K, V> {
   public size(): number {
     return this.cache.size;
   }
+
+  public entries(): [K, V][] {
+    const now = Date.now();
+    const result: [K, V][] = [];
+    for (const [key, entry] of this.cache.entries()) {
+      if (!entry.expiresAt || now <= entry.expiresAt) {
+        result.push([key, entry.value]);
+      }
+    }
+    return result;
+  }
 }
+
