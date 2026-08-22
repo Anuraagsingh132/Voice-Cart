@@ -1,7 +1,6 @@
 import { ListItem, Suggestion } from '@/types';
 import substitutesData from '@/data/substitutes.json';
 import seasonalData from '@/data/seasonal.json';
-import productsData from '@/data/products.json';
 import { categorizeItem } from './categorize';
 
 type SeasonName = 'spring' | 'summer' | 'monsoon' | 'winter' | 'fall';
@@ -15,42 +14,43 @@ export function getCurrentSeason(): SeasonName {
   return 'fall';
 }
 
-const productMetaIndex = new Map<string, { image: string; description: string; price?: number; unit?: string }>();
-let isIndexBuilt = false;
-
-function buildProductMetaIndex() {
-  if (isIndexBuilt) return;
-  (productsData as any[]).forEach((p) => {
-    if (p.name) {
-      const lower = p.name.toLowerCase().trim();
-      if (!productMetaIndex.has(lower)) {
-        productMetaIndex.set(lower, {
-          image: p.image || '',
-          description: p.description || '',
-          price: p.price,
-          unit: p.unit,
-        });
-      }
-    }
-  });
-  isIndexBuilt = true;
-}
+const SUGGESTION_META_MAP: Record<string, { image: string; description: string; price?: number; unit?: string }> = {
+  'oatly oat milk': { image: '', description: 'Creamy plant-based oat milk', price: 3.49, unit: '1L' },
+  'alpro fresh soy milk': { image: '', description: 'High-protein fresh soy milk', price: 2.99, unit: '1L' },
+  'arla lactose medium fat milk': { image: '', description: 'Lactose-free dairy milk', price: 2.49, unit: '1L' },
+  'oatly natural oatghurt': { image: '', description: 'Plant-based creamy oatghurt', price: 2.89, unit: '500g' },
+  'alpro vanilla soyghurt': { image: '', description: 'Vanilla flavored plant-based soyghurt', price: 2.99, unit: '500g' },
+  'royal gala': { image: '', description: 'Sweet crisp classic dessert apple', price: 1.99, unit: '1 kg' },
+  'granny smith': { image: '', description: 'Crisp green tart baking apple', price: 2.19, unit: '1 kg' },
+  'tropicana juice smooth': { image: '', description: '100% pure squeezed smooth orange juice', price: 3.99, unit: '1L' },
+  'sweet potato': { image: '', description: 'Antioxidant rich sweet potato', price: 1.79, unit: '1 kg' },
+  'red bell pepper': { image: '', description: 'Vitamin C rich sweet red bell pepper', price: 1.49, unit: 'pcs' },
+  'yellow bell pepper': { image: '', description: 'Mild sweet yellow bell pepper', price: 1.49, unit: 'pcs' },
+  'asparagus': { image: '', description: 'Fresh tender seasonal green asparagus', price: 3.49, unit: '500g' },
+  'kiwi': { image: '', description: 'Fresh vitamin-rich green kiwi fruit', price: 0.89, unit: 'pcs' },
+  'pineapple': { image: '', description: 'Sweet and juicy fresh tropical pineapple', price: 2.99, unit: 'pcs' },
+  'watermelon': { image: '', description: 'Hydrating sweet summer watermelon', price: 4.99, unit: 'whole' },
+  'mango': { image: '', description: 'Fragrant sweet tropical mangoes', price: 2.49, unit: 'pcs' },
+  'cantaloupe': { image: '', description: 'Sweet aromatic cantaloupe melon', price: 3.29, unit: 'whole' },
+  'peach': { image: '', description: 'Juicy summer sun-ripened stone peach', price: 2.29, unit: '500g' },
+  'nectarine': { image: '', description: 'Smooth juicy summer nectarine', price: 2.29, unit: '500g' },
+  'ginger': { image: '', description: 'Fresh warming organic ginger root', price: 1.19, unit: '250g' },
+  'garlic': { image: '', description: 'Aromatic pungent culinary fresh garlic', price: 1.09, unit: 'pack' },
+  'leek': { image: '', description: 'Fresh savory green leek stems', price: 1.69, unit: 'bunch' },
+  'orange': { image: '', description: 'Sweet juicy vitamin C winter oranges', price: 2.19, unit: '1 kg' },
+  'cabbage': { image: '', description: 'Crisp hearty fresh green cabbage head', price: 1.39, unit: 'head' },
+};
 
 function findProductMeta(name: string) {
-  buildProductMetaIndex();
   const lower = name.toLowerCase().trim();
-  const exact = productMetaIndex.get(lower);
-  if (exact) return exact;
+  const direct = SUGGESTION_META_MAP[lower];
+  if (direct) return direct;
 
-  // Fallback to substring scan
-  let fallback: { image: string; description: string; price?: number; unit?: string } | undefined;
-  productMetaIndex.forEach((meta, k) => {
-    if (!fallback && (k.includes(lower) || lower.includes(k))) {
-      fallback = meta;
+  for (const [k, meta] of Object.entries(SUGGESTION_META_MAP)) {
+    if (k.includes(lower) || lower.includes(k)) {
+      return meta;
     }
-  });
-
-  if (fallback) return fallback;
+  }
 
   return {
     image: '',
@@ -59,6 +59,7 @@ function findProductMeta(name: string) {
     unit: undefined,
   };
 }
+
 
 
 

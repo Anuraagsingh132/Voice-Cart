@@ -99,13 +99,14 @@ export function useSpeechRecognition({
   // Transcribe recorded audio with Groq Whisper
   const transcribeAudioBlob = useCallback(
     async (blob: Blob, fallbackText: string) => {
-      // If audio blob is too small to contain valid speech audio (< 500 bytes), use fallback WebSpeech transcript
-      if (blob.size < 500) {
+      // If audio blob is too small to contain valid speech audio (< 100 bytes), use fallback WebSpeech transcript
+      if (blob.size < 100) {
         if (fallbackText) {
           dispatchCommand(fallbackText);
         }
         return;
       }
+
 
       try {
         const formData = new FormData();

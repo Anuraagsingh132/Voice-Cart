@@ -1,5 +1,4 @@
 import { ParsedIntent, ParsedItemEntity } from '@/types';
-import productsData from '@/data/products.json';
 import { resolveGroceryItem, correctTranscriptPhonetics, HOMOPHONE_MAP } from './phoneticMatcher';
 import { normalizeText } from './fuzzyMatch';
 import { KNOWN_GROCERY_SET } from './groceryOntology';
@@ -9,7 +8,7 @@ const numberWordMap: Record<string, number> = {
   nine: 9, ten: 10, eleven: 11, twelve: 12, dozen: 12, 'half a dozen': 6,
 };
 
-// Build comprehensive grocery keywords set from GroceryStoreDataset + Ontology + Staples
+// Build comprehensive grocery keywords set from Ontology + Staples
 const GROCERY_KEYWORDS = new Set<string>([
   'apple', 'apples', 'banana', 'bananas', 'milk', 'eggs', 'egg', 'bread', 'breads',
   'juice', 'water', 'potato', 'potatoes', 'tomato', 'tomatoes', 'onion', 'onions',
@@ -27,30 +26,9 @@ const GROCERY_KEYWORDS = new Set<string>([
   'dal', 'daal', 'turmeric', 'haldi', 'jeera', 'masala', 'biscuit', 'biscuits'
 ]);
 
-// Add all product names and tags from dataset into keywords
-(productsData as any[]).forEach((p) => {
-  if (p.name) {
-    p.name.toLowerCase().split(/[\s-]+/).forEach((w: string) => {
-      if (w.length > 2) GROCERY_KEYWORDS.add(w);
-    });
-  }
-  if (p.coarseClass) {
-    p.coarseClass.toLowerCase().split(/[\s-]+/).forEach((w: string) => {
-      if (w.length > 2) GROCERY_KEYWORDS.add(w);
-    });
-  }
-  if (p.category) {
-    p.category.toLowerCase().split(/[\s&]+/).forEach((w: string) => {
-      if (w.length > 2) GROCERY_KEYWORDS.add(w);
-    });
-  }
-  if (Array.isArray(p.tags)) {
-    p.tags.forEach((t: string) => GROCERY_KEYWORDS.add(t.toLowerCase()));
-  }
-});
-
-// Also include all items from the grocery ontology
+// Include all items from the grocery ontology
 KNOWN_GROCERY_SET.forEach((item) => GROCERY_KEYWORDS.add(item));
+
 
 const ACTION_KEYWORDS = new Set([
   'add', 'buy', 'need', 'get', 'want', 'put', 'bring', 'remove', 'delete', 'take off',
@@ -94,9 +72,21 @@ function canonicalizeCommand(text: string): string {
   return value.replace(/\b[^\s]+\b/g, (word) => ITEM_TRANSLATIONS[word] || word);
 }
 
+const COMMON_CATALOG_BRANDS = [
+  'Amul', 'Colgate', 'Tropicana', 'Oatly', 'Alpro', 'Arla', 'Kelloggs',
+  'Nestle', 'Dabur', 'Britannia', 'Patanjali', 'Tata', 'Godrej', 'Fortune',
+  'Aashirvaad', 'Haldirams', 'Lays', 'Parle', 'Surf Excel', 'Dettol',
+  'Cadbury', 'Kissan', 'Maggi', 'Brooke Bond', 'Lipton', 'Bru', 'Nescafe',
+  'Coca-Cola', 'Pepsi', 'Sprite', 'Thums Up', 'Real', 'Minute Maid',
+  'Saffola', 'Sunfeast', 'Mother Dairy', 'Gowardhan', 'Nivea', 'Dove',
+  'Head & Shoulders', 'Oral-B', 'Sensodyne', 'Gillette', 'God Morgon',
+  'Valio', 'Garant', 'ICA', 'Fuji', 'Royal Gala', 'Granny Smith'
+];
+
 function catalogBrands(): string[] {
-  return Array.from(new Set((productsData as { brand: string }[]).map((product) => product.brand)));
+  return COMMON_CATALOG_BRANDS;
 }
+
 
 const OBVIOUS_NON_SHOPPING = [
   /^(what|who|where|when|why|how)\s+(is|are|was|were|the|time|weather|you|your|these)/i,
