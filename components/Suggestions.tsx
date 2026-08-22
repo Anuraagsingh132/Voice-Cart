@@ -130,7 +130,11 @@ export function Suggestions() {
                     alt={s.item}
                     className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
                     loading="lazy"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    }}
                   />
+
                 </div>
 
                 {/* Rationale */}

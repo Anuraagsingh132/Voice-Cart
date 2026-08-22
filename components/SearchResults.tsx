@@ -144,7 +144,11 @@ export function SearchResults() {
                         alt={product.name}
                         className="max-h-full max-w-full object-contain"
                         loading="lazy"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).style.display = 'none';
+                        }}
                       />
+
                     </div>
                   ) : (
                     <span className="text-2xl select-none flex-shrink-0">

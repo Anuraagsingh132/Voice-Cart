@@ -10,7 +10,19 @@ interface VoiceCommandGuideProps {
 }
 
 export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
+
 
   const categories = [
     {
@@ -84,7 +96,15 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="voice-command-guide-title"
+    >
       <div className="relative w-full max-w-lg glass-card shadow-glass-lg rounded-3xl p-6 max-h-[85vh] overflow-y-auto styled-scroll border border-vc-border animate-scale-in">
         {/* Header */}
         <div className="flex items-center justify-between pb-4 mb-4 border-b border-vc-border-subtle">
@@ -93,9 +113,10 @@ export function VoiceCommandGuide({ isOpen, onClose }: VoiceCommandGuideProps) {
               <Mic className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-vc-text">
+              <h2 id="voice-command-guide-title" className="text-base font-bold text-vc-text">
                 Voice Command Guide
               </h2>
+
               <p className="text-xs text-vc-text-secondary">
                 Speak naturally — NLP understands varied phrasing
               </p>

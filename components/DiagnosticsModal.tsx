@@ -23,8 +23,16 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
       setMetrics(telemetry.getSnapshot());
       setEvents(eventStore.getEvents().reverse());
       setCopied(false);
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   const handleRefresh = () => {
     setMetrics(telemetry.getSnapshot());
@@ -46,7 +54,15 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
   const isTargetAchieved = fastPathPct >= 80;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="diagnostics-modal-title"
+    >
       <div className="glass-card shadow-glass-lg rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col border border-vc-border overflow-hidden animate-scale-in">
         {/* Modal Header */}
         <div className="p-5 border-b border-vc-border-subtle flex items-center justify-between bg-vc-bg-subtle/30">
@@ -55,7 +71,8 @@ export function DiagnosticsModal({ isOpen, onClose, onTriggerUndo }: Diagnostics
               <Activity className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-vc-text">Mission Control</h2>
+              <h2 id="diagnostics-modal-title" className="text-base font-bold text-vc-text">Mission Control</h2>
+
               <p className="text-xs text-vc-text-secondary font-medium">System Diagnostics & Event Log</p>
             </div>
           </div>

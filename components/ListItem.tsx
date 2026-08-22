@@ -84,10 +84,11 @@ export function ListItem({
         <button
           onClick={() => onDelete(item.id)}
           aria-label={`Delete ${item.name}`}
-          className="p-2 rounded-lg text-vc-text-muted hover:text-vc-error hover:bg-vc-error/10 opacity-0 group-hover:opacity-100 transition-all active:scale-90 focus-ring sm:p-1.5"
+          className="p-2 rounded-lg text-vc-text-muted hover:text-vc-error hover:bg-vc-error/10 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-all active:scale-90 focus-ring sm:p-1.5"
         >
           <Trash2 className="w-4 h-4" />
         </button>
+
       </div>
     </div>
   );

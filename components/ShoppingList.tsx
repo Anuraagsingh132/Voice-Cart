@@ -134,6 +134,17 @@ export function ShoppingList() {
     );
   }
 
+  const handleClearList = () => {
+    if (typeof window !== 'undefined') {
+      const confirmed = window.confirm('Are you sure you want to clear all items from your shopping list?');
+      if (confirmed) {
+        clearList();
+      }
+    } else {
+      clearList();
+    }
+  };
+
   return (
     <section className="glass-card rounded-2xl p-4 sm:p-5 md:p-6 animate-fade-in-up">
       {/* Header: Progress Ring + Title + Clear */}
@@ -169,7 +180,7 @@ export function ShoppingList() {
 
         {/* Clear All */}
         <button
-          onClick={clearList}
+          onClick={handleClearList}
           aria-label="Clear List"
           className="btn-glass text-xs flex items-center gap-1.5 px-3 py-2 hover:text-vc-error hover:border-vc-error/30 transition-colors active:scale-95 focus-ring"
         >
@@ -177,6 +188,7 @@ export function ShoppingList() {
           <span className="hidden sm:inline">Clear</span>
         </button>
       </div>
+
 
       {/* Categorized Items */}
       <div className="space-y-5">
