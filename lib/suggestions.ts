@@ -15,19 +15,48 @@ export function getCurrentSeason(): SeasonName {
   return 'fall';
 }
 
+const productMetaIndex = new Map<string, { image: string; description: string; price?: number; unit?: string }>();
+let isIndexBuilt = false;
+
+function buildProductMetaIndex() {
+  if (isIndexBuilt) return;
+  (productsData as any[]).forEach((p) => {
+    if (p.name) {
+      const lower = p.name.toLowerCase().trim();
+      if (!productMetaIndex.has(lower)) {
+        productMetaIndex.set(lower, {
+          image: p.image || '',
+          description: p.description || '',
+          price: p.price,
+          unit: p.unit,
+        });
+      }
+    }
+  });
+  isIndexBuilt = true;
+}
+
 function findProductMeta(name: string) {
-  const p = (productsData as any[]).find(
-    (item) => item.name.toLowerCase() === name.toLowerCase() ||
-             item.name.toLowerCase().includes(name.toLowerCase()) ||
-             name.toLowerCase().includes(item.name.toLowerCase())
-  );
+  buildProductMetaIndex();
+  const lower = name.toLowerCase().trim();
+  const exact = productMetaIndex.get(lower);
+  if (exact) return exact;
+
+  // Fallback to substring scan
+  for (const [k, meta] of productMetaIndex.entries()) {
+    if (k.includes(lower) || lower.includes(k)) {
+      return meta;
+    }
+  }
+
   return {
-    image: p?.image || '',
-    description: p?.description || '',
-    price: p?.price,
-    unit: p?.unit,
+    image: '',
+    description: '',
+    price: undefined,
+    unit: undefined,
   };
 }
+
 
 export function generateSmartSuggestions(
   currentItems: ListItem[],

@@ -8,7 +8,8 @@ const products: Product[] = productsData as Product[];
  */
 export function searchProducts(
   query: string,
-  filters: SearchFilters = {}
+  filters: SearchFilters = {},
+  limit = 100
 ): { results: Product[]; totalMatches: number } {
   const cleanQuery = (query || '').toLowerCase().trim();
   const brandFilter = filters.brand?.toLowerCase().trim();
@@ -85,10 +86,11 @@ export function searchProducts(
   });
 
   return {
-    results: matched,
+    results: limit > 0 ? matched.slice(0, limit) : matched,
     totalMatches: matched.length,
   };
 }
+
 
 /**
  * Get all available categories from catalog
