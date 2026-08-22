@@ -38,8 +38,9 @@
 [![Next.js 14](https://img.shields.io/badge/Next.js-14.2.35-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vitest](https://img.shields.io/badge/Vitest-67%2F67_Passing-6E9F18?style=for-the-badge)](https://vitest.dev/)
-[![Groq](https://img.shields.io/badge/Groq-GPT_OSS_20B_/_120B-F05A28?style=for-the-badge)](https://groq.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-73%2F73_Passing-6E9F18?style=for-the-badge)](https://vitest.dev/)
+[![Groq](https://img.shields.io/badge/Groq-Llama_3.3_70B_/_3.1_8B-F05A28?style=for-the-badge)](https://groq.com/)
+
 [![Dataset](https://img.shields.io/badge/Dataset-BigBasket_(27k+_Products)-059669?style=for-the-badge)](#)
 [![License](https://img.shields.io/badge/License-MIT-informational?style=for-the-badge)](LICENSE)
 
@@ -744,7 +745,8 @@ Expected: the command is ignored by the shopping relevance gate.
 
 # 🧪 Testing & Reliability
 
-The current project reports **67 passing unit tests** across 13 suites.
+The current project reports **73 passing unit tests** across 14 suites.
+
 
 Run:
 
@@ -1017,7 +1019,8 @@ Without the key, the project can fall back to its built-in client-side determini
 - [x] Substitute recommendations
 - [x] Voice search
 - [x] Price / brand constraints
-- [x] 67 automated tests
+- [x] 73 automated tests
+
 
 ## 🔜 Near term
 
