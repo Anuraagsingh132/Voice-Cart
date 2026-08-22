@@ -256,7 +256,7 @@ export function useSpeechRecognition({
           latestSpeechBufferRef.current = activeText;
           setInterimTranscript(activeText);
 
-          // Reset silence debounce timer: If user pauses for 1400ms, finalize command
+          // Reset silence debounce timer: If user pauses for 750ms, finalize command
           clearSilenceTimer();
           silenceTimeoutRef.current = setTimeout(() => {
             if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
@@ -264,8 +264,9 @@ export function useSpeechRecognition({
             } else if (latestSpeechBufferRef.current) {
               dispatchCommand(latestSpeechBufferRef.current);
             }
-          }, 1400);
+          }, 750);
         }
+
 
         if (currentFinal.trim()) {
           clearSilenceTimer();

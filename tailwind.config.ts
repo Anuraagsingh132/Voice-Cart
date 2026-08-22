@@ -55,10 +55,11 @@ const config: Config = {
         "error-container": "#7f1d1d",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
+
       fontSize: {
         'display': ['2.5rem', { lineHeight: '1.1', fontWeight: '800', letterSpacing: '-0.025em' }],
         'heading': ['1.75rem', { lineHeight: '1.2', fontWeight: '700', letterSpacing: '-0.02em' }],

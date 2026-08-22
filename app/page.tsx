@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import { Header } from '@/components/Header';
 import { VoiceButton } from '@/components/VoiceButton';
 import { VoiceStatus } from '@/components/VoiceStatus';
@@ -8,8 +9,17 @@ import { ShoppingList } from '@/components/ShoppingList';
 import { Suggestions } from '@/components/Suggestions';
 import { SearchResults } from '@/components/SearchResults';
 import { ManualInput } from '@/components/ManualInput';
-import { VoiceCommandGuide } from '@/components/VoiceCommandGuide';
-import { DiagnosticsModal } from '@/components/DiagnosticsModal';
+
+const VoiceCommandGuide = dynamic(
+  () => import('@/components/VoiceCommandGuide').then((mod) => mod.VoiceCommandGuide),
+  { ssr: false }
+);
+
+const DiagnosticsModal = dynamic(
+  () => import('@/components/DiagnosticsModal').then((mod) => mod.DiagnosticsModal),
+  { ssr: false }
+);
+
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { voiceFeedbackService } from '@/lib/tts/voiceFeedback';

@@ -11,7 +11,7 @@ interface ListItemProps {
   onModifyQty: (id: string, newQty: number) => void;
 }
 
-export function ListItem({
+function ListItemComponent({
   item,
   onToggleCheck,
   onDelete,
@@ -88,8 +88,10 @@ export function ListItem({
         >
           <Trash2 className="w-4 h-4" />
         </button>
-
       </div>
     </div>
   );
 }
+
+export const ListItem = React.memo(ListItemComponent);
+

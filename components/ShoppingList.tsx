@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import confetti from 'canvas-confetti';
 import { Trash2, Sparkles, CheckCheck, ShoppingCart } from 'lucide-react';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { ListItem } from './ListItem';
@@ -46,13 +45,14 @@ function ProgressRing({ progress, size = 56 }: { progress: number; size?: number
   );
 }
 
-export function ShoppingList() {
+function ShoppingListComponent() {
   const {
     items,
     toggleCheckItem,
     deleteItemById,
     modifyItem,
     clearList,
+    executeOrchestratedCommand,
   } = useShoppingList();
 
   // Group items by category
@@ -78,16 +78,19 @@ export function ShoppingList() {
     toggleCheckItem(id);
     const target = items.find((i) => i.id === id);
     if (target && !target.checked && completedItems + 1 === totalItems && totalItems > 1) {
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 60,
-          origin: { y: 0.7 },
-          colors: ['#06b6d4', '#10b981', '#8b5cf6', '#22d3ee'],
+      import('canvas-confetti')
+        .then((module) => {
+          const confetti = module.default || module;
+          confetti({
+            particleCount: 80,
+            spread: 60,
+            origin: { y: 0.7 },
+            colors: ['#06b6d4', '#10b981', '#8b5cf6', '#22d3ee'],
+          });
+        })
+        .catch((err) => {
+          console.warn('Confetti trigger ignored:', err);
         });
-      } catch (err) {
-        console.warn('Confetti trigger ignored:', err);
-      }
     }
   };
 
@@ -98,6 +101,11 @@ export function ShoppingList() {
     }
   };
 
+  const handleQuickCommand = (phrase: string) => {
+    executeOrchestratedCommand(phrase, 'en-US', 'text_manual');
+  };
+
+
   // ── Empty State ──
   if (totalItems === 0) {
     return (
@@ -107,32 +115,42 @@ export function ShoppingList() {
         </div>
         <h2 className="text-lg font-bold text-vc-text mb-1">Your Shopping List is Empty</h2>
         <p className="text-sm text-vc-text-secondary max-w-sm mx-auto mb-6">
-          The microphone is always active. Speak naturally to add items anytime!
+          The microphone is always active. Speak naturally or tap a sample command below:
         </p>
 
         <div className="rounded-xl p-4 max-w-sm mx-auto border border-vc-border bg-white/[0.02] text-left">
           <p className="text-xs font-semibold text-vc-cyan uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5" />
-            Try saying:
+            Try saying (or tap to test):
           </p>
-          <ul className="space-y-2 text-sm text-vc-text-secondary">
-            <li className="flex items-center gap-2.5">
+          <div className="space-y-2">
+            <button
+              onClick={() => handleQuickCommand('Add 2 bottles of milk and bread')}
+              className="w-full flex items-center gap-2.5 text-left text-xs sm:text-sm text-vc-text-secondary hover:text-vc-cyan p-1.5 rounded-lg hover:bg-white/[0.04] transition cursor-pointer"
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-vc-cyan flex-shrink-0" />
-              &ldquo;Add 2 bottles of milk and bread&rdquo;
-            </li>
-            <li className="flex items-center gap-2.5">
+              <span>&ldquo;Add 2 bottles of milk and bread&rdquo;</span>
+            </button>
+            <button
+              onClick={() => handleQuickCommand('5 apples and 2 oranges')}
+              className="w-full flex items-center gap-2.5 text-left text-xs sm:text-sm text-vc-text-secondary hover:text-vc-emerald p-1.5 rounded-lg hover:bg-white/[0.04] transition cursor-pointer"
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-vc-emerald flex-shrink-0" />
-              &ldquo;5 apples and 2 oranges&rdquo;
-            </li>
-            <li className="flex items-center gap-2.5">
+              <span>&ldquo;5 apples and 2 oranges&rdquo;</span>
+            </button>
+            <button
+              onClick={() => handleQuickCommand('Find juice under $5')}
+              className="w-full flex items-center gap-2.5 text-left text-xs sm:text-sm text-vc-text-secondary hover:text-vc-violet p-1.5 rounded-lg hover:bg-white/[0.04] transition cursor-pointer"
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-vc-violet flex-shrink-0" />
-              &ldquo;Find juice under $5&rdquo;
-            </li>
-          </ul>
+              <span>&ldquo;Find juice under $5&rdquo;</span>
+            </button>
+          </div>
         </div>
       </section>
     );
   }
+
 
   const handleClearList = () => {
     if (typeof window !== 'undefined') {
@@ -236,3 +254,6 @@ export function ShoppingList() {
     </section>
   );
 }
+
+export const ShoppingList = React.memo(ShoppingListComponent);
+

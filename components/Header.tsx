@@ -15,7 +15,7 @@ interface HeaderProps {
   onToggleVoice?: () => void;
 }
 
-export function Header({
+function HeaderComponent({
   currentLanguage,
   onLanguageChange,
   onOpenGuide,
@@ -123,3 +123,6 @@ export function Header({
     </header>
   );
 }
+
+export const Header = React.memo(HeaderComponent);
+

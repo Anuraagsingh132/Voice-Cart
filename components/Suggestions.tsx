@@ -5,13 +5,14 @@ import { Sun, ArrowLeftRight, History, Plus, Check, ChevronLeft, ChevronRight, S
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { Suggestion } from '@/types';
 
-export function Suggestions() {
+function SuggestionsComponent() {
   const { suggestions, acceptSuggestion, items } = useShoppingList();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   if (!suggestions || suggestions.length === 0) {
     return null;
   }
+
 
   const isAlreadyInList = (suggestionItem: string) => {
     return items.some(
@@ -181,3 +182,6 @@ export function Suggestions() {
     </section>
   );
 }
+
+export const Suggestions = React.memo(SuggestionsComponent);
+

@@ -5,13 +5,14 @@ import { Search, X, Plus, Tag, Check, CheckCircle2, Package } from 'lucide-react
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { Product } from '@/types';
 
-export function SearchResults() {
+function SearchResultsComponent() {
   const { searchState, clearSearch, addItem, items } = useShoppingList();
   const [justAddedName, setJustAddedName] = useState<string | null>(null);
 
   if (!searchState.isActive) {
     return null;
   }
+
 
   const { query, filters, results, totalMatches } = searchState;
 
@@ -213,3 +214,6 @@ export function SearchResults() {
     </section>
   );
 }
+
+export const SearchResults = React.memo(SearchResultsComponent);
+
