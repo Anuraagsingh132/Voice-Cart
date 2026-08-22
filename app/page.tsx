@@ -21,11 +21,49 @@ export default function Home() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
   const { executeOrchestratedCommand, undoLastCommand, items } = useShoppingList();
+  const voiceResetTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  const clearVoiceResetTimer = useCallback(() => {
+    if (voiceResetTimerRef.current) {
+      clearTimeout(voiceResetTimerRef.current);
+      voiceResetTimerRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      clearVoiceResetTimer();
+    };
+  }, [clearVoiceResetTimer]);
+
+  const {
+    voiceState,
+    setVoiceState,
+    interimTranscript,
+    feedback,
+    setFeedback,
+    isSupported,
+    language,
+    setLanguage,
+    startListening,
+    stopListening,
+    resetState,
+  } = useSpeechRecognition({
+    onTranscriptComplete: (text) => handleProcessCommand(text),
+    defaultLanguage: 'en-US',
+    alwaysActive: true,
+  });
+
+  const languageRef = React.useRef(language);
+  useEffect(() => {
+    languageRef.current = language;
+  }, [language]);
 
   const handleProcessCommand = useCallback(
     async (text: string) => {
       if (!text || !text.trim()) return;
 
+      clearVoiceResetTimer();
       setVoiceState('processing');
       setFeedback({
         status: 'processing',
@@ -34,8 +72,10 @@ export default function Home() {
         timestamp: Date.now(),
       });
 
+      const currentLang = languageRef.current;
+
       try {
-        const result = await executeOrchestratedCommand(text, language, 'voice_whisper');
+        const result = await executeOrchestratedCommand(text, currentLang, 'voice_whisper');
 
         if (result.success) {
           setVoiceState('success');
@@ -48,9 +88,10 @@ export default function Home() {
           });
 
           // Conversational TTS audio reply
-          voiceFeedbackService.speak(result.message, language);
+          voiceFeedbackService.speak(result.message, currentLang);
 
-          setTimeout(() => {
+          clearVoiceResetTimer();
+          voiceResetTimerRef.current = setTimeout(() => {
             setVoiceState('listening');
           }, 3000);
         } else {
@@ -63,9 +104,10 @@ export default function Home() {
             timestamp: Date.now(),
           });
 
-          voiceFeedbackService.speak(result.message, language);
+          voiceFeedbackService.speak(result.message, currentLang);
 
-          setTimeout(() => {
+          clearVoiceResetTimer();
+          voiceResetTimerRef.current = setTimeout(() => {
             setVoiceState('listening');
           }, 3000);
         }
@@ -81,27 +123,9 @@ export default function Home() {
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [executeOrchestratedCommand]
+    [executeOrchestratedCommand, clearVoiceResetTimer, setVoiceState, setFeedback]
   );
 
-  const {
-    voiceState,
-    setVoiceState,
-    interimTranscript,
-    feedback,
-    setFeedback,
-    isSupported,
-    language,
-    setLanguage,
-    startListening,
-    stopListening,
-    resetState,
-  } = useSpeechRecognition({
-    onTranscriptComplete: handleProcessCommand,
-    defaultLanguage: 'en-US',
-    alwaysActive: true,
-  });
 
   useEffect(() => {
     if (isSupported && typeof window !== 'undefined') {

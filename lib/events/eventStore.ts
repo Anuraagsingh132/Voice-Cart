@@ -32,9 +32,18 @@ export class EventStore {
         // Retain last 300 events in local storage
         const slice = this.events.slice(-300);
         window.localStorage.setItem(this.storageKey, JSON.stringify(slice));
-      } catch {}
+      } catch (err) {
+        try {
+          // If storage quota exceeded, retry with last 100 events
+          const smallSlice = this.events.slice(-100);
+          window.localStorage.setItem(this.storageKey, JSON.stringify(smallSlice));
+        } catch (innerErr) {
+          console.warn('Failed to persist event stream to localStorage:', innerErr);
+        }
+      }
     }
   }
+
 
   public appendEvent(event: EventLogEntry): void {
     this.events.push(event);

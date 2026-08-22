@@ -30,21 +30,22 @@ interface ShoppingListContextType {
   suggestions: Suggestion[];
   searchState: SearchResultState;
   dismissedSuggestions: string[];
-  addItem: (name: string, quantity?: number, unit?: string, brand?: string) => { success: boolean; item: ListItem; isNew: boolean };
-  removeItem: (query: string) => { success: boolean; removedName?: string; message?: string };
-  modifyItem: (query: string, newQty: number, newUnit?: string) => { success: boolean; modifiedItem?: ListItem; message?: string };
+  addItem: (name: string, quantity?: number, unit?: string, brand?: string) => Promise<CommandResult>;
+  removeItem: (query: string) => Promise<CommandResult>;
+  modifyItem: (query: string, newQty: number, newUnit?: string) => Promise<CommandResult>;
   toggleCheckItem: (id: string) => void;
-  deleteItemById: (id: string) => void;
-  clearList: () => void;
+  deleteItemById: (id: string) => Promise<void>;
+  clearList: () => Promise<void>;
   undoLastCommand: () => Promise<CommandResult>;
   executeOrchestratedCommand: (text: string, locale?: string, source?: CommandSource) => Promise<CommandResult>;
-  acceptSuggestion: (suggestion: Suggestion) => void;
+  acceptSuggestion: (suggestion: Suggestion) => Promise<void>;
   dismissSuggestion: (id: string) => void;
   executeSearch: (query: string, filters?: { brand?: string | null; priceMax?: number | null; priceMin?: number | null; size?: string | null }) => void;
   showAllProducts: () => void;
   clearSearch: () => void;
   processParsedIntent: (intent: ParsedIntent) => { success: boolean; message: string; type: string };
 }
+
 
 
 
@@ -135,50 +136,26 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
 
   // 3. ADD ITEM (Deterministic fast path via orchestrator)
   const addItem = useCallback(
-    (name: string, quantity = 1, unit = 'pieces', brand?: string) => {
+    async (name: string, quantity = 1, unit = 'pieces', brand?: string) => {
       const clean = name.trim();
       const commandText = `add ${quantity} ${unit !== 'pieces' ? `${unit} ` : ''}${clean}${brand ? ` by ${brand}` : ''}`;
-      
-      // Synchronous optimistic execution
-      const output = voiceOrchestrator.orchestrate({
-        transcript: commandText,
-        source: 'text_manual',
-        aggregate_version: aggregateVersion,
-      });
-
-      // Handle async resolution
-      output.then((res) => applyOrchestratedOutput(res.projection));
-
-      const newItem: ListItem = {
-        id: `item-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
-        name: clean,
-        quantity,
-        unit,
-        category: 'Pantry & Staples',
-        checked: false,
-        addedAt: Date.now(),
-        brand,
-      };
-
-      return { success: true, item: newItem, isNew: true };
+      return executeOrchestratedCommand(commandText, 'en-US', 'text_manual');
     },
-    [aggregateVersion, applyOrchestratedOutput]
+    [executeOrchestratedCommand]
   );
 
   // 4. REMOVE ITEM
   const removeItem = useCallback(
-    (query: string) => {
-      executeOrchestratedCommand(`remove ${query}`);
-      return { success: true, removedName: query, message: `Removed ${query}` };
+    async (query: string) => {
+      return executeOrchestratedCommand(`remove ${query}`, 'en-US', 'text_manual');
     },
     [executeOrchestratedCommand]
   );
 
   // 5. MODIFY ITEM
   const modifyItem = useCallback(
-    (query: string, newQty: number, newUnit?: string) => {
-      executeOrchestratedCommand(`change ${query} to ${newQty} ${newUnit || 'pieces'}`);
-      return { success: true, message: `Updated ${query} to ${newQty}` };
+    async (query: string, newQty: number, newUnit?: string) => {
+      return executeOrchestratedCommand(`change ${query} to ${newQty} ${newUnit || 'pieces'}`, 'en-US', 'text_manual');
     },
     [executeOrchestratedCommand]
   );
@@ -210,24 +187,24 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
 
   // 7. DELETE ITEM BY ID
   const deleteItemById = useCallback(
-    (id: string) => {
+    async (id: string) => {
       const it = items.find((i) => i.id === id);
       if (it) {
-        removeItem(it.name);
+        await removeItem(it.name);
       }
     },
     [items, removeItem]
   );
 
   // 8. CLEAR LIST
-  const clearList = useCallback(() => {
-    executeOrchestratedCommand('clear list');
+  const clearList = useCallback(async () => {
+    await executeOrchestratedCommand('clear list', 'en-US', 'text_manual');
   }, [executeOrchestratedCommand]);
 
   // 9. ACCEPT / DISMISS SUGGESTION
   const acceptSuggestion = useCallback(
-    (suggestion: Suggestion) => {
-      executeOrchestratedCommand(`add 1 ${suggestion.unit || 'pieces'} of ${suggestion.item}`);
+    async (suggestion: Suggestion) => {
+      await executeOrchestratedCommand(`add 1 ${suggestion.unit || 'pieces'} of ${suggestion.item}`, 'en-US', 'suggestion_optin');
       setDismissedSuggestions((prev) => [...prev, suggestion.id]);
     },
     [executeOrchestratedCommand]
@@ -236,6 +213,7 @@ export function ShoppingListProvider({ children }: { children: React.ReactNode }
   const dismissSuggestion = useCallback((id: string) => {
     setDismissedSuggestions((prev) => [...prev, id]);
   }, []);
+
 
   // 10. SEARCH CATALOG
   const executeSearch = useCallback(
