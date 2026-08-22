@@ -32,10 +32,11 @@ export class LLMGateway {
 
       const data = await response.json();
 
-      // Check if backend instructed us to use client fallback due to missing API key
-      if (data.error === 'GROQ_API_KEY_NOT_CONFIGURED') {
-        throw new Error('GROQ_API_KEY_NOT_CONFIGURED');
+      // Check if backend instructed us to use client fallback due to missing API key or unavailable LLM
+      if (data.error === 'GROQ_API_KEY_NOT_CONFIGURED' || data.error === 'LLM_UNAVAILABLE' || data.fallback) {
+        throw new Error(data.error || 'LLM_UNAVAILABLE');
       }
+
 
       const rawAction = (data.intent || 'UNKNOWN').toUpperCase();
       const action = ['ADD', 'REMOVE', 'MODIFY', 'SEARCH', 'CLEAR', 'UNDO', 'UNKNOWN'].includes(rawAction)

@@ -65,11 +65,18 @@ export class IntentInterpreter {
     try {
       const llmResult = await llmGateway.interpret(normalizedText, locale);
       if (llmResult.action === 'UNKNOWN') {
-        // LLM explicitly confirmed this is non-grocery speech / question
-        action = 'UNKNOWN';
-        entities = [];
-        targetItem = null;
-        confidence = 0;
+        if (fastPathResult.action !== 'UNKNOWN' && fastPathResult.entities.length > 0) {
+          action = fastPathResult.action;
+          entities = fastPathResult.entities;
+          targetItem = fastPathResult.target_item;
+          confidence = fastPathResult.confidence;
+          route = 'deterministic_fast_path';
+        } else {
+          action = 'UNKNOWN';
+          entities = [];
+          targetItem = null;
+          confidence = 0;
+        }
       } else {
         action = llmResult.action;
         entities = llmResult.entities.length > 0 ? llmResult.entities : entities;
@@ -78,11 +85,17 @@ export class IntentInterpreter {
       }
     } catch {
       route = 'offline_fallback';
-      if (fastPathResult.action === 'UNKNOWN') {
+      if (fastPathResult.action !== 'UNKNOWN' && fastPathResult.entities.length > 0) {
+        action = fastPathResult.action;
+        entities = fastPathResult.entities;
+        targetItem = fastPathResult.target_item;
+        confidence = fastPathResult.confidence;
+      } else {
         entities = [];
         confidence = 0;
       }
     }
+
 
 
 

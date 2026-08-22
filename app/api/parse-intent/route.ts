@@ -168,10 +168,15 @@ Return ONLY valid JSON.`;
     if (!parsed) {
       // Both models in the cascade failed
       return NextResponse.json(
-        { error: 'INVALID_MODEL_RESPONSE', message: lastError?.message || 'The command parser returned an invalid response across all models.' },
-        { status: 502 }
+        {
+          error: 'LLM_UNAVAILABLE',
+          message: lastError?.message || 'The command parser was unable to reach remote LLM. Using client-side NLP parser.',
+          fallback: true,
+        },
+        { status: 200 }
       );
     }
+
 
     // Secondary Grounding Pass: Verify and clean item names against ontology
     if (parsed.intent === 'ADD' && parsed.items && parsed.items.length > 0) {

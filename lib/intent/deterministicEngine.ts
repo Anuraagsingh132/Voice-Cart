@@ -236,12 +236,12 @@ export class DeterministicRuleEngine {
 
         // If no explicit add verb was used, only accept if entities are confident known groceries
         if (hasExplicitAddVerb || allKnown) {
-          const isHighConf = avgConfidence >= 0.85;
+          const isHighConf = hasExplicitAddVerb ? avgConfidence >= 0.5 : avgConfidence >= 0.75;
 
           return {
             action: 'ADD',
             entities,
-            confidence: Math.round(avgConfidence * 100) / 100,
+            confidence: Math.max(0.7, Math.round(avgConfidence * 100) / 100),
             explanation: `Add ${entities.map((e) => `${e.quantity} ${e.name}`).join(' and ')} to list`,
             isHighConfidence: isHighConf,
           };
@@ -264,9 +264,17 @@ export class DeterministicRuleEngine {
     let clean = clause.trim();
     if (!clean || clean.length < 2) return null;
 
+    // Normalizing phonetic acoustic mishearings of number words (e.g. "when orange" -> "one orange", "too" -> "two")
+    clean = clean
+      .replace(/^(?:when|won|wun)\s+/i, 'one ')
+      .replace(/^(?:too|to)\s+/i, 'two ')
+      .replace(/^(?:tree)\s+/i, 'three ')
+      .replace(/^(?:for)\s+/i, 'four ');
+
     // Strip leading conversational polite or quantifier particles: "some", "any", "a few", "a couple of", etc.
     let quantity = 1;
     let unit = 'pieces';
+
 
     // Check for "a couple of" or "a few"
     if (/^a\s+couple\s+(?:of\s+)?/i.test(clean)) {

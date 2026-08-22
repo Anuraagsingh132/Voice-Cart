@@ -40,7 +40,29 @@ describe('Deterministic Rule Engine (Fast Path)', () => {
     expect(res2.entities[0].quantity).toBe(5);
     expect(res2.entities[1].name).toBe('Bread');
     expect(res2.entities[1].quantity).toBe(2);
+
+    const res3 = deterministicRuleEngine.parse('5 Apple and two oranges');
+    expect(res3.action).toBe('ADD');
+    expect(res3.entities.length).toBe(2);
+    expect(res3.entities[0].name).toBe('Apple');
+    expect(res3.entities[0].quantity).toBe(5);
+    expect(res3.entities[1].name).toBe('Orange');
+    expect(res3.entities[1].quantity).toBe(2);
+
+    const res4 = deterministicRuleEngine.parse('add apple and orange');
+    expect(res4.action).toBe('ADD');
+    expect(res4.entities.length).toBe(2);
+    expect(res4.entities[0].name).toBe('Apple');
+    expect(res4.entities[1].name).toBe('Orange');
+
+    const res5 = deterministicRuleEngine.parse('pulse and two oranges');
+    expect(res5.action).toBe('ADD');
+    expect(res5.entities.length).toBe(2);
+    expect(res5.entities[0].name).toBe('Pulses / Dal');
+    expect(res5.entities[1].name).toBe('Orange');
+    expect(res5.entities[1].quantity).toBe(2);
   });
+
 
   it('parses REMOVE, MODIFY, CLEAR, and UNDO actions', () => {
     expect(deterministicRuleEngine.parse('delete milk').action).toBe('REMOVE');
