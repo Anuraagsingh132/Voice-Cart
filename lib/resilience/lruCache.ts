@@ -56,12 +56,13 @@ export class LRUCache<K, V> {
   public entries(): [K, V][] {
     const now = Date.now();
     const result: [K, V][] = [];
-    for (const [key, entry] of this.cache.entries()) {
+    this.cache.forEach((entry, key) => {
       if (!entry.expiresAt || now <= entry.expiresAt) {
         result.push([key, entry.value]);
       }
-    }
+    });
     return result;
   }
 }
+
 

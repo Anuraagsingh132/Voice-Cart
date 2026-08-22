@@ -23,10 +23,11 @@ class VoiceFeedbackService {
       window.speechSynthesis.cancel(); // Cancel any ongoing speech
 
       const cleanText = text
-        .replace(/\p{Extended_Pictographic}/gu, '')
-        .replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '')
+        .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, '')
+        .replace(/[\u2600-\u27BF]/g, '')
         .replace(/\b\d+\s+pcs\b/gi, '')
         .trim();
+
 
 
       if (!cleanText) return;

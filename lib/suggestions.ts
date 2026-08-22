@@ -43,11 +43,14 @@ function findProductMeta(name: string) {
   if (exact) return exact;
 
   // Fallback to substring scan
-  for (const [k, meta] of productMetaIndex.entries()) {
-    if (k.includes(lower) || lower.includes(k)) {
-      return meta;
+  let fallback: { image: string; description: string; price?: number; unit?: string } | undefined;
+  productMetaIndex.forEach((meta, k) => {
+    if (!fallback && (k.includes(lower) || lower.includes(k))) {
+      fallback = meta;
     }
-  }
+  });
+
+  if (fallback) return fallback;
 
   return {
     image: '',
@@ -56,6 +59,7 @@ function findProductMeta(name: string) {
     unit: undefined,
   };
 }
+
 
 
 export function generateSmartSuggestions(
