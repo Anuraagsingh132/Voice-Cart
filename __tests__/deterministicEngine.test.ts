@@ -61,7 +61,21 @@ describe('Deterministic Rule Engine (Fast Path)', () => {
     expect(res5.entities[0].name).toBe('Pulses / Dal');
     expect(res5.entities[1].name).toBe('Orange');
     expect(res5.entities[1].quantity).toBe(2);
+
+    const res6 = deterministicRuleEngine.parse('at two apples and one orange');
+    expect(res6.action).toBe('ADD');
+    expect(res6.entities.length).toBe(2);
+    expect(res6.entities[0].name).toBe('Apple');
+    expect(res6.entities[0].quantity).toBe(2);
+    expect(res6.entities[1].name).toBe('Orange');
+    expect(res6.entities[1].quantity).toBe(1);
+
+    const res7 = deterministicRuleEngine.parse('and garlic paste');
+    expect(res7.action).toBe('ADD');
+    expect(res7.entities.length).toBe(1);
+    expect(res7.entities[0].name).toBe('Garlic Paste');
   });
+
 
 
   it('parses REMOVE, MODIFY, CLEAR, and UNDO actions', () => {

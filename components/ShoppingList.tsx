@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useMemo } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Trash2, Sparkles, CheckCheck, ShoppingCart } from 'lucide-react';
 import { useShoppingList } from '@/context/ShoppingListContext';
 import { ListItem } from './ListItem';
+
 
 const CATEGORY_PILLS: Record<string, { emoji: string; label: string; color: string }> = {
   'Fruits & Vegetables': { emoji: '🍎', label: 'Fruits & Vegetables', color: 'badge-emerald' },
@@ -237,15 +239,17 @@ function ShoppingListComponent() {
 
               {/* Items Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {catItems.map((item) => (
-                  <ListItem
-                    key={item.id}
-                    item={item}
-                    onToggleCheck={handleToggleCheck}
-                    onDelete={deleteItemById}
-                    onModifyQty={handleModifyQty}
-                  />
-                ))}
+                <AnimatePresence mode="popLayout">
+                  {catItems.map((item) => (
+                    <ListItem
+                      key={item.id}
+                      item={item}
+                      onToggleCheck={handleToggleCheck}
+                      onDelete={deleteItemById}
+                      onModifyQty={handleModifyQty}
+                    />
+                  ))}
+                </AnimatePresence>
               </div>
             </div>
           );
@@ -254,6 +258,7 @@ function ShoppingListComponent() {
     </section>
   );
 }
+
 
 export const ShoppingList = React.memo(ShoppingListComponent);
 

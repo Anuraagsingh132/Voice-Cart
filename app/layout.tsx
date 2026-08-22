@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ShoppingListProvider } from '@/context/ShoppingListContext';
+import { SmoothScroll } from '@/components/SmoothScroll';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${inter.variable}`}>
       <body className="vc-atmosphere text-vc-text min-h-screen relative antialiased font-sans">
+        <SmoothScroll />
         <ShoppingListProvider>
           {children}
         </ShoppingListProvider>
@@ -36,4 +38,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 

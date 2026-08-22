@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Trash2, Plus, Minus, Check } from 'lucide-react';
 import { ListItem as ListItemType } from '@/types';
 
@@ -18,8 +19,13 @@ function ListItemComponent({
   onModifyQty,
 }: ListItemProps) {
   return (
-    <div
-      className={`flex items-center justify-between p-3 sm:p-3.5 rounded-xl group transition-all duration-200 ${
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 8, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
+      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+      className={`flex items-center justify-between p-3 sm:p-3.5 rounded-xl group transition-colors duration-200 gpu-accelerate ${
         item.checked
           ? 'opacity-50 bg-white/[0.02] border border-vc-border-subtle'
           : 'glass-card glass-card-hover'
@@ -27,17 +33,18 @@ function ListItemComponent({
     >
       {/* Left: Checkbox + Name */}
       <div className="flex items-center gap-3 min-w-0 flex-1 mr-2">
-        <button
+        <motion.button
+          whileTap={{ scale: 0.88 }}
           onClick={() => onToggleCheck(item.id)}
           aria-label={item.checked ? `Unmark ${item.name}` : `Mark ${item.name} as purchased`}
-          className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all duration-200 active:scale-90 flex-shrink-0 focus-ring ${
+          className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center cursor-pointer transition-all duration-200 flex-shrink-0 focus-ring ${
             item.checked
               ? 'border-vc-emerald bg-vc-emerald text-white shadow-sm'
               : 'border-vc-border hover:border-vc-cyan bg-transparent'
           }`}
         >
           {item.checked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-        </button>
+        </motion.button>
 
         <div className="min-w-0 flex-1">
           <p
@@ -60,38 +67,42 @@ function ListItemComponent({
       <div className="flex items-center gap-2 flex-shrink-0">
         {/* Quantity Stepper */}
         <div className="flex items-center rounded-lg border border-vc-border bg-white/[0.03]">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.88 }}
             onClick={() => onModifyQty(item.id, Math.max(1, item.quantity - 1))}
             disabled={item.quantity <= 1}
             aria-label="Decrease quantity"
-            className="w-7 h-7 flex items-center justify-center text-vc-text-secondary hover:text-vc-cyan disabled:opacity-25 disabled:hover:text-vc-text-secondary transition active:scale-90 focus-ring"
+            className="w-7 h-7 flex items-center justify-center text-vc-text-secondary hover:text-vc-cyan disabled:opacity-25 disabled:hover:text-vc-text-secondary transition focus-ring"
           >
             <Minus className="w-3 h-3" />
-          </button>
+          </motion.button>
           <span className="px-2 text-xs font-bold text-vc-text min-w-[1.25rem] text-center select-none tabular-nums">
             {item.quantity}
           </span>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.88 }}
             onClick={() => onModifyQty(item.id, item.quantity + 1)}
             aria-label="Increase quantity"
-            className="w-7 h-7 flex items-center justify-center text-vc-text-secondary hover:text-vc-cyan transition active:scale-90 focus-ring"
+            className="w-7 h-7 flex items-center justify-center text-vc-text-secondary hover:text-vc-cyan transition focus-ring"
           >
             <Plus className="w-3 h-3" />
-          </button>
+          </motion.button>
         </div>
 
         {/* Delete */}
-        <button
+        <motion.button
+          whileTap={{ scale: 0.88 }}
           onClick={() => onDelete(item.id)}
           aria-label={`Delete ${item.name}`}
-          className="p-2 rounded-lg text-vc-text-muted hover:text-vc-error hover:bg-vc-error/10 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-all active:scale-90 focus-ring sm:p-1.5"
+          className="p-2 rounded-lg text-vc-text-muted hover:text-vc-error hover:bg-vc-error/10 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-all focus-ring sm:p-1.5"
         >
           <Trash2 className="w-4 h-4" />
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export const ListItem = React.memo(ListItemComponent);
+
 

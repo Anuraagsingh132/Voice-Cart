@@ -306,6 +306,72 @@ export const CANONICAL_GROCERY_ONTOLOGY: CanonicalGroceryItem[] = [
     aliases: ['fruit juice', 'orange juice', 'apple juice', 'mango juice', 'jugo', 'jus', 'saft'],
     phonetic_markers: ['joos', 'jooce', 'juce'],
   },
+  {
+    id: 'grocery.pantry.garlic_paste',
+
+    canonical: 'Garlic Paste',
+    category: 'Pantry & Staples',
+    default_unit: 'packs',
+    locale_names: {
+      'en-US': 'Garlic Paste',
+      'en-IN': 'Garlic Paste',
+      'hi-IN': 'Lahsun Paste',
+      'es-ES': 'Pasta de ajo',
+      'fr-FR': "Pâte d'ail",
+      'de-DE': 'Knoblauchpaste',
+    },
+    aliases: ['garlic paste', 'garlic puree', 'crushed garlic', 'lahsun paste', 'pasta de ajo'],
+    phonetic_markers: ['garlik paste', 'lahsan paste'],
+  },
+  {
+    id: 'grocery.pantry.ginger_garlic_paste',
+    canonical: 'Ginger Garlic Paste',
+    category: 'Pantry & Staples',
+    default_unit: 'packs',
+    locale_names: {
+      'en-US': 'Ginger Garlic Paste',
+      'en-IN': 'Ginger Garlic Paste',
+      'hi-IN': 'Adrak Lahsun Paste',
+      'es-ES': 'Pasta de jengibre y ajo',
+      'fr-FR': "Pâte de gingembre et ail",
+      'de-DE': 'Ingwer-Knoblauch-Paste',
+    },
+    aliases: ['ginger garlic paste', 'adrak lahsun paste', 'ginger and garlic paste'],
+    phonetic_markers: ['adrak lehsun paste', 'gingr garlik paste'],
+  },
+  {
+    id: 'grocery.pantry.tomato_sauce',
+    canonical: 'Tomato Sauce',
+    category: 'Pantry & Staples',
+    default_unit: 'bottles',
+    locale_names: {
+      'en-US': 'Tomato Sauce / Ketchup',
+      'en-IN': 'Tomato Ketchup',
+      'hi-IN': 'Tomato Sauce',
+      'es-ES': 'Salsa de tomate',
+      'fr-FR': 'Sauce tomate',
+      'de-DE': 'Tomatensoße',
+    },
+    aliases: ['tomato sauce', 'ketchup', 'tomato ketchup', 'maggi ketchup', 'salsa de tomate'],
+    phonetic_markers: ['tomto sauce', 'tomatoketchup', 'kechup'],
+  },
+  {
+    id: 'grocery.pantry.olive_oil',
+    canonical: 'Olive Oil',
+    category: 'Pantry & Staples',
+    default_unit: 'bottles',
+    locale_names: {
+      'en-US': 'Olive Oil',
+      'en-IN': 'Olive Oil',
+      'hi-IN': 'Jaitun Tel',
+      'es-ES': 'Aceite de oliva',
+      'fr-FR': "Huile d'olive",
+      'de-DE': 'Olivenöl',
+    },
+    aliases: ['olive oil', 'extra virgin olive oil', 'aceite de oliva', 'jaitun tel'],
+    phonetic_markers: ['olivoil', 'olif oil'],
+  },
+
 
 
   // Dairy & Eggs

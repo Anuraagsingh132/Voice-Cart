@@ -3,7 +3,9 @@ import { getLocalePhoneticKey } from './localePhonetics';
 import { HOMOPHONE_MAP } from '@/lib/phoneticMatcher';
 import { levenshteinDistance, normalizeText } from '@/lib/fuzzyMatch';
 import { LRUCache } from '@/lib/resilience/lruCache';
+import { categorizeItem } from '@/lib/categorize';
 import { CanonicalEntity } from '@/types/schema';
+
 
 const entityResolutionCache = new LRUCache<string, CanonicalEntity>(1000);
 
@@ -217,11 +219,13 @@ export class EntityResolver {
       return entity;
     }
 
-    // Fallback: Unknown entity
+    // Fallback: Custom / Multi-word item
     const capitalizedName = clean
       .split(' ')
       .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
       .join(' ');
+
+    const resolvedCategory = categorizeItem(clean);
 
     const entity: CanonicalEntity = {
       canonical_id: `grocery.custom.${normalized}`,
@@ -229,12 +233,13 @@ export class EntityResolver {
       raw_name: clean,
       quantity,
       unit,
-      category: 'Pantry & Staples',
+      category: resolvedCategory,
       brand,
-      confidence: 0.6,
+      confidence: 0.8,
     };
     return entity;
   }
 }
 
 export const entityResolver = new EntityResolver();
+

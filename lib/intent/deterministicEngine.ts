@@ -59,6 +59,11 @@ export class DeterministicRuleEngine {
     // Strip leading speech disfluencies & acoustic artifacts ("th", "the", "um", "uh", "so", "and", "then")
     clean = clean.replace(/^(?:the\s+|th\s+|um\s+|uh\s+|er\s+|ah\s+|so\s+|and\s+|then\s+|now\s+|toh\s+)+/i, '');
 
+    // Normalize acoustic mishearings of action verbs ("at", "ad", "att", "ed", "had", "app" -> "add", "spine" / "fine" -> "find")
+    clean = clean.replace(/^(?:at|ad|att|ed|had|app)\s+(?=\d+|one|two|three|four|five|six|seven|eight|nine|ten|some|any|the|a|an|[a-z])/i, 'add ');
+    clean = clean.replace(/^(?:spine|fine)\s+/i, 'find ');
+
+
 
     // 0. NON-GROCERY QUESTION, GREETING & CHATTER FILTER GATE
     if (
